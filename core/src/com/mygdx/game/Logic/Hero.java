@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Hero extends Sprite {
 
-    protected enum State {Running, Jumping, Standing, Armed, Dead};
+    protected enum State {Running, Jumping, Standing, ArmedArrow, ArmedGun, Dead, Restoring};
 
     private Animation runningAnimation;
     private Animation standingAnimation;
