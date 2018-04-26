@@ -14,6 +14,7 @@ public class Hero extends Sprite {
     private Animation standingAnimation;
     private Animation jumpingAnimation;
     private Animation deadAnimation;
-    private Animation armedAnimation;
+    private Animation armedArrowAnimation;
+    private Animation armedGunAnimation;
 
 }

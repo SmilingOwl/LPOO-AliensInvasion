@@ -13,18 +13,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.AliensGame;
 
-public class StartMenu implements Screen {
 
+public class StartMenu extends Screens {
 
     private Image playButton;
     private Image exitButton;
+    private Image optionsButton;
     private Image scoresButton;
     private Texture backgroundMenu;
+    private Texture geralButton;
+    private AliensGame game;
+    private Stage stage;
+    private Viewport gamePort;
 
-    public StartMenu(){
+    public StartMenu(AliensGame game){
 
-    }
+        this.game = game;
+        gamePort=new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        gamePort.apply();
+        backgroundMenu = new Texture("StarMenu.png");
+        geralButton=new Texture ("GeralButton.png");
+
+       }
 
 
     @Override
@@ -39,7 +51,7 @@ public class StartMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        gamePort.update(width,height);
     }
 
     @Override
