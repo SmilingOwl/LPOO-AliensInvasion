@@ -1,58 +1,64 @@
 package com.mygdx.game;
-
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Gui.StartMenu;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.View.Screens.StartMenu;
 
-public class AliensGame implements ApplicationListener {
+/**
+ * Main class
+ */
+public class AliensGame extends Game{
 
-	public static final String TITLE="Aliens Invasion";
-	public static final int V_WIDTH=320;
-	public static final int V_HEIGHT=240;
-	public static final int SCALE=2;
+	private SpriteBatch batch;
+	private AssetManager manager;
 
-
-	SpriteBatch batch;
-	Texture img;
-	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-
-		img = new Texture("2D_Village.jpg");
+		manager=new AssetManager();
+		loadAssets();
+		startGame();
 	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
-	}
-
-	@Override
-	public void resume() {
-
-	}
-
-	@Override
-	public void pause() {
-
+		manager.dispose();
+		super.dispose();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		super.resize(width,height);
 
+	}
+	private void startGame(){
+
+		setScreen(new StartMenu(this));
+	}
+	public AssetManager getAssetManager() {
+		return manager;
+	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	private void loadAssets() {
+		//Load Main Menu Background and Title
+		manager.load("Aliens_title.png", Texture.class);
+		manager.load("Level1.png", Texture.class);
+
+		//Load Game's Virtual Components
+		manager.load("pause.png", Texture.class);
+
+		manager.finishLoading();
 	}
 }
