@@ -1,14 +1,8 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.View.Screens.StartMenu;
 
 /**
@@ -52,13 +46,12 @@ public class AliensGame extends Game{
 	}
 
 	private void loadAssets() {
-		//Load Main Menu Background and Title
 		manager.load("Aliens_title.png", Texture.class);
 		manager.load("Level1.png", Texture.class);
-
-		//Load Game's Virtual Components
 		manager.load("pause.png", Texture.class);
 
 		manager.finishLoading();
 	}
+
+
 }

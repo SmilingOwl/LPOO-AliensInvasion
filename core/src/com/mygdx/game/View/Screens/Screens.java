@@ -18,12 +18,11 @@ public abstract class Screens extends ScreenAdapter{
 
     protected AliensGame game;
     protected Stage stage;
-    // não sei como usar, mas é necessário para fazer os butões!
-    protected Skin skinButton;
     private Viewport viewport;
     private SpriteBatch spriteBatch;
     private Image background;
     private Image title;
+    protected Skin skin;
     protected static float VIEWPORT_WIDTH = 650;
     private static final float VIEWPORT_HEIGHT = VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
     protected static final float BUTTON_SIZE = VIEWPORT_WIDTH / 15;
