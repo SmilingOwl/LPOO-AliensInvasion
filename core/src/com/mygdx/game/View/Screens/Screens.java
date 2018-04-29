@@ -23,7 +23,7 @@ public abstract class Screens extends ScreenAdapter{
     private Image background;
     private Image title;
     protected Skin skin;
-    protected static float VIEWPORT_WIDTH = 650;
+    protected static float VIEWPORT_WIDTH = 600;
     private static final float VIEWPORT_HEIGHT = VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
     protected static final float BUTTON_SIZE = VIEWPORT_WIDTH / 15;
 

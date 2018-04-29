@@ -26,7 +26,7 @@ public class StartMenu extends Screens {
         super(game);
 
    }
-
+/*
     protected void createMenuButtons(Table table) {
 
         table.bottom();
@@ -68,15 +68,15 @@ public class StartMenu extends Screens {
             }
         });
         table.add(exitButton).size(BUTTON_WIDTH, BUTTON_SIZE).pad(BUTTON_EDGE).row();
-    }
+    } */
 
 
     @Override
     public void show() {
         super.show();
-        Table table = new Table();
+       /* Table table = new Table();
         table.setFillParent(true);
         createMenuButtons(table);
-        stage.addActor(table);
+        stage.addActor(table);*/
     }
 }
