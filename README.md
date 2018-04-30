@@ -15,24 +15,37 @@ O nosso jogo começará por apresentar um menu principal, com 4 opções:
 •	Score;
 •	Exit;
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up1.png)
+
 Pressionando o botão Play somos redirecionados para o jogo.
 No canto superior esquerdo encontra-se a vida do herói que vai decrementando á medida que for sofrendo dano. No canto superior direito, encontramos o item de pause e da “bag”.
 Ao clicarmos sobre a mochila os itens recolhidos pelo herói ao longo do nível vão aparecer, e poderão ser selecionados. (exemplo: maça -> regenera o herói com alguns pontos de vida; Pistola-> o herói fica armado e poderá destruir os inimigos)
 O herói move-se através da utilização do acelerómetro do telemóvel.
+
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up2.png)
+
 Ao clicarmos sobre o botão de pause somos redirecionados para o menu de pause. Aqui podemos pressionar:
 •	Botão Back-> voltar ao menu principal
 •	Botão Continue->continuar a partida
 •	Botão Exit ->sair do jogo;
+
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up3.png)
+
 Se a vida do herói chegar ao fim somos levados para o menu de Game Over. Onde apenas podemos voltar para atrás, ou seja para o menu principal.
+
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up4.png)
+
 Se o jogo for concluído com sucesso, ou seja acabar o nível ainda com vida, o jogador será redirecionado para o menu de Vitória
+
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up5.png)
+
 Se no menu principal selecionarmos a opção Settings, somos redirecionados para o menu das opções. Onde podemos alterar o volume da música do jogo. Ao pressionarmos o botão Back voltamos para o menu principal.
+
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up6.png)
+
 Se no menu selecionarmos a opção Score, somos redirecionados par ao menu das pontuações onde serão listadas as pontuações do jogador com a respetiva data. Ao pressionarmos o botão Back voltamos para o menu principal
+
 ![alt text](https://github.com/SmilingOwl/AliensInvasion/blob/master/mock-up7.png)
+
 Test Design
 Alguns dos testes unitários que iremos utilizar para testar e guiar o nosso código:
 
