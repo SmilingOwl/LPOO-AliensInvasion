@@ -49,6 +49,9 @@ public class AliensGame extends Game{
 		manager.load("Aliens_title.png", Texture.class);
 		manager.load("Level1.png", Texture.class);
 		manager.load("pause.png", Texture.class);
+		manager.load("Play.png",Texture.class);
+		manager.load("Exit.png",Texture.class);
+		manager.load("Settings.png",Texture.class);
 
 		manager.finishLoading();
 	}
