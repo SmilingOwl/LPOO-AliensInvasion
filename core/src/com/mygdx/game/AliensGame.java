@@ -1,6 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.View.Screens.StartMenu;
@@ -45,13 +46,14 @@ public class AliensGame extends Game{
 		return batch;
 	}
 
+	/**
+	 * load all assets
+	 */
 	private void loadAssets() {
 		manager.load("Aliens_title.png", Texture.class);
+		manager.load("button.png",Texture.class);
+		manager.load("Game_Background.wav",Music.class);
 		manager.load("Level1.png", Texture.class);
-		manager.load("pause.png", Texture.class);
-		manager.load("Play.png",Texture.class);
-		manager.load("Exit.png",Texture.class);
-		manager.load("Settings.png",Texture.class);
 
 		manager.finishLoading();
 	}

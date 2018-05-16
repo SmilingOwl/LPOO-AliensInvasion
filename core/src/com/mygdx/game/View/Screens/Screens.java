@@ -3,7 +3,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.AliensGame;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -22,10 +21,9 @@ public abstract class Screens extends ScreenAdapter{
     private SpriteBatch spriteBatch;
     private Image background;
     private Image title;
-    protected Skin skin;
-    protected static float VIEWPORT_WIDTH = 500;
+    protected static float VIEWPORT_WIDTH = 550;
     private static final float VIEWPORT_HEIGHT = VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
-    protected static final float DEFAULT_BUTTON_SIZE = VIEWPORT_WIDTH / 15;
+    protected static final float DEFAULT_BUTTON_SIZE = VIEWPORT_WIDTH / 20;
 
 /**
  * Constructor
