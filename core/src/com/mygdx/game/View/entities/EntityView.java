@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
-import static com.mygdx.game.View.GameView.PIXEL_TO_METER;
+import static com.mygdx.game.View.Screens.GameView.PIXEL_TO_METER;
 
 public abstract class EntityView {
     Sprite sprite;

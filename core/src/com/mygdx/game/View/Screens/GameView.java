@@ -1,4 +1,4 @@
-package com.mygdx.game.View;
+package com.mygdx.game.View.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.Model.Entities.PlatformsModel;
@@ -57,6 +58,7 @@ public class GameView extends ScreenAdapter {
      * pixels in order to show fixtures in their correct places.
      */
     private Matrix4 debugCamera;
+
 
     /**
      * Creates this screen.

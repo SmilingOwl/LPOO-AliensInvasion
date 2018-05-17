@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.AliensGame;
-import com.mygdx.game.View.GameView;
 
 
 public class StartMenu extends Screens {
@@ -102,16 +101,5 @@ public class StartMenu extends Screens {
         stage.addActor(table);
     }
 
-    private TextButton createTextButton(String text)
-    {
-       Texture buttonTexture =game.getAssetManager().get("button.png");
-       TextureRegion[][] arrayTextures=TextureRegion.split(buttonTexture, buttonTexture.getWidth()/3,buttonTexture.getHeight());
-       TextureRegionDrawable playBtnUp=new TextureRegionDrawable(arrayTextures[0][0]);
-       TextureRegionDrawable playBtnPress=new TextureRegionDrawable(arrayTextures[0][1]);
-       TextureRegionDrawable playBtnChecked=new TextureRegionDrawable(arrayTextures[0][2]);
-       BitmapFont font =new BitmapFont();
-       font.getData().setScale(2,2);
-       TextButton.TextButtonStyle button=new TextButton.TextButtonStyle(playBtnUp,playBtnPress,playBtnChecked,font);
-       return new TextButton(text,button);
-    }
+
 }

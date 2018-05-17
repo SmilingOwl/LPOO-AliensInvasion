@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entities.EntityModel;
-import static com.mygdx.game.View.GameView.PIXEL_TO_METER;
+import static com.mygdx.game.View.Screens.GameView.PIXEL_TO_METER;
 
 public class EntityBody {
     final static short HERO_BODY=0x0001;

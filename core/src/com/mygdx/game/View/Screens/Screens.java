@@ -3,6 +3,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.AliensGame;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -74,6 +80,34 @@ protected Screens (final AliensGame game)
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+    }
+
+    public TextButton createTextButton(String text)
+    {
+        Texture buttonTexture =game.getAssetManager().get("button.png");
+        TextureRegion[][] arrayTextures=TextureRegion.split(buttonTexture, buttonTexture.getWidth()/3,buttonTexture.getHeight());
+        TextureRegionDrawable playBtnUp=new TextureRegionDrawable(arrayTextures[0][0]);
+        TextureRegionDrawable playBtnPress=new TextureRegionDrawable(arrayTextures[0][1]);
+        TextureRegionDrawable playBtnChecked=new TextureRegionDrawable(arrayTextures[0][2]);
+        BitmapFont font =new BitmapFont();
+        font.getData().setScale(2,2);
+        TextButton.TextButtonStyle button=new TextButton.TextButtonStyle(playBtnUp,playBtnPress,playBtnChecked,font);
+        return new TextButton(text,button);
+    }
+
+    protected TextButton addBackBtn() {
+
+        TextButton backButton=createTextButton("Back");
+
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new StartMenu(game));
+            }
+        });
+
+        return backButton;
     }
 }
 
