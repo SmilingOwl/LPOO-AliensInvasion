@@ -1,16 +1,15 @@
 package com.mygdx.game.View.Entities;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
-
-public class AlienView extends EntityView {
-    public AlienView( AliensGame game){
+public class PlatformsView extends EntityView {
+    public PlatformsView( AliensGame game){
         super(game);
     }
+
     @Override
     public void update(EntityModel model) {
         super.update(model);
@@ -18,14 +17,14 @@ public class AlienView extends EntityView {
 
     @Override
     public void draw(SpriteBatch batch) {
-        sprite.setScale(0.5f,0.5f);
+        sprite.setScale(0.25f,0.25f);
         super.draw(batch);
     }
 
     @Override
     public Sprite createSprite(AliensGame game) {
-        Texture t = game.getAssetManager().get("aliens.png");
-
+        Texture t = game.getAssetManager().get("plat1.png");
         return new Sprite(t,t.getWidth(),t.getHeight());
     }
 }
+
