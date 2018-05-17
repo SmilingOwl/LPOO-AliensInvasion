@@ -5,6 +5,6 @@ import com.mygdx.game.AliensGame;
 public class PauseMenu extends Screens {
 
     public PauseMenu (final AliensGame game) {
-        super(game);
+        super(game,"ScoreTitle.png");
     }
 }

@@ -5,6 +5,6 @@ import com.mygdx.game.AliensGame;
 public class GameOverMenu extends Screens {
 
     public GameOverMenu (final AliensGame game) {
-        super(game);
+        super(game,"ScoreTitle.png");
     }
 }

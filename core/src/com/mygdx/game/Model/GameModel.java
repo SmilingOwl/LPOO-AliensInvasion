@@ -10,9 +10,12 @@ import com.mygdx.game.Model.Entities.ComsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
  * main class for logic
@@ -52,12 +55,12 @@ public class GameModel implements Disposable {
         aliens = new ArrayList<AlienModel>();
         AlienAttack = new ArrayList<AlienAttackModel>();
         waters = new ArrayList<ComsumableModel>();
-        hero = new HeroModel(GameController.PANEL_HEIGHT / 2 , GameController.PANEL_WIDTH / 2);
-        plat1= new PlatformsModel(GameController.PANEL_HEIGHT / 2 , GameController.PANEL_WIDTH / 2);
-        plat2 = new PlatformsModel(GameController.PANEL_HEIGHT / 2 , GameController.PANEL_WIDTH/2 +1);
+        hero = new HeroModel(GameController.PANEL_HEIGHT / 2 -9, GameController.PANEL_WIDTH / 2-43);
+        plat1= new PlatformsModel(GameController.PANEL_HEIGHT / 2-9, GameController.PANEL_WIDTH /2 -46);
+        plat2 = new PlatformsModel(GameController.PANEL_HEIGHT / 2-20 , GameController.PANEL_WIDTH/2 -49);
         for (int i = 0; i < ALIEN_COUNT; i++) {
             // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
-            aliens.add(new AlienModel(GameController.PANEL_HEIGHT / 2 , GameController.PANEL_WIDTH / 2, 1, 0));
+            aliens.add(new AlienModel(GameController.PANEL_HEIGHT / 2 - 20, GameController.PANEL_WIDTH / 2-45, 1, 0));
 
 
         }

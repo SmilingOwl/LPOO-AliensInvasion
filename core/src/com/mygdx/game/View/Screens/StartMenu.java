@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.AliensGame;
+import com.mygdx.game.View.Screens.GameView;
 
 
 public class StartMenu extends Screens {
@@ -23,7 +24,7 @@ public class StartMenu extends Screens {
 
 
     public StartMenu (final AliensGame game) {
-        super(game);
+        super(game,"Aliens_title.png");
         music = game.getAssetManager().get("Game_Background.wav", Music.class);
         music.setLooping(true);
         music.play();
@@ -32,15 +33,15 @@ public class StartMenu extends Screens {
    //buttons
     TextButton exitButton=createTextButton("Exit");
     TextButton playButton=createTextButton("Play");
-    TextButton scoreButton=createTextButton("Settings");
-    TextButton optionButton=createTextButton("Score");
+    TextButton scoreButton=createTextButton("Score");
+    TextButton optionButton=createTextButton("Settings");
 
     protected void addOptionsButton(Table table) {
 
         optionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new SettingsMenu(game));
+                game.setScreen(new SettingsMenu(game));
             }
         });
         table.add(optionButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
@@ -50,7 +51,7 @@ public class StartMenu extends Screens {
         scoreButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new ScoreMenu(game));
+                game.setScreen(new ScoreMenu(game));
             }
         });
         table.add(scoreButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();

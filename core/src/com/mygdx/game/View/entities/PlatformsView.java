@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
+import com.mygdx.game.View.Entities.EntityView;
+
 
 public class PlatformsView extends EntityView {
     public PlatformsView( AliensGame game){
@@ -17,7 +19,7 @@ public class PlatformsView extends EntityView {
 
     @Override
     public void draw(SpriteBatch batch) {
-        sprite.setScale(0.25f,0.25f);
+       // sprite.setScale(0.25f,0.25f);
         super.draw(batch);
     }
 

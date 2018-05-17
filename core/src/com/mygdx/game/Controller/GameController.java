@@ -1,9 +1,5 @@
 package com.mygdx.game.Controller;
 
-/**
- * Created by catam on 13/05/2018.
- */
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -25,31 +21,31 @@ import com.mygdx.game.Model.Entities.ComsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
 import com.mygdx.game.Model.GameModel;
+//import com.mygdx.game.Model.entities.AlienModel;
+//import com.mygdx.game.Model.entities.EntityModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameController implements ContactListener {
-
     private static GameController instance;
     public static final int PANEL_WIDTH=100;
-    public static final int PANEL_HEIGHT=50;
+    public static final int PANEL_HEIGHT=40;
     private static final float ACCELERATION_FORCE= 1000f;
     private static final float ALIENATTACK_SPEED= 30f;
     private static final float HEROATTACK_SPEED= 30f;
     private static final float TIME_BETWEEN_SHOTS= .1f;
     private final World world;
     private final HeroModel heroModel;
-    // private final PlatformsBody plat1Body;
-    // private final PlatformsBody plat2Body;
+   // private final PlatformsBody plat1Body;
+   // private final PlatformsBody plat2Body;
     private float accumulator = 0;
     private List<ComsumableModel> watersToadd= new ArrayList<ComsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
     private float timeToNextShoot;
-
     private GameController(){
-        timeToNextShoot=-1;
-        world = new World(new Vector2(0,0),true);
+       timeToNextShoot=-1;
+        world = new World(new Vector2(0,-9.8f),true);
         heroModel= GameModel.getInstance().getHero();
         new HeroBody(world,heroModel);
 
@@ -57,22 +53,20 @@ public class GameController implements ContactListener {
         plat1Body= new PlatformsBody(world,GameModel.getInstance().getPlat1());
         plat2Body= new PlatformsBody(world,GameModel.getInstance().getPlat2());*/
         new PlatformsBody(world,GameModel.getInstance().getPlat1());
-        new PlatformsBody(world,GameModel.getInstance().getPlat2());
-        List<AlienModel> aliens= GameModel.getInstance().getAliens();
+         new PlatformsBody(world,GameModel.getInstance().getPlat2());
+         List<AlienModel> aliens= GameModel.getInstance().getAliens();
         for( AlienModel alien:aliens)
-            new AlienBody(world,alien);
+        new AlienBody(world,alien);
         List<ComsumableModel> waters= GameModel.getInstance().getWaters();
-        for(ComsumableModel water: waters)
-            new ComsumableBody(world,water);
+       for(ComsumableModel water: waters)
+           new ComsumableBody(world,water);
         world.setContactListener(this);
     }
-
     public static GameController getInstance(){
         if(instance==null)
             instance = new GameController();
         return instance;
     }
-
     public void update (float delta){
         GameModel.getInstance().update(delta);
         timeToNextShoot -=delta;
@@ -89,7 +83,6 @@ public class GameController implements ContactListener {
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
         }
     }
-
     private void verifyBounds(Body body) {
         if (body.getPosition().x < 0)
             body.setTransform(PANEL_WIDTH, body.getPosition().y, body.getAngle());
@@ -147,4 +140,3 @@ public class GameController implements ContactListener {
 
 
 }
-

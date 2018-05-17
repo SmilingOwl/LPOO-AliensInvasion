@@ -5,6 +5,6 @@ import com.mygdx.game.AliensGame;
 public class VictoryMenu extends Screens {
 
     public VictoryMenu (final AliensGame game) {
-        super(game);
+        super(game,"ScoreTitle.png");
     }
 }

@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entities;
 
+import java.util.List;
+
 public class HeroModel extends EntityModel{
     private int Life;
     private float Speed;

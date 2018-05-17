@@ -20,7 +20,7 @@ public class LevelMenu extends Screens{
 
     public LevelMenu (final AliensGame game)
     {
-        super(game);
+        super(game,"ScoreTitle.png");
     }
 
  /*   private void createStaticObjects(Table table, Table table2)

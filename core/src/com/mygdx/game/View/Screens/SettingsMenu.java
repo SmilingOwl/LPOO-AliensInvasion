@@ -4,7 +4,8 @@ import com.mygdx.game.AliensGame;
 
 public class SettingsMenu extends Screens {
 
-    public SettingsMenu (final AliensGame game) {
-        super(game);
+    public SettingsMenu (final AliensGame game)
+    {
+        super(game,"SettingsTitle.png");
     }
 }

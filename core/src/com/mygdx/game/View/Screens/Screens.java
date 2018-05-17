@@ -27,6 +27,7 @@ public abstract class Screens extends ScreenAdapter{
     private SpriteBatch spriteBatch;
     private Image background;
     private Image title;
+
     protected static float VIEWPORT_WIDTH = 550;
     private static final float VIEWPORT_HEIGHT = VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
     protected static final float DEFAULT_BUTTON_SIZE = VIEWPORT_WIDTH / 20;
@@ -34,7 +35,7 @@ public abstract class Screens extends ScreenAdapter{
 /**
  * Constructor
  */
-protected Screens (final AliensGame game)
+protected Screens (final AliensGame game, String string)
 {
     this.game=game;
     spriteBatch=game.getBatch();
@@ -43,7 +44,7 @@ protected Screens (final AliensGame game)
     viewport.apply();
 
     stage = new Stage(viewport, spriteBatch);
-    title = new Image(game.getAssetManager().get("Aliens_title.png", Texture.class));
+    title = new Image(game.getAssetManager().get(string, Texture.class));
     title.setSize(0.8f * title.getWidth(), 0.8f * title.getHeight());
     title.setPosition(VIEWPORT_WIDTH / 2 - title.getWidth() / 2, VIEWPORT_HEIGHT * 0.9f - title.getHeight());
 
@@ -82,6 +83,10 @@ protected Screens (final AliensGame game)
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * Create text buttons
+     *
+     */
     public TextButton createTextButton(String text)
     {
         Texture buttonTexture =game.getAssetManager().get("button.png");
@@ -95,7 +100,12 @@ protected Screens (final AliensGame game)
         return new TextButton(text,button);
     }
 
+    /**
+     * add back button
+     * @return
+     */
     protected TextButton addBackBtn() {
+
 
         TextButton backButton=createTextButton("Back");
 

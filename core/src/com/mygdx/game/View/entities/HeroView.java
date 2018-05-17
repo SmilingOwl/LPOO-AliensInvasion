@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
+import java.util.Vector;
+
 public class HeroView extends EntityView {
     private static final float FRAME_TIME =0.05f;
     private Animation<TextureRegion> runningAnimation;

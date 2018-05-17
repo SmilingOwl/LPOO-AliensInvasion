@@ -1,11 +1,11 @@
 package com.mygdx.game.View.Entities;
 
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
+
 
 public class ComsumableView extends EntityView {
     public ComsumableView( AliensGame game){
