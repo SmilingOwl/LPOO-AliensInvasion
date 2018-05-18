@@ -59,6 +59,9 @@ public class EntityBody {
     public void setLinearVelocity(float velocity) {
         body.setLinearVelocity((float)(velocity * -Math.sin(0)), (float) (velocity * Math.cos(0)));
     }
+    public void setLinearVelocity(float x,float y) {
+        body.setLinearVelocity(x, y);
+    }
 public void setTypeToStatic(){
         body.setType(BodyDef.BodyType.StaticBody);
 }

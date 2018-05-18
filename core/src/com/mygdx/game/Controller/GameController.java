@@ -20,6 +20,7 @@ import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ComsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
+import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.GameModel;
 //import com.mygdx.game.Model.entities.AlienModel;
 //import com.mygdx.game.Model.entities.EntityModel;
@@ -36,7 +37,8 @@ public class GameController implements ContactListener {
     private static final float HEROATTACK_SPEED= 30f;
     private static final float TIME_BETWEEN_SHOTS= .1f;
     private final World world;
-    private final HeroModel heroModel;
+    private final HeroBody herobody;
+    private boolean onTheGround=false;
    // private final PlatformsBody plat1Body;
    // private final PlatformsBody plat2Body;
     private float accumulator = 0;
@@ -46,8 +48,8 @@ public class GameController implements ContactListener {
     private GameController(){
        timeToNextShoot=-1;
         world = new World(new Vector2(0,-9.8f),true);
-        heroModel= GameModel.getInstance().getHero();
-        new HeroBody(world,heroModel);
+
+        herobody=new HeroBody(world,GameModel.getInstance().getHero());
 
         /*heroB= new HeroBody(world, GameModel.getInstance().getHero());
         plat1Body= new PlatformsBody(world,GameModel.getInstance().getPlat1());
@@ -100,7 +102,17 @@ public class GameController implements ContactListener {
         return world;
     }
     @Override
-    public void endContact(Contact contact){}
+    public void endContact(Contact contact){
+        Body bodyA= contact.getFixtureA().getBody();
+        Body bodyB= contact.getFixtureB().getBody();
+        onTheGround=false;
+        if(bodyA.getUserData() instanceof PlatformsModel && bodyB.getUserData() instanceof HeroModel){
+            onTheGround=false;
+        }
+        if(bodyB.getUserData() instanceof PlatformsModel && bodyA.getUserData() instanceof HeroModel){
+            onTheGround=false;
+        }
+    }
     @Override
     public void preSolve(Contact contact , Manifold oldManifold){
 
@@ -114,6 +126,14 @@ public class GameController implements ContactListener {
     public void beginContact(Contact contact){
         Body bodyA= contact.getFixtureA().getBody();
         Body bodyB= contact.getFixtureB().getBody();
+        //onTheGround=false;
+        if(bodyA.getUserData() instanceof PlatformsModel && bodyB.getUserData() instanceof HeroModel){
+            onTheGround=true;
+        }
+        if(bodyB.getUserData() instanceof PlatformsModel && bodyA.getUserData() instanceof HeroModel){
+            onTheGround=true;
+        }
+
 
     }
     public void removeFlagged(){
@@ -135,8 +155,12 @@ public class GameController implements ContactListener {
             timeToNextShoot = TIME_BETWEEN_SHOTS;
         }
     }
+    public HeroBody getHerobody(){
+        return herobody;
+    }
 
 
-
-
+    public boolean isPlayerOnTheGournd() {
+        return onTheGround;
+    }
 }

@@ -239,8 +239,9 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
             //GameController.getInstance().shoot();
             //GameModel.getInstance().getHero().setPosition(0, GameModel.getInstance().getHero().getY()-1);
         }
-       // if(Gdx.input.isTouched())
-            //GameController.getInstance().shoot();
+       if(Gdx.input.isTouched()){
+            if(GameController.getInstance().isPlayerOnTheGournd())
+                     GameController.getInstance().getHerobody().applyForceToCenter(0,1000,true);}
     }
 
     /**
