@@ -230,12 +230,15 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
                 GameController.getInstance().shoot();
         }*/
         if(Gdx.input.getAccelerometerY() > 0){
-            GameModel.getInstance().getHero().setPosition(GameModel.getInstance().getHero().getX()+1f, GameModel.getInstance().getHero().getY());
+            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX()+0.1f,GameModel.getInstance().getHero().getY());
+
+
 
             //  GameController.getInstance().shoot();
           //  GameModel.getInstance().getHero().setPosition(3,3);
-        }
-        else{
+            }
+        else if(Gdx.input.getAccelerometerY() < 0){
+                GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX()-0.1f,GameModel.getInstance().getHero().getY());
             //GameController.getInstance().shoot();
             //GameModel.getInstance().getHero().setPosition(0, GameModel.getInstance().getHero().getY()-1);
         }
