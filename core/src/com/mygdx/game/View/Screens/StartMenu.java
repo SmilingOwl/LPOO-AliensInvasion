@@ -25,6 +25,7 @@ public class StartMenu extends Screens {
 
     public StartMenu (final AliensGame game) {
         super(game,"Aliens_title.png");
+        soundOn=true;
         music = game.getAssetManager().get("Game_Background.wav", Music.class);
         music.setLooping(true);
         music.play();

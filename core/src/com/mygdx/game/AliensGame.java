@@ -14,6 +14,7 @@ public class AliensGame extends Game{
 	private SpriteBatch batch;
 	private AssetManager manager;
 
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -57,6 +58,7 @@ public class AliensGame extends Game{
 		manager.load("button.png",Texture.class);
 		manager.load("Game_Background.wav",Music.class);
 		manager.load("Level1.png", Texture.class);
+		manager.load("sound.png",Texture.class);
 
 
 		manager.finishLoading();

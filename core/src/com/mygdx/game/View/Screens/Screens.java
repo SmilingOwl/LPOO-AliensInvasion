@@ -27,6 +27,7 @@ public abstract class Screens extends ScreenAdapter{
     private SpriteBatch spriteBatch;
     private Image background;
     private Image title;
+    protected boolean soundOn;
 
 
     protected static float VIEWPORT_WIDTH = 550;
@@ -119,6 +120,14 @@ protected Screens (final AliensGame game, String string)
         });
 
         return backButton;
+    }
+
+    public boolean isSoundOn() {
+        return soundOn;
+    }
+
+    public void setSoundOn(boolean soundOn) {
+        this.soundOn = soundOn;
     }
 }
 
