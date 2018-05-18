@@ -28,6 +28,7 @@ public abstract class Screens extends ScreenAdapter{
     private Image background;
     private Image title;
 
+
     protected static float VIEWPORT_WIDTH = 550;
     private static final float VIEWPORT_HEIGHT = VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
     protected static final float DEFAULT_BUTTON_SIZE = VIEWPORT_WIDTH / 20;
@@ -104,7 +105,7 @@ protected Screens (final AliensGame game, String string)
      * add back button
      * @return
      */
-    protected TextButton addBackBtn() {
+    public TextButton addBackBtn() {
 
 
         TextButton backButton=createTextButton("Back");

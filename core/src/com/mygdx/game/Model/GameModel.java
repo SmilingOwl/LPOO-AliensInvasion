@@ -23,6 +23,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class GameModel implements Disposable {
 
     private static GameModel instance;
+    protected ModelState currentState;
     private HeroModel hero;
     private PlatformsModel plat1;
     private PlatformsModel plat2;
@@ -35,8 +36,9 @@ public class GameModel implements Disposable {
     //private GameState State;
     private Vector2 gravity = new Vector2(0f, -9.8f);
 
+
     public enum ModelState {
-        WON,LOST, PAUSED, LIVE,
+        PAUSED, LIVE, WON, LOST
     }
 
    Pool<AlienAttackModel> alienAttackPool = new Pool<AlienAttackModel>(){
@@ -51,7 +53,9 @@ public class GameModel implements Disposable {
             instance= new GameModel();
         return instance;
     }
+
     private GameModel() {
+
         aliens = new ArrayList<AlienModel>();
         AlienAttack = new ArrayList<AlienAttackModel>();
         waters = new ArrayList<ComsumableModel>();
@@ -64,29 +68,40 @@ public class GameModel implements Disposable {
 
 
         }
+
         for (int i = 0; i < WATERS_COUNT; i++) {
             //waters.add(new ComsumableModel(GameController.PANEL_HEIGHT / 2, GameController.PANEL_WIDTH / 2));
             waters.add(new ComsumableModel(GameController.PANEL_HEIGHT / 2, GameController.PANEL_WIDTH / 2));
 
         }
     }
-    public HeroModel getHero(){
+
+    public HeroModel getHero()
+    {
         return hero;
     }
-    public PlatformsModel getPlat1(){
+
+    public PlatformsModel getPlat1()
+    {
         return plat1;
     }
-    public PlatformsModel getPlat2(){
+
+    public PlatformsModel getPlat2()
+    {
         return plat2;
     }
+
   public List<AlienModel> getAliens(){
         return aliens;
     }
 
-    public List<ComsumableModel> getWaters(){ return waters;}
+    public List<ComsumableModel> getWaters()
+    { return waters;}
+
     public List<AlienAttackModel> getAlienAttack(){
         return AlienAttack;
     }
+
     public AlienAttackModel createAlienAttack(AlienModel alien ){
         AlienAttackModel attack = alienAttackPool.obtain();
 
@@ -95,6 +110,7 @@ public class GameModel implements Disposable {
          AlienAttack.add(attack);
          return attack;
     }
+
     public void remove(EntityModel model){
         if(model instanceof AlienAttackModel){
             AlienAttack.remove(model);
@@ -107,11 +123,14 @@ public class GameModel implements Disposable {
     public void addAlien( AlienModel alienModel){
         aliens.add(alienModel);
     }
+
     public void addWater( ComsumableModel consumableModel){
         waters.add(consumableModel);
 
     }
+
     public void update(float delta){
+
         for(AlienAttackModel attack : AlienAttack)
             if(attack.decreaseTimeTolive(delta))
                 attack.setFlaggedForRemoval(true);
@@ -119,9 +138,17 @@ public class GameModel implements Disposable {
 
 
     }
+
     @Override
     public void dispose() {
 
     }
-}
 
+    public void PauseController() {
+        if (currentState == ModelState.PAUSED)
+            currentState = ModelState.LIVE;
+        else
+            currentState = ModelState.PAUSED;
+    }
+
+}
