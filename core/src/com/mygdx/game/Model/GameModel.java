@@ -42,6 +42,11 @@ public class GameModel implements Disposable {
     private PlatformsModel plat12;
     private PlatformsModel plat1;
     private PlatformsModel plat2;
+    private PlatformsModel plat13;
+    private PlatformsModel plat14;
+    private PlatformsModel plat15;
+    private PlatformsModel plat16;
+    private PlatformsModel plat17;
 
 
     private PlatfFastModel platFast1;
@@ -114,26 +119,31 @@ public class GameModel implements Disposable {
         plat3= new PlatformsModel(56, 25);
         plat4 = new PlatformsModel(95 , 35);
         plat5= new PlatformsModel(115, 25);
-
         plat6 = new PlatformsModel(160 , 24);
-        plat7= new PlatformsModel(200, 44);
+        plat7= new PlatformsModel(200, 40);
         plat8 = new PlatformsModel(17 , 14);
         plat9= new PlatformsModel(180, 35);
         plat10 = new PlatformsModel(240, 30);
+        plat11= new PlatformsModel(340, 30);
+        plat12 = new PlatformsModel(357 , 20);
+        plat13 = new PlatformsModel(431 , 24);
+        plat14 = new PlatformsModel(450 , 30);
+        plat15 = new PlatformsModel(467 , 20);
+        plat16 = new PlatformsModel(487 , 27);
+        plat17 = new PlatformsModel(504 , 34);
 
-        plat11= new PlatformsModel(3, 10);
-        plat12 = new PlatformsModel(17 , 14);
+
 
 
 
 
         platFast1= new PlatfFastModel(80 , 30);
         platFast2= new PlatfFastModel(220, 35);
-        platFast3= new PlatfFastModel(80 , 30);
-        platFast4= new PlatfFastModel(80 , 30);
+        platFast3= new PlatfFastModel(260 , 20);
+        platFast4= new PlatfFastModel(300 , 30);
 
         platPicos1= new PlatfPicosModel(43, 21);
-        platPicos2= new PlatfPicosModel(0 , 0);
+        platPicos2= new PlatfPicosModel(315 , 25);
         platPicos3= new PlatfPicosModel(0 , 0);
         platPicos4= new PlatfPicosModel(0 , 0);
         platPicos5= new PlatfPicosModel(0 , 0);
@@ -142,17 +152,17 @@ public class GameModel implements Disposable {
 
         platLenta1= new PlatfLentaModel(140 , 26 );
         platLenta2= new PlatfLentaModel(175 , 28 );
-        platLenta3= new PlatfLentaModel(1 , 6 );
-        platLenta4= new PlatfLentaModel(1 , 6 );
-        platLenta5= new PlatfLentaModel(1 , 6 );
-        platLenta6= new PlatfLentaModel(1 , 6 );
+        platLenta3= new PlatfLentaModel(324 , 35 );
+        platLenta4= new PlatfLentaModel(370 , 26 );
+        platLenta5= new PlatfLentaModel(390 , 30 );
+        platLenta6= new PlatfLentaModel(515 , 30 );
 
 
         platTijolo1= new PlatTilojosModel(28, 18);
         platTijolo2= new PlatTilojosModel(69, 18);
         platTijolo3= new PlatTilojosModel(125, 30);
-        platTijolo4= new PlatTilojosModel(28, 18);
-        platTijolo5= new PlatTilojosModel(28, 18);
+        platTijolo4= new PlatTilojosModel(280, 25);
+        platTijolo5= new PlatTilojosModel(410, 18);
         platTijolo6= new PlatTilojosModel(28, 18);
         platTijolo7= new PlatTilojosModel(28, 18);
 
@@ -235,6 +245,27 @@ public class GameModel implements Disposable {
     {
         return plat12;
     }
+    public PlatformsModel getPlat13()
+    {
+        return plat13;
+    }
+    public PlatformsModel getPlat14()
+    {
+        return plat14;
+    }
+    public PlatformsModel getPlat15()
+    {
+        return plat15;
+    }
+    public PlatformsModel getPlat16()
+    {
+        return plat16;
+    }
+    public PlatformsModel getPlat17()
+    {
+        return plat17;
+    }
+
 
     public PlatTilojosModel getPlatTijolo1(){ return platTijolo1;}
     public PlatTilojosModel getPlatTijolo2(){ return platTijolo2;}

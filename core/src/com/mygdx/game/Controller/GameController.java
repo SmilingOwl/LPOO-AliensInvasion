@@ -24,7 +24,10 @@ import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ComsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
+import com.mygdx.game.Model.Entities.PlatTilojosModel;
 import com.mygdx.game.Model.Entities.PlatfFastModel;
+import com.mygdx.game.Model.Entities.PlatfLentaModel;
+import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.GameModel;
 //import com.mygdx.game.Model.entities.AlienModel;
@@ -74,8 +77,16 @@ public class GameController implements ContactListener {
         new PlatformsBody(world,GameModel.getInstance().getPlat10());
         new PlatformsBody(world,GameModel.getInstance().getPlat11());
         new PlatformsBody(world,GameModel.getInstance().getPlat12());
+        new PlatformsBody(world,GameModel.getInstance().getPlat13());
+        new PlatformsBody(world,GameModel.getInstance().getPlat14());
+        new PlatformsBody(world,GameModel.getInstance().getPlat15());
+        new PlatformsBody(world,GameModel.getInstance().getPlat16());
+        new PlatformsBody(world,GameModel.getInstance().getPlat17());
 
         new PlatfFastBody(world,GameModel.getInstance().getPlatFast1());
+        new PlatfFastBody(world,GameModel.getInstance().getPlatFast2());
+        new PlatfFastBody(world,GameModel.getInstance().getPlatFast3());
+        new PlatfFastBody(world,GameModel.getInstance().getPlatFast4());
 
         new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos1());
         new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos2());
@@ -153,10 +164,10 @@ public class GameController implements ContactListener {
         Body bodyA= contact.getFixtureA().getBody();
         Body bodyB= contact.getFixtureB().getBody();
         onTheGround=false;
-        if(bodyA.getUserData() instanceof PlatformsModel && bodyB.getUserData() instanceof HeroModel){
+        if((bodyA.getUserData() instanceof PlatformsModel|| bodyA.getUserData() instanceof  PlatfFastModel ||   bodyA.getUserData() instanceof  PlatTilojosModel||  bodyA.getUserData() instanceof  PlatfLentaModel||  bodyA.getUserData() instanceof  PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel){
             onTheGround=false;
         }
-        if(bodyB.getUserData() instanceof PlatformsModel && bodyA.getUserData() instanceof HeroModel){
+        if((bodyB.getUserData() instanceof PlatformsModel|| bodyB.getUserData() instanceof  PlatfFastModel ||   bodyB.getUserData() instanceof  PlatTilojosModel||  bodyB.getUserData() instanceof  PlatfLentaModel||  bodyB.getUserData() instanceof  PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel){
             onTheGround=false;
         }
     }
@@ -174,10 +185,10 @@ public class GameController implements ContactListener {
         Body bodyA= contact.getFixtureA().getBody();
         Body bodyB= contact.getFixtureB().getBody();
         //onTheGround=false;
-        if(bodyA.getUserData() instanceof PlatformsModel && bodyB.getUserData() instanceof HeroModel){
+        if((bodyA.getUserData() instanceof PlatformsModel|| bodyA.getUserData() instanceof  PlatfFastModel ||   bodyA.getUserData() instanceof  PlatTilojosModel||  bodyA.getUserData() instanceof  PlatfLentaModel||  bodyA.getUserData() instanceof  PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel){
             onTheGround=true;
         }
-        if(bodyB.getUserData() instanceof PlatformsModel && bodyA.getUserData() instanceof HeroModel){
+        if((bodyB.getUserData() instanceof PlatformsModel|| bodyB.getUserData() instanceof  PlatfFastModel ||   bodyB.getUserData() instanceof  PlatTilojosModel||  bodyB.getUserData() instanceof  PlatfLentaModel||  bodyB.getUserData() instanceof  PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel){
             onTheGround=true;
         }
 
