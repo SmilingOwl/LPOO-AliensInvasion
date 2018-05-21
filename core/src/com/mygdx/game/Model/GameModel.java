@@ -45,6 +45,13 @@ public class GameModel implements Disposable {
 
 
     private PlatfFastModel platFast1;
+    private PlatfFastModel platFast2;
+    private PlatfFastModel platFast3;
+    private PlatfFastModel platFast4;
+
+
+
+
     private PlatfPicosModel platPicos1;
     private PlatfPicosModel platPicos2;
     private PlatfPicosModel platPicos3;
@@ -107,18 +114,23 @@ public class GameModel implements Disposable {
         plat3= new PlatformsModel(56, 25);
         plat4 = new PlatformsModel(95 , 35);
         plat5= new PlatformsModel(115, 25);
-        plat6 = new PlatformsModel(17 , 14);
-        plat7= new PlatformsModel(3, 10);
+
+        plat6 = new PlatformsModel(160 , 24);
+        plat7= new PlatformsModel(200, 44);
         plat8 = new PlatformsModel(17 , 14);
-        plat9= new PlatformsModel(3, 10);
-        plat10 = new PlatformsModel(17 , 14);
+        plat9= new PlatformsModel(180, 35);
+        plat10 = new PlatformsModel(240, 30);
+
         plat11= new PlatformsModel(3, 10);
         plat12 = new PlatformsModel(17 , 14);
 
 
 
-        platFast1= new PlatfFastModel(GameController.PANEL_HEIGHT / 2-20 , GameController.PANEL_WIDTH/2+100 );
+
         platFast1= new PlatfFastModel(80 , 30);
+        platFast2= new PlatfFastModel(220, 35);
+        platFast3= new PlatfFastModel(80 , 30);
+        platFast4= new PlatfFastModel(80 , 30);
 
         platPicos1= new PlatfPicosModel(43, 21);
         platPicos2= new PlatfPicosModel(0 , 0);
@@ -128,8 +140,8 @@ public class GameModel implements Disposable {
         platPicos6= new PlatfPicosModel(0 , 0);
         platPicos7= new PlatfPicosModel(0 , 0);
 
-        platLenta1= new PlatfLentaModel(1 , 6 );
-        platLenta2= new PlatfLentaModel(1 , 6 );
+        platLenta1= new PlatfLentaModel(140 , 26 );
+        platLenta2= new PlatfLentaModel(175 , 28 );
         platLenta3= new PlatfLentaModel(1 , 6 );
         platLenta4= new PlatfLentaModel(1 , 6 );
         platLenta5= new PlatfLentaModel(1 , 6 );
@@ -138,7 +150,7 @@ public class GameModel implements Disposable {
 
         platTijolo1= new PlatTilojosModel(28, 18);
         platTijolo2= new PlatTilojosModel(69, 18);
-        platTijolo3= new PlatTilojosModel(28, 18);
+        platTijolo3= new PlatTilojosModel(125, 30);
         platTijolo4= new PlatTilojosModel(28, 18);
         platTijolo5= new PlatTilojosModel(28, 18);
         platTijolo6= new PlatTilojosModel(28, 18);
@@ -158,6 +170,9 @@ public class GameModel implements Disposable {
         }
     }
     public PlatfFastModel getPlatFast1(){return platFast1;}
+    public PlatfFastModel getPlatFast2(){return platFast2;}
+    public PlatfFastModel getPlatFast3(){return platFast3;}
+    public PlatfFastModel getPlatFast4(){return platFast4;}
 
     public HeroModel getHero()
     {

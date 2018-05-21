@@ -321,10 +321,12 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         EntityView view8=ViewFactory.makeView(game,plat8);
         view8.update(plat8);
         view8.draw(game.getBatch());
+
         PlatformsModel plat9= GameModel.getInstance().getPlat9();
         EntityView view9=ViewFactory.makeView(game,plat9);
         view9.update(plat9);
         view9.draw(game.getBatch());
+
         PlatformsModel plat10= GameModel.getInstance().getPlat10();
         EntityView view10=ViewFactory.makeView(game,plat10);
         view10.update(plat10);
@@ -340,7 +342,13 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         EntityView viewL1=ViewFactory.makeView(game,platLenta1);
         viewL1.update(platLenta1);
         viewL1.draw(game.getBatch());
+
+        PlatfLentaModel platLenta2= GameModel.getInstance().getPlatLenta2();
+        EntityView viewL2=ViewFactory.makeView(game,platLenta2);
+        viewL2.update(platLenta2);
+        viewL2.draw(game.getBatch());
         /* Plataformas Tijolos Rapido 1*/
+
         PlatTilojosModel platTijolo1= GameModel.getInstance().getPlatTijolo1();
         EntityView viewT1=ViewFactory.makeView(game,platTijolo1);
         viewT1.update(platTijolo1);
@@ -350,12 +358,27 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         EntityView viewT2=ViewFactory.makeView(game,platTijolo2);
         viewT2.update(platTijolo2);
         viewT2.draw(game.getBatch());
+
+        PlatTilojosModel platTijolo3= GameModel.getInstance().getPlatTijolo3();
+        EntityView viewT3=ViewFactory.makeView(game,platTijolo3);
+        viewT3.update(platTijolo3);
+        viewT3.draw(game.getBatch());
 /* Plataformas Super rapidas 2*/
 
         PlatfFastModel platFast1= GameModel.getInstance().getPlatFast1();
         EntityView viewf1=ViewFactory.makeView(game,platFast1);
         viewf1.update(platFast1);
         viewf1.draw(game.getBatch());
+
+        PlatfFastModel platFast2= GameModel.getInstance().getPlatFast2();
+        EntityView viewf2=ViewFactory.makeView(game,platFast2);
+        viewf2.update(platFast2);
+        viewf2.draw(game.getBatch());
+
+       /* PlatfFastModel platFast2= GameModel.getInstance().getPlatFast2();
+        EntityView viewf2=ViewFactory.makeView(game,platFast2);
+        viewf2.update(platFast2);
+        viewf2.draw(game.getBatch());*/
 
 /* Plataformas Picos*/
        PlatfPicosModel platPicos1= GameModel.getInstance().getPlatPicos1();
