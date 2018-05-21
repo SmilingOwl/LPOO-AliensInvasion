@@ -10,6 +10,10 @@ import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Alien;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.AlienAttack;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Consumable;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Hero;
+import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platFast;
+import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platLenta;
+import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platPicos;
+import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platTijolos;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.plataform;
 
 public class ViewFactory {
@@ -23,12 +27,18 @@ public class ViewFactory {
                 cache.put(model.getType(), new AlienAttackView(game));
             if(model.getType()== Consumable)
                 cache.put(model.getType(), new ComsumableView(game));
-            /*if(model.getType()== HeroWeapon)
-                cache.put(model.getType(), new HeroWeaponsView(game));*/
             if(model.getType()== plataform)
                 cache.put(model.getType(), new PlatformsView(game));
             if(model.getType()== Hero)
                 cache.put(model.getType(), new HeroView(game));
+            if(model.getType()== platFast)
+                cache.put(model.getType(), new PlatfFastView(game));
+            if(model.getType()== platPicos)
+                cache.put(model.getType(), new PlatfPicosView(game));
+            if(model.getType()== platLenta)
+                cache.put(model.getType(), new PlatfLentaView(game));
+            if(model.getType()== platTijolos)
+                cache.put(model.getType(), new PlatTijolosView(game));
 
 
         }

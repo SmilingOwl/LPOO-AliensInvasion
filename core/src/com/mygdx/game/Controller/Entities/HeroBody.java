@@ -7,6 +7,7 @@ public class HeroBody extends EntityBody {
 
     public HeroBody(World world, HeroModel model){
         super(world, model);
+       // setTypeToStatic();
         //setLinearVelocity(1,1);
         float density = 0.5f, friction = 0.4f, restitution = 0;
        // int width = 164, height = 170;

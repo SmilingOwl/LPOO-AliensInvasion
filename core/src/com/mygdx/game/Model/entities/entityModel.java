@@ -2,7 +2,7 @@ package com.mygdx.game.Model.Entities;
 
 public abstract class EntityModel {
 
-    public enum ModelType {Alien,AlienAttack, Hero, Consumable, HeroWeapon,plataform};
+    public enum ModelType {Alien,AlienAttack, Hero, Consumable, HeroWeapon,plataform, platFast, platPicos, platTijolos,platLenta};
     private float x;
     private float y;
     private boolean flaggedForRemoval =false;

@@ -14,12 +14,17 @@ import com.mygdx.game.Controller.Entities.AlienAttackBody;
 import com.mygdx.game.Controller.Entities.AlienBody;
 import com.mygdx.game.Controller.Entities.ComsumableBody;
 import com.mygdx.game.Controller.Entities.HeroBody;
+import com.mygdx.game.Controller.Entities.PlatTijolosBody;
+import com.mygdx.game.Controller.Entities.PlatfFastBody;
+import com.mygdx.game.Controller.Entities.PlatfLentaBody;
+import com.mygdx.game.Controller.Entities.PlatfPicosBody;
 import com.mygdx.game.Controller.Entities.PlatformsBody;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
 import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ComsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
+import com.mygdx.game.Model.Entities.PlatfFastModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.GameModel;
 //import com.mygdx.game.Model.entities.AlienModel;
@@ -30,8 +35,8 @@ import java.util.List;
 
 public class GameController implements ContactListener {
     private static GameController instance;
-    public static final int PANEL_WIDTH=100;
-    public static final int PANEL_HEIGHT=40;
+    public static final int PANEL_WIDTH=440;
+    public static final int PANEL_HEIGHT=70;
     private static final float ACCELERATION_FORCE= 1000f;
     private static final float ALIENATTACK_SPEED= 30f;
     private static final float HEROATTACK_SPEED= 30f;
@@ -42,6 +47,7 @@ public class GameController implements ContactListener {
    // private final PlatformsBody plat1Body;
    // private final PlatformsBody plat2Body;
     private float accumulator = 0;
+  //  private List<PlatformsModel> PlatNivel1= new ArrayList<PlatformsModel>();
     private List<ComsumableModel> watersToadd= new ArrayList<ComsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
     private float timeToNextShoot;
@@ -54,14 +60,55 @@ public class GameController implements ContactListener {
         /*heroB= new HeroBody(world, GameModel.getInstance().getHero());
         plat1Body= new PlatformsBody(world,GameModel.getInstance().getPlat1());
         plat2Body= new PlatformsBody(world,GameModel.getInstance().getPlat2());*/
+
+
         new PlatformsBody(world,GameModel.getInstance().getPlat1());
-         new PlatformsBody(world,GameModel.getInstance().getPlat2());
+        new PlatformsBody(world,GameModel.getInstance().getPlat2());
+        new PlatformsBody(world,GameModel.getInstance().getPlat3());
+        new PlatformsBody(world,GameModel.getInstance().getPlat4());
+        new PlatformsBody(world,GameModel.getInstance().getPlat5());
+        new PlatformsBody(world,GameModel.getInstance().getPlat6());
+        new PlatformsBody(world,GameModel.getInstance().getPlat7());
+        new PlatformsBody(world,GameModel.getInstance().getPlat8());
+        new PlatformsBody(world,GameModel.getInstance().getPlat9());
+        new PlatformsBody(world,GameModel.getInstance().getPlat10());
+        new PlatformsBody(world,GameModel.getInstance().getPlat11());
+        new PlatformsBody(world,GameModel.getInstance().getPlat12());
+
+        new PlatfFastBody(world,GameModel.getInstance().getPlatFast1());
+
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos1());
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos2());
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos3());
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos4());
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos5());
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos6());
+        new PlatfPicosBody(world,GameModel.getInstance().getPlatPicos7());
+
+        new PlatfLentaBody(world,GameModel.getInstance().getPlatLenta1());
+        new PlatfLentaBody(world,GameModel.getInstance().getPlatLenta2());
+        new PlatfLentaBody(world,GameModel.getInstance().getPlatLenta3());
+        new PlatfLentaBody(world,GameModel.getInstance().getPlatLenta4());
+        new PlatfLentaBody(world,GameModel.getInstance().getPlatLenta5());
+        new PlatfLentaBody(world,GameModel.getInstance().getPlatLenta6());
+
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo1());
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo2());
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo3());
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo4());
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo5());
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo6());
+        new PlatTijolosBody(world,GameModel.getInstance().getPlatTijolo7());
+
          List<AlienModel> aliens= GameModel.getInstance().getAliens();
         for( AlienModel alien:aliens)
         new AlienBody(world,alien);
         List<ComsumableModel> waters= GameModel.getInstance().getWaters();
        for(ComsumableModel water: waters)
            new ComsumableBody(world,water);
+      /* List<PlatformsModel> plats= GameModel.getInstance().getPlatNivel1();
+        for(PlatformsModel plat: plats)
+            new PlatformsBody(world,plat);*/
         world.setContactListener(this);
     }
     public static GameController getInstance(){
@@ -86,7 +133,7 @@ public class GameController implements ContactListener {
         }
     }
     private void verifyBounds(Body body) {
-        if (body.getPosition().x < 0)
+        /*if (body.getPosition().x < 0)
             body.setTransform(PANEL_WIDTH, body.getPosition().y, body.getAngle());
 
         if (body.getPosition().y < 0)
@@ -96,7 +143,7 @@ public class GameController implements ContactListener {
             body.setTransform(0, body.getPosition().y, body.getAngle());
 
         if (body.getPosition().y > PANEL_HEIGHT)
-            body.setTransform(body.getPosition().x, 0, body.getAngle());
+            body.setTransform(body.getPosition().x, 0, body.getAngle());*/
     }
     public World getWorld(){
         return world;

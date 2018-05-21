@@ -9,6 +9,10 @@ import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ComsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
+import com.mygdx.game.Model.Entities.PlatTilojosModel;
+import com.mygdx.game.Model.Entities.PlatfFastModel;
+import com.mygdx.game.Model.Entities.PlatfLentaModel;
+import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 
 
@@ -25,8 +29,46 @@ public class GameModel implements Disposable {
     private static GameModel instance;
     protected ModelState currentState;
     private HeroModel hero;
+
+    private PlatformsModel plat3;
+    private PlatformsModel plat4;
+    private PlatformsModel plat5;
+    private PlatformsModel plat6;
+    private PlatformsModel plat7;
+    private PlatformsModel plat8;
+    private PlatformsModel plat9;
+    private PlatformsModel plat10;
+    private PlatformsModel plat11;
+    private PlatformsModel plat12;
     private PlatformsModel plat1;
     private PlatformsModel plat2;
+
+
+    private PlatfFastModel platFast1;
+    private PlatfPicosModel platPicos1;
+    private PlatfPicosModel platPicos2;
+    private PlatfPicosModel platPicos3;
+    private PlatfPicosModel platPicos4;
+    private PlatfPicosModel platPicos5;
+    private PlatfPicosModel platPicos6;
+    private PlatfPicosModel platPicos7;
+
+
+    private PlatfLentaModel platLenta1;
+    private PlatfLentaModel platLenta2;
+    private PlatfLentaModel platLenta3;
+    private PlatfLentaModel platLenta4;
+    private PlatfLentaModel platLenta5;
+    private PlatfLentaModel platLenta6;
+
+    private PlatTilojosModel platTijolo1;
+    private PlatTilojosModel platTijolo2;
+    private PlatTilojosModel platTijolo3;
+    private PlatTilojosModel platTijolo4;
+    private PlatTilojosModel platTijolo5;
+    private PlatTilojosModel platTijolo6;
+    private PlatTilojosModel platTijolo7;
+  //  private List<PlatformsModel> platNivel1;
     private List<AlienModel> aliens;
     private List<AlienAttackModel> AlienAttack;
     private List<ComsumableModel> waters;
@@ -59,42 +101,149 @@ public class GameModel implements Disposable {
         aliens = new ArrayList<AlienModel>();
         AlienAttack = new ArrayList<AlienAttackModel>();
         waters = new ArrayList<ComsumableModel>();
-        hero = new HeroModel(GameController.PANEL_HEIGHT / 2 -9, GameController.PANEL_WIDTH / 2-43);
-        plat1= new PlatformsModel(GameController.PANEL_HEIGHT / 2-9, GameController.PANEL_WIDTH /2 -46);
-        plat2 = new PlatformsModel(GameController.PANEL_HEIGHT / 2-20 , GameController.PANEL_WIDTH/2 -49);
+        hero = new HeroModel(4, 12);
+        plat1= new PlatformsModel(3, 10);
+        plat2 = new PlatformsModel(17 , 14);
+        plat3= new PlatformsModel(56, 25);
+        plat4 = new PlatformsModel(95 , 35);
+        plat5= new PlatformsModel(115, 25);
+        plat6 = new PlatformsModel(17 , 14);
+        plat7= new PlatformsModel(3, 10);
+        plat8 = new PlatformsModel(17 , 14);
+        plat9= new PlatformsModel(3, 10);
+        plat10 = new PlatformsModel(17 , 14);
+        plat11= new PlatformsModel(3, 10);
+        plat12 = new PlatformsModel(17 , 14);
+
+
+
+        platFast1= new PlatfFastModel(GameController.PANEL_HEIGHT / 2-20 , GameController.PANEL_WIDTH/2+100 );
+        platFast1= new PlatfFastModel(80 , 30);
+
+        platPicos1= new PlatfPicosModel(43, 21);
+        platPicos2= new PlatfPicosModel(0 , 0);
+        platPicos3= new PlatfPicosModel(0 , 0);
+        platPicos4= new PlatfPicosModel(0 , 0);
+        platPicos5= new PlatfPicosModel(0 , 0);
+        platPicos6= new PlatfPicosModel(0 , 0);
+        platPicos7= new PlatfPicosModel(0 , 0);
+
+        platLenta1= new PlatfLentaModel(1 , 6 );
+        platLenta2= new PlatfLentaModel(1 , 6 );
+        platLenta3= new PlatfLentaModel(1 , 6 );
+        platLenta4= new PlatfLentaModel(1 , 6 );
+        platLenta5= new PlatfLentaModel(1 , 6 );
+        platLenta6= new PlatfLentaModel(1 , 6 );
+
+
+        platTijolo1= new PlatTilojosModel(28, 18);
+        platTijolo2= new PlatTilojosModel(69, 18);
+        platTijolo3= new PlatTilojosModel(28, 18);
+        platTijolo4= new PlatTilojosModel(28, 18);
+        platTijolo5= new PlatTilojosModel(28, 18);
+        platTijolo6= new PlatTilojosModel(28, 18);
+        platTijolo7= new PlatTilojosModel(28, 18);
+
+
+
         for (int i = 0; i < ALIEN_COUNT; i++) {
             // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
-            aliens.add(new AlienModel(GameController.PANEL_HEIGHT / 2 - 20, GameController.PANEL_WIDTH / 2-45, 1, 0));
+            aliens.add(new AlienModel(GameController.PANEL_HEIGHT / 2 - 100, GameController.PANEL_WIDTH / 2-45, 1, 0));
 
 
         }
-
         for (int i = 0; i < WATERS_COUNT; i++) {
-            //waters.add(new ComsumableModel(GameController.PANEL_HEIGHT / 2, GameController.PANEL_WIDTH / 2));
             waters.add(new ComsumableModel(GameController.PANEL_HEIGHT / 2, GameController.PANEL_WIDTH / 2));
 
         }
     }
+    public PlatfFastModel getPlatFast1(){return platFast1;}
 
     public HeroModel getHero()
     {
         return hero;
     }
 
+    public PlatfPicosModel getPlatPicos1(){ return platPicos1;}
+    public PlatfPicosModel getPlatPicos2(){ return platPicos2;}
+    public PlatfPicosModel getPlatPicos3(){ return platPicos3;}
+    public PlatfPicosModel getPlatPicos4(){ return platPicos4;}
+    public PlatfPicosModel getPlatPicos5(){ return platPicos5;}
+    public PlatfPicosModel getPlatPicos6(){ return platPicos6;}
+    public PlatfPicosModel getPlatPicos7(){ return platPicos7;}
+
     public PlatformsModel getPlat1()
     {
         return plat1;
     }
-
     public PlatformsModel getPlat2()
     {
         return plat2;
     }
+    public PlatformsModel getPlat3()
+    {
+        return plat3;
+    }
+    public PlatformsModel getPlat4()
+    {
+        return plat4;
+    }
+    public PlatformsModel getPlat5()
+    {
+        return plat5;
+    }
+    public PlatformsModel getPlat6()
+    {
+        return plat6;
+    }
+    public PlatformsModel getPlat7()
+    {
+        return plat7;
+    }
+    public PlatformsModel getPlat8()
+    {
+        return plat8;
+    }
+    public PlatformsModel getPlat9()
+    {
+        return plat9;
+    }
+    public PlatformsModel getPlat10()
+    {
+        return plat10;
+    }
+    public PlatformsModel getPlat11()
+    {
+        return plat11;
+    }
+    public PlatformsModel getPlat12()
+    {
+        return plat12;
+    }
+
+    public PlatTilojosModel getPlatTijolo1(){ return platTijolo1;}
+    public PlatTilojosModel getPlatTijolo2(){ return platTijolo2;}
+    public PlatTilojosModel getPlatTijolo3(){ return platTijolo3;}
+    public PlatTilojosModel getPlatTijolo4(){ return platTijolo4;}
+    public PlatTilojosModel getPlatTijolo5(){ return platTijolo5;}
+    public PlatTilojosModel getPlatTijolo6(){ return platTijolo6;}
+    public PlatTilojosModel getPlatTijolo7(){ return platTijolo7;}
+
+    public PlatfLentaModel getPlatLenta1(){ return platLenta1;}
+    public PlatfLentaModel getPlatLenta2(){ return platLenta2;}
+    public PlatfLentaModel getPlatLenta3(){ return platLenta3;}
+    public PlatfLentaModel getPlatLenta4(){ return platLenta4;}
+    public PlatfLentaModel getPlatLenta5(){ return platLenta5;}
+    public PlatfLentaModel getPlatLenta6(){ return platLenta6;}
+
+
+
+
 
   public List<AlienModel> getAliens(){
         return aliens;
     }
-
+/*public List<PlatformsModel> getPlatNivel1(){return platNivel1;}*/
     public List<ComsumableModel> getWaters()
     { return waters;}
 
