@@ -169,7 +169,7 @@ public class GameController implements ContactListener {
     public void endContact(Contact contact){
         Body bodyA= contact.getFixtureA().getBody();
         Body bodyB= contact.getFixtureB().getBody();
-        onTheGround=false;
+      //  onTheGround=false;
         if((bodyA.getUserData() instanceof PlatformsModel|| bodyA.getUserData() instanceof  PlatfFastModel ||   bodyA.getUserData() instanceof  PlatTilojosModel||  bodyA.getUserData() instanceof  PlatfLentaModel||  bodyA.getUserData() instanceof  PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel){
             onTheGround=false;
         }
@@ -197,6 +197,7 @@ public class GameController implements ContactListener {
         if((bodyB.getUserData() instanceof PlatformsModel|| bodyB.getUserData() instanceof  PlatfFastModel ||   bodyB.getUserData() instanceof  PlatTilojosModel||  bodyB.getUserData() instanceof  PlatfLentaModel||  bodyB.getUserData() instanceof  PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel){
             onTheGround=true;
         }
+
 
 
     }

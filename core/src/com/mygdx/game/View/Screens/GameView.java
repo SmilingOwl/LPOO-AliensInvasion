@@ -259,13 +259,19 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
             //GameModel.getInstance().getHero().setPosition(0, GameModel.getInstance().getHero().getY()-1);
         }
        if(Gdx.input.isTouched()) {
-           if (GameController.getInstance().isPlayerOnTheGournd()) {
+           if (GameController.getInstance().isPlayerOnTheGournd() ) {
                GameController.getInstance().getHerobody().applyForceToCenter(0, 1500, true);
-               //GameModel.getInstance().getHero().setJumping(false);
+
+
            }
-           //else
-             //  GameModel.getInstance().getHero().setJumping(true);
        }
+
+        if (GameController.getInstance().isPlayerOnTheGournd()) {
+            GameModel.getInstance().getHero().setJumping(false);
+        }
+        else
+            GameModel.getInstance().getHero().setJumping(true);
+
     }
 
 

@@ -82,14 +82,14 @@ public class HeroView extends EntityView {
         sprite.setScale(0.5f,0.5f);
         back=GameModel.getInstance().getHero().getBack();
 
-        /*if(GameModel.getInstance().getHero().getJumping())
+        if(GameModel.getInstance().getHero().getJumping())
         {
             if(back)
                 sprite.setRegion(runningBackAnimation.getKeyFrame(stateTime,false));
             else
                 sprite.setRegion(runningAnimation.getKeyFrame(stateTime,false));
-        }*/
-         if( back){
+        }
+         else if( back){
             sprite.setRegion(runningBackAnimation.getKeyFrame(stateTime,true));
         }else{
             sprite.setRegion(runningAnimation.getKeyFrame(stateTime,true));
