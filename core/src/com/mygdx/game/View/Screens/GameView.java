@@ -47,8 +47,11 @@ import com.mygdx.game.Model.Entities.PlatfFastModel;
 import com.mygdx.game.Model.Entities.PlatfLentaModel;
 import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
+import com.mygdx.game.Model.Entities.PortalModel;
+import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
 import com.mygdx.game.View.Entities.EntityView;
+import com.mygdx.game.View.Entities.HeroView;
 import com.mygdx.game.View.Entities.ViewFactory;
 
 import java.util.List;
@@ -121,8 +124,8 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
     private OrthographicCamera createCamera() {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));
 
-        //camera.position.set(camera.viewportWidth+10000 , camera.viewportHeight , 0);
-        //camera.zoom= camera.zoom+8f;
+        camera.position.set(camera.viewportWidth+10000 , camera.viewportHeight , 0);
+       // camera.zoom= camera.zoom+5f;
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -154,6 +157,7 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         this.game.getAssetManager().load("plat1.png",Texture.class);
        this.game.getAssetManager().load("output7.png",Texture.class);
         this.game.getAssetManager().load("allHero.png",Texture.class);
+        this.game.getAssetManager().load("allHeroB.png",Texture.class);
        this.game.getAssetManager().load("water.png",Texture.class);
        this.game.getAssetManager().load("Fireball.png",Texture.class);
         this.game.getAssetManager().load( "background.png" , Texture.class);
@@ -161,6 +165,8 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         this.game.getAssetManager().load( "platfpicos.png" , Texture.class);
         this.game.getAssetManager().load( "platfrapida2.png" , Texture.class);
         this.game.getAssetManager().load( "platTerra-1.png" , Texture.class);
+        this.game.getAssetManager().load("Portal.png",Texture.class);
+        this.game.getAssetManager().load("RareItem.png",Texture.class);
         this.game.getAssetManager().finishLoading();
     }
 
@@ -177,11 +183,15 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         handleInputs(delta);
 
         GameController.getInstance().update(delta);
-       //camera.position.set(GameModel.getInstance().getPlatTijolo1().getX()/ PIXEL_TO_METER, GameModel.getInstance().getPlatTijolo1().getY()/ PIXEL_TO_METER, 0);
+        float x=GameModel.getInstance().getHero().getX() / PIXEL_TO_METER ;
+        float y=GameModel.getInstance().getHero().getY() / PIXEL_TO_METER ;
+       //camera.position.set(GameModel.getInstance().getRare1().getX()/ PIXEL_TO_METER, GameModel.getInstance().getRare1().getY()/ PIXEL_TO_METER, 0);
       //camera.position.set(GameModel.getInstance().getWaters().get(0).getX()/ PIXEL_TO_METER, GameModel.getInstance().getWaters().get(0).getY()/ PIXEL_TO_METER, 0);
-        camera.position.set(GameModel.getInstance().getHero().getX() / PIXEL_TO_METER, GameModel.getInstance().getHero().getY() / PIXEL_TO_METER, 0);
+        if (y< (VIEWPORT_WIDTH /PIXEL_TO_METER* ((float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()))/2)
+            y=(VIEWPORT_WIDTH /PIXEL_TO_METER* ((float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth()))/2;
+        camera.position.set(x, y, 0);
 
-          camera.update();
+        camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
         Gdx.gl.glClearColor( 103/255f, 69/255f, 117/255f, 1 );
@@ -233,7 +243,9 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         }*/
         if(Gdx.input.getAccelerometerY() > 0){
             GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX()+0.1f,GameModel.getInstance().getHero().getY());
-
+            GameController.getInstance().setCommingBack(false);
+            GameModel.getInstance().setCommingBack(false);
+            GameModel.getInstance().getHero().setCommingBack(false);
 
 
             //  GameController.getInstance().shoot();
@@ -241,13 +253,22 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
             }
         else if(Gdx.input.getAccelerometerY() < 0){
                 GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX()-0.1f,GameModel.getInstance().getHero().getY());
-            //GameController.getInstance().shoot();
+            GameController.getInstance().setCommingBack(true);
+            GameModel.getInstance().setCommingBack(true);
+            GameModel.getInstance().getHero().setCommingBack(true);
             //GameModel.getInstance().getHero().setPosition(0, GameModel.getInstance().getHero().getY()-1);
         }
-       if(Gdx.input.isTouched()){
-            if(GameController.getInstance().isPlayerOnTheGournd())
-                     GameController.getInstance().getHerobody().applyForceToCenter(0,1500,true);}
+       if(Gdx.input.isTouched()) {
+           if (GameController.getInstance().isPlayerOnTheGournd()) {
+               GameController.getInstance().getHerobody().applyForceToCenter(0, 1500, true);
+               //GameModel.getInstance().getHero().setJumping(false);
+           }
+           //else
+             //  GameModel.getInstance().getHero().setJumping(true);
+       }
     }
+
+
 
     /**
      * Draws the entities to the screen.
@@ -281,6 +302,16 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         EntityView view = ViewFactory.makeView(game, hero);
         view.update(hero);
         view.draw(game.getBatch());
+
+        PortalModel portal1 = GameModel.getInstance().getPortal1();
+        EntityView viewPortal1 = ViewFactory.makeView(game, portal1);
+        viewPortal1.update(portal1);
+        viewPortal1.draw(game.getBatch());
+
+        RareItemModel rare1 = GameModel.getInstance().getRare1();
+        EntityView viewrare1 = ViewFactory.makeView(game, rare1);
+        viewrare1.update(rare1);
+        viewrare1.draw(game.getBatch());
 /* Plataformas normais*/
        PlatformsModel plat1= GameModel.getInstance().getPlat1();
         EntityView view1=ViewFactory.makeView(game,plat1);
@@ -479,6 +510,11 @@ boolean gyroscopeAvail= Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyrosco
         EntityView viewP2=ViewFactory.makeView(game,platPicos2);
         viewP2.update(platPicos2);
         viewP2.draw(game.getBatch());
+
+        PlatfPicosModel platPicos3= GameModel.getInstance().getPlatPicos3();
+        EntityView viewP3=ViewFactory.makeView(game,platPicos3);
+        viewP3.update(platPicos3);
+        viewP3.draw(game.getBatch());
 
 
 

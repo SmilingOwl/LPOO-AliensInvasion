@@ -18,7 +18,7 @@ public class ComsumableView extends EntityView {
 
     @Override
     public void draw(SpriteBatch batch) {
-        sprite.setScale(0.1f,0.1f);
+        sprite.setScale(0.2f,0.2f);
         super.draw(batch);
     }
 

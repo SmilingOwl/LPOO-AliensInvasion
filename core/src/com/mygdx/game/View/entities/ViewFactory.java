@@ -10,11 +10,13 @@ import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Alien;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.AlienAttack;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Consumable;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Hero;
+import static com.mygdx.game.Model.Entities.EntityModel.ModelType.Portal;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platFast;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platLenta;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platPicos;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.platTijolos;
 import static com.mygdx.game.Model.Entities.EntityModel.ModelType.plataform;
+import static com.mygdx.game.Model.Entities.EntityModel.ModelType.rareItem;
 
 public class ViewFactory {
 
@@ -39,6 +41,10 @@ public class ViewFactory {
                 cache.put(model.getType(), new PlatfLentaView(game));
             if(model.getType()== platTijolos)
                 cache.put(model.getType(), new PlatTijolosView(game));
+            if(model.getType()== Portal)
+                cache.put(model.getType(), new PortalView(game));
+            if(model.getType()== rareItem)
+                cache.put(model.getType(), new RareItemView(game));
 
 
         }

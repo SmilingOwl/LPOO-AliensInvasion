@@ -14,6 +14,8 @@ import com.mygdx.game.Model.Entities.PlatfFastModel;
 import com.mygdx.game.Model.Entities.PlatfLentaModel;
 import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
+import com.mygdx.game.Model.Entities.PortalModel;
+import com.mygdx.game.Model.Entities.RareItemModel;
 
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class GameModel implements Disposable {
     private static GameModel instance;
     protected ModelState currentState;
     private HeroModel hero;
+    private boolean back;
 
     private PlatformsModel plat3;
     private PlatformsModel plat4;
@@ -81,11 +84,15 @@ public class GameModel implements Disposable {
     private PlatTilojosModel platTijolo6;
     private PlatTilojosModel platTijolo7;
   //  private List<PlatformsModel> platNivel1;
+
+
+private RareItemModel rare1;
+   private PortalModel portal1;
     private List<AlienModel> aliens;
     private List<AlienAttackModel> AlienAttack;
     private List<ComsumableModel> waters;
     private static final int ALIEN_COUNT = 1;
-    private static final int WATERS_COUNT = 1;
+    private static final int WATERS_COUNT = 7;
 
     //private GameState State;
     private Vector2 gravity = new Vector2(0f, -9.8f);
@@ -107,13 +114,19 @@ public class GameModel implements Disposable {
             instance= new GameModel();
         return instance;
     }
-
+    public boolean isCommingBack(){ return back;}
+    public void setCommingBack(boolean t){
+        back=t;
+        hero.setCommingBack(t);
+    }
     private GameModel() {
-
+      rare1= new RareItemModel(485,50);
         aliens = new ArrayList<AlienModel>();
         AlienAttack = new ArrayList<AlienAttackModel>();
         waters = new ArrayList<ComsumableModel>();
         hero = new HeroModel(4, 12);
+       portal1= new PortalModel(585,28);
+
         plat1= new PlatformsModel(3, 10);
         plat2 = new PlatformsModel(17 , 14);
         plat3= new PlatformsModel(56, 25);
@@ -130,7 +143,7 @@ public class GameModel implements Disposable {
         plat14 = new PlatformsModel(450 , 30);
         plat15 = new PlatformsModel(467 , 20);
         plat16 = new PlatformsModel(487 , 27);
-        plat17 = new PlatformsModel(504 , 34);
+        plat17 = new PlatformsModel(508 , 33);
 
 
 
@@ -144,7 +157,7 @@ public class GameModel implements Disposable {
 
         platPicos1= new PlatfPicosModel(43, 21);
         platPicos2= new PlatfPicosModel(315 , 25);
-        platPicos3= new PlatfPicosModel(0 , 0);
+        platPicos3= new PlatfPicosModel(540 , 20);
         platPicos4= new PlatfPicosModel(0 , 0);
         platPicos5= new PlatfPicosModel(0 , 0);
         platPicos6= new PlatfPicosModel(0 , 0);
@@ -155,7 +168,7 @@ public class GameModel implements Disposable {
         platLenta3= new PlatfLentaModel(324 , 35 );
         platLenta4= new PlatfLentaModel(370 , 26 );
         platLenta5= new PlatfLentaModel(390 , 30 );
-        platLenta6= new PlatfLentaModel(515 , 30 );
+        platLenta6= new PlatfLentaModel(525 , 28 );
 
 
         platTijolo1= new PlatTilojosModel(28, 18);
@@ -163,19 +176,35 @@ public class GameModel implements Disposable {
         platTijolo3= new PlatTilojosModel(125, 30);
         platTijolo4= new PlatTilojosModel(280, 25);
         platTijolo5= new PlatTilojosModel(410, 18);
-        platTijolo6= new PlatTilojosModel(28, 18);
-        platTijolo7= new PlatTilojosModel(28, 18);
+        platTijolo6= new PlatTilojosModel(568, 18);
+        platTijolo7= new PlatTilojosModel(550, 34);
 
 
 
         for (int i = 0; i < ALIEN_COUNT; i++) {
             // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
-            aliens.add(new AlienModel(GameController.PANEL_HEIGHT / 2 - 100, GameController.PANEL_WIDTH / 2-45, 1, 0));
+            if(i==0)
+                aliens.add(new AlienModel(50, 50, 1, 0));
 
 
         }
         for (int i = 0; i < WATERS_COUNT; i++) {
-            waters.add(new ComsumableModel(GameController.PANEL_HEIGHT / 2, GameController.PANEL_WIDTH / 2));
+            if(i==0)
+              waters.add(new ComsumableModel(355, 30));
+            if(i==1)
+                waters.add(new ComsumableModel(410, 30));
+            if(i==2)
+                waters.add(new ComsumableModel(505, 40));
+            if(i==3)
+                waters.add(new ComsumableModel(155, 45));
+            if(i==4)
+                waters.add(new ComsumableModel(55, 40));
+            /*if(i==5)
+                waters.add(new ComsumableModel(55, 30));
+            if(i==5)
+                waters.add(new ComsumableModel(55, 30));
+            if(i==7)
+                waters.add(new ComsumableModel(55, 30));*/
 
         }
     }
@@ -188,7 +217,8 @@ public class GameModel implements Disposable {
     {
         return hero;
     }
-
+   public PortalModel getPortal1(){ return portal1;}
+public RareItemModel getRare1(){ return rare1;}
     public PlatfPicosModel getPlatPicos1(){ return platPicos1;}
     public PlatfPicosModel getPlatPicos2(){ return platPicos2;}
     public PlatfPicosModel getPlatPicos3(){ return platPicos3;}

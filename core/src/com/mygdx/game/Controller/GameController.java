@@ -19,6 +19,8 @@ import com.mygdx.game.Controller.Entities.PlatfFastBody;
 import com.mygdx.game.Controller.Entities.PlatfLentaBody;
 import com.mygdx.game.Controller.Entities.PlatfPicosBody;
 import com.mygdx.game.Controller.Entities.PlatformsBody;
+import com.mygdx.game.Controller.Entities.PortalBody;
+import com.mygdx.game.Controller.Entities.RareItemBody;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
 import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ComsumableModel;
@@ -47,6 +49,7 @@ public class GameController implements ContactListener {
     private final World world;
     private final HeroBody herobody;
     private boolean onTheGround=false;
+    private boolean back=false;
    // private final PlatformsBody plat1Body;
    // private final PlatformsBody plat2Body;
     private float accumulator = 0;
@@ -60,6 +63,8 @@ public class GameController implements ContactListener {
 
         herobody=new HeroBody(world,GameModel.getInstance().getHero());
 
+        new PortalBody(world,GameModel.getInstance().getPortal1());
+        new RareItemBody(world,GameModel.getInstance().getRare1());
         /*heroB= new HeroBody(world, GameModel.getInstance().getHero());
         plat1Body= new PlatformsBody(world,GameModel.getInstance().getPlat1());
         plat2Body= new PlatformsBody(world,GameModel.getInstance().getPlat2());*/
@@ -130,6 +135,7 @@ public class GameController implements ContactListener {
     public void update (float delta){
         GameModel.getInstance().update(delta);
         timeToNextShoot -=delta;
+
         float frameTime = Math.min(delta, 0.25f);
         accumulator +=frameTime;
         while(accumulator >= 1/60f){
@@ -220,5 +226,17 @@ public class GameController implements ContactListener {
 
     public boolean isPlayerOnTheGournd() {
         return onTheGround;
+    }
+    public boolean isCommingBack(){ return back;}
+    public void setCommingBack(boolean t){
+        back=t;
+      /*  Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
+        for(Body body: bodies){
+            if(body.getUserData() instanceof HeroBody){
+
+            }
+        }*/
+
     }
 }

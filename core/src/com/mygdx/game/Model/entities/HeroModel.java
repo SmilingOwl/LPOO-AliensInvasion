@@ -5,7 +5,9 @@ import java.util.List;
 public class HeroModel extends EntityModel{
     private int Life;
     private float Speed;
-    private Boolean isArmed;
+    private boolean back;
+    private boolean jumping;
+    private boolean isArmed;
     //private List<HeroWeaponsModel> Backpack;
     private int Vulnerability;
     public enum HeroState{
@@ -17,12 +19,23 @@ public class HeroModel extends EntityModel{
         super(x,y);
         this.Life=1;
         this.Speed=0;
+        this.back=false;
         this.isArmed= false;
+        this.jumping = false;
         // this.Backpack=null;
         //this.Itens=null;
         this.Vulnerability=0;
         this.heroState= HeroState.stop;
     }
+    public void setCommingBack( boolean b){
+        back=b;
+    }
+    public void setJumping( boolean b){
+        jumping=b;
+    }
+    public boolean getBack(){ return back;}
+
+    public boolean getJumping(){ return jumping;}
     @Override
     public ModelType getType() {
         return ModelType.Hero;
