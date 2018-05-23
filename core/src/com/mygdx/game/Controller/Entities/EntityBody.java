@@ -15,6 +15,9 @@ public class EntityBody {
     final static short CONSUMABLE_BODY=0x0005;
     final static short HERO_WEAPONS_BODY=0x0006;
     final static short PLATAFORMS_BODY=0x0007;
+    final static short RAREITEM_BODY=0x0008;
+    final static short PORTAL_BODY=0x0009;
+
 
     final Body body;
     EntityBody(World world, EntityModel model){

@@ -16,6 +16,6 @@ public class PlatTijolosBody extends EntityBody {
         int width=374, height=57;
 
         createFixture(body, new float[]{
-           7,11,6,33,17,40,358,40,367,33,366,10,       }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY));
-    }
+           7,11,6,33,17,40,358,40,367,33,366,10,       }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY| CONSUMABLE_BODY|RAREITEM_BODY));
+}
 }

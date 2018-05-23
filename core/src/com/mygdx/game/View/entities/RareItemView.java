@@ -65,7 +65,7 @@ public class RareItemView extends EntityView {
     @Override// nÃ£o estÃ¡ completo
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
-    System.out.println(stateTime);
+  //  System.out.println(stateTime);
        sprite.setScale(0.4f, 0.4f);
 
         sprite.setRegion(Animation.getKeyFrame(stateTime, true));

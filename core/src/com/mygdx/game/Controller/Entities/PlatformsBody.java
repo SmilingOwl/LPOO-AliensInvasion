@@ -13,7 +13,7 @@ public class PlatformsBody extends EntityBody {
 
         createFixture(body, new float[]{
                 120*0.25f,160*0.25f, 120*0.25f,270*0.25f, 1480*0.25f,160*0.25f, 1480*0.25f,270*0.25f,
-        }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY));
+        }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY| CONSUMABLE_BODY|RAREITEM_BODY));
     }
 }
 

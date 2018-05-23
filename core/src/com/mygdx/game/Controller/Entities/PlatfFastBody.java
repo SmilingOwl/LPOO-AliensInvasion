@@ -18,6 +18,6 @@ public class PlatfFastBody extends EntityBody {
 
         createFixture(body, new float[]{
               8,11,9,39,23,45,416,44,416,11,
-        }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY));
+        }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY| CONSUMABLE_BODY|RAREITEM_BODY));
     }
 }

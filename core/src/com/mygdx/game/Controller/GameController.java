@@ -31,6 +31,7 @@ import com.mygdx.game.Model.Entities.PlatfFastModel;
 import com.mygdx.game.Model.Entities.PlatfLentaModel;
 import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
+import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
 //import com.mygdx.game.Model.entities.AlienModel;
 //import com.mygdx.game.Model.entities.EntityModel;
@@ -57,6 +58,7 @@ public class GameController implements ContactListener {
     private List<ComsumableModel> watersToadd= new ArrayList<ComsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
     private float timeToNextShoot;
+
     private GameController(){
        timeToNextShoot=-1;
         world = new World(new Vector2(0,-9.8f),true);
@@ -64,11 +66,30 @@ public class GameController implements ContactListener {
         herobody=new HeroBody(world,GameModel.getInstance().getHero());
 
         new PortalBody(world,GameModel.getInstance().getPortal1());
-        new RareItemBody(world,GameModel.getInstance().getRare1());
+        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
+        for(RareItemModel rare: rareItems)
+            new RareItemBody(world,rare);
+       /* new RareItemBody(world,GameModel.getInstance().getRare1());
+        new RareItemBody(world,GameModel.getInstance().getRare2());
+        new RareItemBody(world,GameModel.getInstance().getRare3());*/
         /*heroB= new HeroBody(world, GameModel.getInstance().getHero());
         plat1Body= new PlatformsBody(world,GameModel.getInstance().getPlat1());
         plat2Body= new PlatformsBody(world,GameModel.getInstance().getPlat2());*/
 
+       /* new PlatformsBody(world,GameModel.getInstance().getPortal1());
+        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
+        for(RareItemModel rare: rareItems)
+            new RareItemBody(world,rare);
+
+        new PortalBody(world,GameModel.getInstance().getPortal1());
+        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
+        for(RareItemModel rare: rareItems)
+            new RareItemBody(world,rare);
+
+        new PortalBody(world,GameModel.getInstance().getPortal1());
+        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
+        for(RareItemModel rare: rareItems)
+            new RareItemBody(world,rare);*/
 
         new PlatformsBody(world,GameModel.getInstance().getPlat1());
         new PlatformsBody(world,GameModel.getInstance().getPlat2());
@@ -198,6 +219,28 @@ public class GameController implements ContactListener {
             onTheGround=true;
         }
 
+        if( bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof  ComsumableModel){
+           System.out.println("entrou!d1");
+            ((ComsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+
+        }
+        if( bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof  ComsumableModel){
+            System.out.println("entrou!d2");
+            ((ComsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+
+        }
+
+        if( bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof  RareItemModel){
+            System.out.println("entrou!d1");
+            ((RareItemModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+
+        }
+        if( bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof  RareItemModel){
+            System.out.println("entrou!d2");
+            ((RareItemModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+
+        }
+
 
 
     }
@@ -231,13 +274,5 @@ public class GameController implements ContactListener {
     public boolean isCommingBack(){ return back;}
     public void setCommingBack(boolean t){
         back=t;
-      /*  Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
-        for(Body body: bodies){
-            if(body.getUserData() instanceof HeroBody){
-
-            }
-        }*/
-
     }
 }

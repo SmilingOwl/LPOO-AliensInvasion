@@ -17,6 +17,6 @@ public class PlatfPicosBody extends EntityBody {
 
         createFixture(body, new float[]{
                29,35,24,56,24,83,365,84,364,53,347,36
-        }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY));
+        }, width, height, density, friction, restitution,  PLATAFORMS_BODY, (short) (ALIEN_BODY | HERO_BODY| CONSUMABLE_BODY|RAREITEM_BODY));
     }
 }

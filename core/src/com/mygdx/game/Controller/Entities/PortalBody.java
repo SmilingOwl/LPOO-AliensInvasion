@@ -16,6 +16,6 @@ public class PortalBody extends EntityBody {
         float density = 0.5f, friction = 0.4f, restitution = 0;
         // int width = 164, height = 170;
         int width = 300, height = 300;
-        createFixture(body, new float[]{ 50,50,50,300,300,300,300,0},width,height,density,friction,restitution,HERO_BODY,(short)( PLATAFORMS_BODY|HERO_WEAPONS_BODY|CONSUMABLE_BODY|HERO_BODY| ALIEN_BODY| ALIENATTACK_BODY));
+        createFixture(body, new float[]{ 50,50,50,300,300,300,300,0},width,height,density,friction,restitution,PORTAL_BODY,(short)( PLATAFORMS_BODY|HERO_BODY));
     }
 }
