@@ -49,6 +49,7 @@ public class GameController implements ContactListener {
     private final HeroBody herobody;
     private boolean onTheGround = false;
     private boolean back = false;
+    private boolean direction=false;
     private float accumulator = 0;
     private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
@@ -182,14 +183,14 @@ public class GameController implements ContactListener {
             onTheGround = true;
         }
 
-        if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ComsumableModel) {
+        if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ConsumableModel) {
             //System.out.println("entrou!d1");
-            ((ComsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+            ((ConsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
 
         }
-        if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof ComsumableModel) {
+        if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof ConsumableModel) {
             //System.out.println("entrou!d2");
-            ((ComsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+            ((ConsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
 
         }
 

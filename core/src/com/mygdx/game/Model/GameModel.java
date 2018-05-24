@@ -260,7 +260,7 @@ public class GameModel implements Disposable {
             // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
             if (i == 0)
                 aliens.add(new AlienModel(65, 50, 1, 0));
-
+        }
         for (int i = 0; i < WATERS_COUNT; i++) {
             if (i == 0)
                 waters.add(new ConsumableModel(355, 30));
@@ -276,21 +276,6 @@ public class GameModel implements Disposable {
         }
     }
 
-    public PlatfFastModel getPlatFast1() {
-        return platFast1;
-    }
-
-    public PlatfFastModel getPlatFast2() {
-        return platFast2;
-    }
-
-    public PlatfFastModel getPlatFast3() {
-        return platFast3;
-    }
-
-    public PlatfFastModel getPlatFast4() {
-        return platFast4;
-    }
 
     public HeroModel getHero() {
         return hero;
@@ -299,168 +284,6 @@ public class GameModel implements Disposable {
     public PortalModel getPortal1() {
         return portal1;
     }
-
-    public RareItemModel getRare1() {
-        return rare1;
-    }
-
-    public RareItemModel getRare2() {
-        return rare2;
-    }
-
-    public RareItemModel getRare3() {
-        return rare3;
-    }
-
-    public PlatfPicosModel getPlatPicos1() {
-        return platPicos1;
-    }
-
-    public PlatfPicosModel getPlatPicos2() {
-        return platPicos2;
-    }
-
-    public PlatfPicosModel getPlatPicos3() {
-        return platPicos3;
-    }
-
-    public PlatfPicosModel getPlatPicos4() {
-        return platPicos4;
-    }
-
-    public PlatfPicosModel getPlatPicos5() {
-        return platPicos5;
-    }
-
-    public PlatfPicosModel getPlatPicos6() {
-        return platPicos6;
-    }
-
-    public PlatfPicosModel getPlatPicos7() {
-        return platPicos7;
-    }
-
-    public PlatformsModel getPlat1() {
-        return plat1;
-    }
-
-    public PlatformsModel getPlat2() {
-        return plat2;
-    }
-
-    public PlatformsModel getPlat3() {
-        return plat3;
-    }
-
-    public PlatformsModel getPlat4() {
-        return plat4;
-    }
-
-    public PlatformsModel getPlat5() {
-        return plat5;
-    }
-
-    public PlatformsModel getPlat6() {
-        return plat6;
-    }
-
-    public PlatformsModel getPlat7() {
-        return plat7;
-    }
-
-    public PlatformsModel getPlat8() {
-        return plat8;
-    }
-
-    public PlatformsModel getPlat9() {
-        return plat9;
-    }
-
-    public PlatformsModel getPlat10() {
-        return plat10;
-    }
-
-    public PlatformsModel getPlat11() {
-        return plat11;
-    }
-
-    public PlatformsModel getPlat12() {
-        return plat12;
-    }
-
-    public PlatformsModel getPlat13() {
-        return plat13;
-    }
-
-    public PlatformsModel getPlat14() {
-        return plat14;
-    }
-
-    public PlatformsModel getPlat15() {
-        return plat15;
-    }
-
-    public PlatformsModel getPlat16() {
-        return plat16;
-    }
-
-    public PlatformsModel getPlat17() {
-        return plat17;
-    }
-
-
-    public PlatTilojosModel getPlatTijolo1() {
-        return platTijolo1;
-    }
-
-    public PlatTilojosModel getPlatTijolo2() {
-        return platTijolo2;
-    }
-
-    public PlatTilojosModel getPlatTijolo3() {
-        return platTijolo3;
-    }
-
-    public PlatTilojosModel getPlatTijolo4() {
-        return platTijolo4;
-    }
-
-    public PlatTilojosModel getPlatTijolo5() {
-        return platTijolo5;
-    }
-
-    public PlatTilojosModel getPlatTijolo6() {
-        return platTijolo6;
-    }
-
-    public PlatTilojosModel getPlatTijolo7() {
-        return platTijolo7;
-    }
-
-    public PlatfLentaModel getPlatLenta1() {
-        return platLenta1;
-    }
-
-    public PlatfLentaModel getPlatLenta2() {
-        return platLenta2;
-    }
-
-    public PlatfLentaModel getPlatLenta3() {
-        return platLenta3;
-    }
-
-    public PlatfLentaModel getPlatLenta4() {
-        return platLenta4;
-    }
-
-    public PlatfLentaModel getPlatLenta5() {
-        return platLenta5;
-    }
-
-    public PlatfLentaModel getPlatLenta6() {
-        return platLenta6;
-    }
-
 
     public List<AlienModel> getAliens() {
         return aliens;
