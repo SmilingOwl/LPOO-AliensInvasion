@@ -23,6 +23,7 @@ public class ViewFactory {
     private static Map<EntityModel.ModelType, EntityView> cache= new HashMap<EntityModel.ModelType,EntityView>();
     public static EntityView makeView (AliensGame game, EntityModel model){
         if(!cache.containsKey(model.getType())){
+
            if(model.getType()== Alien)
                 cache.put(model.getType(), new AlienView(game));
             if(model.getType()== AlienAttack)
@@ -45,8 +46,6 @@ public class ViewFactory {
                 cache.put(model.getType(), new PortalView(game));
             if(model.getType()== rareItem)
                 cache.put(model.getType(), new RareItemView(game));
-
-
         }
         return cache.get(model.getType());
     }
