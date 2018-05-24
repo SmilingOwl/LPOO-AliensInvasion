@@ -103,7 +103,7 @@ public class GameModel implements Disposable {
     private List<PlatTilojosModel> tijoloPlatf;
 
     private static final int RAREITEMS_COUNT = 3;
-    private static final int ALIEN_COUNT = 1;
+    private static final int ALIEN_COUNT = 6;
     private static final int WATERS_COUNT = 7;
     private static final int picosPlatf_COUNT = 7;
     private static final int tijoloPlatf_COUNT = 7;
@@ -256,10 +256,24 @@ public class GameModel implements Disposable {
         tijoloPlatf.add(platTijolo7);
 
 
-        for (int i = 0; i < ALIEN_COUNT; i++) {
+        for (int i = 0; i <= ALIEN_COUNT; i++) {
             // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
             if (i == 0)
                 aliens.add(new AlienModel(65, 50, 1, 0));
+            if (i == 1)
+                aliens.add(new AlienModel(105, 50, 1, 0));
+            if (i == 2)
+                aliens.add(new AlienModel(205, 50, 1, 0));
+            if (i == 3)
+                aliens.add(new AlienModel(345, 50, 1, 0));
+            if (i == 4)
+                aliens.add(new AlienModel(435, 50, 1, 0));
+            if (i == 5)
+                aliens.add(new AlienModel(525, 50, 1, 0));
+            if (i == 6)
+                aliens.add(new AlienModel(570, 50, 1, 0));
+
+
         }
         for (int i = 0; i < WATERS_COUNT; i++) {
             if (i == 0)

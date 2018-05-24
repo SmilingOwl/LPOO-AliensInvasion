@@ -98,7 +98,7 @@ public class GameView extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
 
         camera.position.set(camera.viewportWidth + 10000, camera.viewportHeight, 0);
-       // camera.zoom = camera.zoom + 5f;
+        camera.zoom = camera.zoom + 5f;
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -162,9 +162,9 @@ public class GameView extends ScreenAdapter {
         //camera.position.set(GameModel.getInstance().getRare1().getX()/ PIXEL_TO_METER, GameModel.getInstance().getRare1().getY()/ PIXEL_TO_METER, 0);
        //camera.position.set(GameModel.getInstance().getAliens().get(0).getX()/ PIXEL_TO_METER, GameModel.getInstance().getAliens().get(0).getY()/ PIXEL_TO_METER, 0);
 
-        if (y < (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2)
+        /*if (y < (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2)
             y = (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2;
-        camera.position.set(x, y, 0);
+        camera.position.set(x, y, 0);*/
 
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);

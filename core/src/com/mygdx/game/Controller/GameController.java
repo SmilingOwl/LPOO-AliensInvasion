@@ -49,7 +49,7 @@ public class GameController implements ContactListener {
     private final HeroBody herobody;
     private boolean onTheGround = false;
     private boolean back = false;
-    private boolean direction=false;
+    //private boolean direction=false;
     private float accumulator = 0;
     private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
@@ -239,11 +239,11 @@ public class GameController implements ContactListener {
                 if (((AlienModel) body.getUserData()).getInPlatform()) {
                     if ((((AlienModel) body.getUserData()).getX()  < (((AlienModel) body.getUserData()).getxPlatform()) + 6 )) {
                         if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getxPlatform())-6)
-                            direction = false;
+                            ((AlienModel) body.getUserData()).setDirection(false);
                         if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getxPlatform()+6))
-                            direction = true;
+                            ((AlienModel) body.getUserData()).setDirection(true);
 
-                        if (direction)
+                        if (((AlienModel) body.getUserData()).getDirection()== true)
                             body.setTransform(((AlienModel) body.getUserData()).getX() - 0.1f, ((AlienModel) body.getUserData()).getY(), 0);
                        else
                             body.setTransform(((AlienModel) body.getUserData()).getX() + 0.1f, ((AlienModel) body.getUserData()).getY(), 0);

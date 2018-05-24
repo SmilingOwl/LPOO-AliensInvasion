@@ -7,6 +7,7 @@ public class AlienModel extends EntityModel {
 
     private int Life;
     private float Speed;
+    private boolean direction;
 
     /**
      *
@@ -22,11 +23,15 @@ public class AlienModel extends EntityModel {
         this.Life=life;
         this.Speed=Speed;
         this.inPlataform=false;
+        this.direction=false;
         this.xPlatform=0;
     }
     public void setInPlataform(boolean b){
         this.inPlataform=b;}
     public boolean getInPlatform(){ return inPlataform;}
+    public void setDirection(boolean b){
+        this.direction=b;}
+    public boolean getDirection(){ return direction;}
     public void setxPlatform(float x){ this.xPlatform=x;}
     public float getxPlatform(){ return xPlatform;}
     @Override
