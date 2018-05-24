@@ -181,17 +181,18 @@ public class GameView extends ScreenAdapter {
     public void render(float delta) {
         GameController.getInstance().removeFlagged();
         //GameController.getInstance().createNewAsteroids();
-
+        GameController.getInstance().AlienMovement();
         handleInputs(delta);
 
         GameController.getInstance().update(delta);
         float x = GameModel.getInstance().getHero().getX() / PIXEL_TO_METER;
         float y = GameModel.getInstance().getHero().getY() / PIXEL_TO_METER;
         //camera.position.set(GameModel.getInstance().getRare1().getX()/ PIXEL_TO_METER, GameModel.getInstance().getRare1().getY()/ PIXEL_TO_METER, 0);
-        //camera.position.set(GameModel.getInstance().getWaters().get(0).getX()/ PIXEL_TO_METER, GameModel.getInstance().getWaters().get(0).getY()/ PIXEL_TO_METER, 0);
+       //camera.position.set(GameModel.getInstance().getAliens().get(0).getX()/ PIXEL_TO_METER, GameModel.getInstance().getAliens().get(0).getY()/ PIXEL_TO_METER, 0);
+        /*
         if (y < (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2)
             y = (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2;
-        camera.position.set(x, y, 0);
+        camera.position.set(x, y, 0);*/
 
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);

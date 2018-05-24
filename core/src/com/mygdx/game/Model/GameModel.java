@@ -208,7 +208,7 @@ public class GameModel implements Disposable {
         for (int i = 0; i < ALIEN_COUNT; i++) {
             // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
             if (i == 0)
-                aliens.add(new AlienModel(50, 50, 1, 0));
+                aliens.add(new AlienModel(65, 50, 1, 0));
 
 
         }
