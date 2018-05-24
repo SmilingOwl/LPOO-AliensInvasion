@@ -6,41 +6,16 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import java.util.List;
 
-/*import com.aor.arena.AsteroidArena;
-import com.aor.arena.controller.GameController;
-import com.aor.arena.model.entities.AsteroidModel;
-import com.aor.arena.model.GameModel;
-import com.aor.arena.model.entities.BulletModel;
-import com.aor.arena.model.entities.ShipModel;
-import com.aor.arena.view.entities.BigAsteroidView;
-import com.aor.arena.view.entities.BulletView;
-import com.aor.arena.view.entities.EntityView;
-import com.aor.arena.view.entities.MediumAsteroidView;
-import com.aor.arena.view.entities.ShipView;
-import com.aor.arena.view.entities.ViewFactory;*/
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
 import com.mygdx.game.Model.Entities.AlienModel;
-import com.mygdx.game.Model.Entities.ComsumableModel;
+import com.mygdx.game.Model.Entities.ConsumableModel;
 import com.mygdx.game.Model.Entities.HeroModel;
 import com.mygdx.game.Model.Entities.PlatTilojosModel;
 import com.mygdx.game.Model.Entities.PlatfFastModel;
@@ -51,19 +26,15 @@ import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
 import com.mygdx.game.View.Entities.EntityView;
-import com.mygdx.game.View.Entities.HeroView;
 import com.mygdx.game.View.Entities.ViewFactory;
 
-import java.util.List;
-
-//import static com.aor.arena.controller.GameController.ARENA_HEIGHT;
-//import static com.aor.arena.controller.GameController.ARENA_WIDTH;
 
 /**
  * A view representing the game screen. Draws all the other views and
  * controls the camera.
  */
 public class GameView extends ScreenAdapter {
+
     public static final int PANEL_WIDTH = 660;
     public static final int PANEL_HEIGHT = 55;
     /**
@@ -127,7 +98,7 @@ public class GameView extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
 
         camera.position.set(camera.viewportWidth + 10000, camera.viewportHeight, 0);
-        camera.zoom = camera.zoom + 5f;
+       // camera.zoom = camera.zoom + 5f;
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -169,6 +140,7 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("platTerra-1.png", Texture.class);
         this.game.getAssetManager().load("Portal.png", Texture.class);
         this.game.getAssetManager().load("RareItem.png", Texture.class);
+
         this.game.getAssetManager().finishLoading();
     }
 
@@ -215,10 +187,10 @@ public class GameView extends ScreenAdapter {
     }
 
     /* /**
-      * Handles any inputs and passes them to the controller.
-      *
-      * @param delta time since last time inputs where handled in seconds
-      */
+     * Handles any inputs and passes them to the controller.
+     *
+     * @param delta time since last time inputs where handled in seconds
+     */
     private void handleInputs(float delta) {
         /*if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             GameController.getInstance().rotateLeft(delta);
@@ -280,18 +252,21 @@ public class GameView extends ScreenAdapter {
      * Draws the entities to the screen.
      */
     private void drawEntities() {
+
         List<AlienModel> aliens = GameModel.getInstance().getAliens();
         for (AlienModel alien : aliens) {
             EntityView view = ViewFactory.makeView(game, alien);
             view.update(alien);
             view.draw(game.getBatch());
         }
-        List<ComsumableModel> waters = GameModel.getInstance().getWaters();
-        for (ComsumableModel water : waters) {
+
+        List<ConsumableModel> waters = GameModel.getInstance().getWaters();
+        for (ConsumableModel water : waters) {
             EntityView view = ViewFactory.makeView(game, water);
             view.update(water);
             view.draw(game.getBatch());
         }
+
         List<RareItemModel> rareItems = GameModel.getInstance().getRareItems();
         for (RareItemModel rare : rareItems) {
             EntityView view = ViewFactory.makeView(game, rare);
@@ -299,11 +274,50 @@ public class GameView extends ScreenAdapter {
             view.draw(game.getBatch());
         }
 
-
         List<AlienAttackModel> bullets = GameModel.getInstance().getAlienAttack();
         for (AlienAttackModel bullet : bullets) {
             EntityView view = ViewFactory.makeView(game, bullet);
             view.update(bullet);
+            view.draw(game.getBatch());
+        }
+
+        List<PlatformsModel> normalPlatf=GameModel.getInstance().getNormalPlatf();
+        for(PlatformsModel normal:normalPlatf)
+        {
+            EntityView view = ViewFactory.makeView(game, normal);
+            view.update(normal);
+            view.draw(game.getBatch());
+        }
+
+        List<PlatfFastModel> fastPlatf=GameModel.getInstance().getFastPlatf();
+        for(PlatfFastModel fast:fastPlatf)
+        {
+            EntityView view = ViewFactory.makeView(game, fast);
+            view.update(fast);
+            view.draw(game.getBatch());
+        }
+
+        List<PlatfLentaModel> lentaPlatf=GameModel.getInstance().getLentaPlatf();
+        for(PlatfLentaModel lenta:lentaPlatf)
+        {
+            EntityView view = ViewFactory.makeView(game, lenta);
+            view.update(lenta);
+            view.draw(game.getBatch());
+        }
+
+        List<PlatfPicosModel> picosPlatf=GameModel.getInstance().getPicosPlatf();
+        for(PlatfPicosModel picos:picosPlatf)
+        {
+            EntityView view = ViewFactory.makeView(game, picos);
+            view.update(picos);
+            view.draw(game.getBatch());
+        }
+
+        List<PlatTilojosModel> tijolosPlatf=GameModel.getInstance().getTijoloPlatf();
+        for(PlatTilojosModel tijolos:tijolosPlatf)
+        {
+            EntityView view = ViewFactory.makeView(game, tijolos);
+            view.update(tijolos);
             view.draw(game.getBatch());
         }
 
@@ -316,220 +330,6 @@ public class GameView extends ScreenAdapter {
         EntityView viewPortal1 = ViewFactory.makeView(game, portal1);
         viewPortal1.update(portal1);
         viewPortal1.draw(game.getBatch());
-
-
-/* Plataformas normais*/
-        PlatformsModel plat1 = GameModel.getInstance().getPlat1();
-        EntityView view1 = ViewFactory.makeView(game, plat1);
-        view1.update(plat1);
-        view1.draw(game.getBatch());
-
-        PlatformsModel plat2 = GameModel.getInstance().getPlat2();
-        EntityView view2 = ViewFactory.makeView(game, plat2);
-        view2.update(plat2);
-        view2.draw(game.getBatch());
-
-        PlatformsModel plat3 = GameModel.getInstance().getPlat3();
-        EntityView view3 = ViewFactory.makeView(game, plat3);
-        view3.update(plat3);
-        view3.draw(game.getBatch());
-
-        PlatformsModel plat4 = GameModel.getInstance().getPlat4();
-        EntityView view4 = ViewFactory.makeView(game, plat4);
-        view4.update(plat4);
-        view4.draw(game.getBatch());
-
-        PlatformsModel plat5 = GameModel.getInstance().getPlat5();
-        EntityView view5 = ViewFactory.makeView(game, plat5);
-        view5.update(plat5);
-        view5.draw(game.getBatch());
-
-        PlatformsModel plat6 = GameModel.getInstance().getPlat6();
-        EntityView view6 = ViewFactory.makeView(game, plat4);
-        view6.update(plat6);
-        view6.draw(game.getBatch());
-
-        PlatformsModel plat7 = GameModel.getInstance().getPlat7();
-        EntityView view7 = ViewFactory.makeView(game, plat7);
-        view7.update(plat7);
-        view7.draw(game.getBatch());
-
-        PlatformsModel plat8 = GameModel.getInstance().getPlat8();
-        EntityView view8 = ViewFactory.makeView(game, plat8);
-        view8.update(plat8);
-        view8.draw(game.getBatch());
-
-        PlatformsModel plat9 = GameModel.getInstance().getPlat9();
-        EntityView view9 = ViewFactory.makeView(game, plat9);
-        view9.update(plat9);
-        view9.draw(game.getBatch());
-
-        PlatformsModel plat10 = GameModel.getInstance().getPlat10();
-        EntityView view10 = ViewFactory.makeView(game, plat10);
-        view10.update(plat10);
-        view10.draw(game.getBatch());
-
-
-        PlatformsModel plat11 = GameModel.getInstance().getPlat11();
-        EntityView view11 = ViewFactory.makeView(game, plat11);
-        view11.update(plat11);
-        view11.draw(game.getBatch());
-
-        PlatformsModel plat12 = GameModel.getInstance().getPlat12();
-        EntityView view12 = ViewFactory.makeView(game, plat12);
-        view12.update(plat12);
-        view12.draw(game.getBatch());
-
-
-        PlatformsModel plat13 = GameModel.getInstance().getPlat13();
-        EntityView view13 = ViewFactory.makeView(game, plat13);
-        view13.update(plat13);
-        view13.draw(game.getBatch());
-
-        PlatformsModel plat14 = GameModel.getInstance().getPlat14();
-        EntityView view14 = ViewFactory.makeView(game, plat14);
-        view14.update(plat14);
-        view14.draw(game.getBatch());
-
-        PlatformsModel plat15 = GameModel.getInstance().getPlat15();
-        EntityView view15 = ViewFactory.makeView(game, plat15);
-        view15.update(plat15);
-        view15.draw(game.getBatch());
-
-        PlatformsModel plat16 = GameModel.getInstance().getPlat16();
-        EntityView view16 = ViewFactory.makeView(game, plat16);
-        view16.update(plat16);
-        view16.draw(game.getBatch());
-
-        PlatformsModel plat17 = GameModel.getInstance().getPlat17();
-        EntityView view17 = ViewFactory.makeView(game, plat17);
-        view17.update(plat17);
-        view17.draw(game.getBatch());
-
-
-
-
-
-
-        /* Plataformas Lentas*/
-        PlatfLentaModel platLenta1 = GameModel.getInstance().getPlatLenta1();
-        EntityView viewL1 = ViewFactory.makeView(game, platLenta1);
-        viewL1.update(platLenta1);
-        viewL1.draw(game.getBatch());
-
-        PlatfLentaModel platLenta2 = GameModel.getInstance().getPlatLenta2();
-        EntityView viewL2 = ViewFactory.makeView(game, platLenta2);
-        viewL2.update(platLenta2);
-        viewL2.draw(game.getBatch());
-
-
-        PlatfLentaModel platLenta3 = GameModel.getInstance().getPlatLenta3();
-        EntityView viewL3 = ViewFactory.makeView(game, platLenta3);
-        viewL3.update(platLenta3);
-        viewL3.draw(game.getBatch());
-
-        PlatfLentaModel platLenta4 = GameModel.getInstance().getPlatLenta4();
-        EntityView viewL4 = ViewFactory.makeView(game, platLenta4);
-        viewL4.update(platLenta4);
-        viewL4.draw(game.getBatch());
-
-        PlatfLentaModel platLenta5 = GameModel.getInstance().getPlatLenta5();
-        EntityView viewL5 = ViewFactory.makeView(game, platLenta5);
-        viewL5.update(platLenta5);
-        viewL5.draw(game.getBatch());
-
-        PlatfLentaModel platLenta6 = GameModel.getInstance().getPlatLenta6();
-        EntityView viewL6 = ViewFactory.makeView(game, platLenta6);
-        viewL6.update(platLenta6);
-        viewL6.draw(game.getBatch());
-
-
-
-        /* Plataformas Tijolos Rapido 1*/
-
-        PlatTilojosModel platTijolo1 = GameModel.getInstance().getPlatTijolo1();
-        EntityView viewT1 = ViewFactory.makeView(game, platTijolo1);
-        viewT1.update(platTijolo1);
-        viewT1.draw(game.getBatch());
-
-        PlatTilojosModel platTijolo2 = GameModel.getInstance().getPlatTijolo2();
-        EntityView viewT2 = ViewFactory.makeView(game, platTijolo2);
-        viewT2.update(platTijolo2);
-        viewT2.draw(game.getBatch());
-
-        PlatTilojosModel platTijolo3 = GameModel.getInstance().getPlatTijolo3();
-        EntityView viewT3 = ViewFactory.makeView(game, platTijolo3);
-        viewT3.update(platTijolo3);
-        viewT3.draw(game.getBatch());
-
-        PlatTilojosModel platTijolo4 = GameModel.getInstance().getPlatTijolo4();
-        EntityView viewT4 = ViewFactory.makeView(game, platTijolo4);
-        viewT4.update(platTijolo4);
-        viewT4.draw(game.getBatch());
-
-        PlatTilojosModel platTijolo5 = GameModel.getInstance().getPlatTijolo5();
-        EntityView viewT5 = ViewFactory.makeView(game, platTijolo5);
-        viewT5.update(platTijolo5);
-        viewT5.draw(game.getBatch());
-        PlatTilojosModel platTijolo6 = GameModel.getInstance().getPlatTijolo6();
-        EntityView viewT6 = ViewFactory.makeView(game, platTijolo6);
-        viewT6.update(platTijolo6);
-        viewT6.draw(game.getBatch());
-        PlatTilojosModel platTijolo7 = GameModel.getInstance().getPlatTijolo7();
-        EntityView viewT7 = ViewFactory.makeView(game, platTijolo7);
-        viewT7.update(platTijolo7);
-        viewT7.draw(game.getBatch());
-
-
-
-/* Plataformas Super rapidas 2*/
-
-        PlatfFastModel platFast1 = GameModel.getInstance().getPlatFast1();
-        EntityView viewf1 = ViewFactory.makeView(game, platFast1);
-        viewf1.update(platFast1);
-        viewf1.draw(game.getBatch());
-
-        PlatfFastModel platFast2 = GameModel.getInstance().getPlatFast2();
-        EntityView viewf2 = ViewFactory.makeView(game, platFast2);
-        viewf2.update(platFast2);
-        viewf2.draw(game.getBatch());
-
-        PlatfFastModel platFast3 = GameModel.getInstance().getPlatFast3();
-        EntityView viewf3 = ViewFactory.makeView(game, platFast3);
-        viewf3.update(platFast3);
-        viewf3.draw(game.getBatch());
-
-
-        PlatfFastModel platFast4 = GameModel.getInstance().getPlatFast4();
-        EntityView viewf4 = ViewFactory.makeView(game, platFast4);
-        viewf4.update(platFast4);
-        viewf4.draw(game.getBatch());
-
-/* Plataformas Picos*/
-
-        PlatfPicosModel platPicos1 = GameModel.getInstance().getPlatPicos1();
-        EntityView viewP1 = ViewFactory.makeView(game, platPicos1);
-        viewP1.update(platPicos1);
-        viewP1.draw(game.getBatch());
-        PlatfPicosModel platPicos2 = GameModel.getInstance().getPlatPicos2();
-        EntityView viewP2 = ViewFactory.makeView(game, platPicos2);
-        viewP2.update(platPicos2);
-        viewP2.draw(game.getBatch());
-
-        PlatfPicosModel platPicos3 = GameModel.getInstance().getPlatPicos3();
-        EntityView viewP3 = ViewFactory.makeView(game, platPicos3);
-        viewP3.update(platPicos3);
-        viewP3.draw(game.getBatch());
-
-
-
-        /*List<PlatformsModel> plats = GameModel.getInstance().getPlatNivel1();
-        for (PlatformsModel plat : plats) {
-            EntityView view3 = ViewFactory.makeView(game, plat);
-            view3.update(plat);
-            view3.draw(game.getBatch());
-        }*/
-
 
     }
 

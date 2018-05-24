@@ -7,12 +7,10 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-//import com.mygdx.game.Controller.Entities.AlienBody;
 import com.badlogic.gdx.physics.box2d.Body;
-//import com.mygdx.game.Controller.Entities.HeroBody;
 import com.mygdx.game.Controller.Entities.AlienAttackBody;
 import com.mygdx.game.Controller.Entities.AlienBody;
-import com.mygdx.game.Controller.Entities.ComsumableBody;
+import com.mygdx.game.Controller.Entities.ConsumableBody;
 import com.mygdx.game.Controller.Entities.HeroBody;
 import com.mygdx.game.Controller.Entities.PlatTijolosBody;
 import com.mygdx.game.Controller.Entities.PlatfFastBody;
@@ -23,7 +21,7 @@ import com.mygdx.game.Controller.Entities.PortalBody;
 import com.mygdx.game.Controller.Entities.RareItemBody;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
 import com.mygdx.game.Model.Entities.AlienModel;
-import com.mygdx.game.Model.Entities.ComsumableModel;
+import com.mygdx.game.Model.Entities.ConsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
 import com.mygdx.game.Model.Entities.PlatTilojosModel;
@@ -33,13 +31,13 @@ import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
-//import com.mygdx.game.Model.entities.AlienModel;
-//import com.mygdx.game.Model.entities.EntityModel;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameController implements ContactListener {
+
     private static GameController instance;
     public static final int PANEL_WIDTH = 440;
     public static final int PANEL_HEIGHT = 70;
@@ -50,13 +48,9 @@ public class GameController implements ContactListener {
     private final World world;
     private final HeroBody herobody;
     private boolean onTheGround = false;
-    private boolean direction=false;
     private boolean back = false;
-    // private final PlatformsBody plat1Body;
-    // private final PlatformsBody plat2Body;
     private float accumulator = 0;
-    //  private List<PlatformsModel> PlatNivel1= new ArrayList<PlatformsModel>();
-    private List<ComsumableModel> watersToadd = new ArrayList<ComsumableModel>();
+    private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
     private float timeToNextShoot;
 
@@ -67,86 +61,41 @@ public class GameController implements ContactListener {
         herobody = new HeroBody(world, GameModel.getInstance().getHero());
 
         new PortalBody(world, GameModel.getInstance().getPortal1());
+
         List<RareItemModel> rareItems = GameModel.getInstance().getRareItems();
         for (RareItemModel rare : rareItems)
             new RareItemBody(world, rare);
-       /* new RareItemBody(world,GameModel.getInstance().getRare1());
-        new RareItemBody(world,GameModel.getInstance().getRare2());
-        new RareItemBody(world,GameModel.getInstance().getRare3());*/
-        /*heroB= new HeroBody(world, GameModel.getInstance().getHero());
-        plat1Body= new PlatformsBody(world,GameModel.getInstance().getPlat1());
-        plat2Body= new PlatformsBody(world,GameModel.getInstance().getPlat2());*/
 
-       /* new PlatformsBody(world,GameModel.getInstance().getPortal1());
-        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
-        for(RareItemModel rare: rareItems)
-            new RareItemBody(world,rare);
 
-        new PortalBody(world,GameModel.getInstance().getPortal1());
-        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
-        for(RareItemModel rare: rareItems)
-            new RareItemBody(world,rare);
+        List<PlatformsModel> normalPlatf=GameModel.getInstance().getNormalPlatf();
+        for (PlatformsModel normal:normalPlatf)
+            new PlatformsBody(world,normal);
 
-        new PortalBody(world,GameModel.getInstance().getPortal1());
-        List<RareItemModel> rareItems= GameModel.getInstance().getRareItems();
-        for(RareItemModel rare: rareItems)
-            new RareItemBody(world,rare);*/
+        List<PlatfFastModel> fastPlatf =GameModel.getInstance().getFastPlatf();
+        for (PlatfFastModel fast:fastPlatf)
+            new PlatfFastBody(world,fast);
 
-        new PlatformsBody(world, GameModel.getInstance().getPlat1());
-        new PlatformsBody(world, GameModel.getInstance().getPlat2());
-        new PlatformsBody(world, GameModel.getInstance().getPlat3());
-        new PlatformsBody(world, GameModel.getInstance().getPlat4());
-        new PlatformsBody(world, GameModel.getInstance().getPlat5());
-        new PlatformsBody(world, GameModel.getInstance().getPlat6());
-        new PlatformsBody(world, GameModel.getInstance().getPlat7());
-        new PlatformsBody(world, GameModel.getInstance().getPlat8());
-        new PlatformsBody(world, GameModel.getInstance().getPlat9());
-        new PlatformsBody(world, GameModel.getInstance().getPlat10());
-        new PlatformsBody(world, GameModel.getInstance().getPlat11());
-        new PlatformsBody(world, GameModel.getInstance().getPlat12());
-        new PlatformsBody(world, GameModel.getInstance().getPlat13());
-        new PlatformsBody(world, GameModel.getInstance().getPlat14());
-        new PlatformsBody(world, GameModel.getInstance().getPlat15());
-        new PlatformsBody(world, GameModel.getInstance().getPlat16());
-        new PlatformsBody(world, GameModel.getInstance().getPlat17());
+        List<PlatfLentaModel> lentaPlatf=GameModel.getInstance().getLentaPlatf();
+        for (PlatfLentaModel lenta:lentaPlatf)
+            new PlatfLentaBody(world,lenta);
 
-        new PlatfFastBody(world, GameModel.getInstance().getPlatFast1());
-        new PlatfFastBody(world, GameModel.getInstance().getPlatFast2());
-        new PlatfFastBody(world, GameModel.getInstance().getPlatFast3());
-        new PlatfFastBody(world, GameModel.getInstance().getPlatFast4());
+        List<PlatfPicosModel> picosPlatf=GameModel.getInstance().getPicosPlatf();
+        for (PlatfPicosModel picos:picosPlatf)
+            new PlatfPicosBody(world,picos);
 
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos1());
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos2());
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos3());
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos4());
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos5());
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos6());
-        new PlatfPicosBody(world, GameModel.getInstance().getPlatPicos7());
+        List<PlatTilojosModel> tijolosPlatf =GameModel.getInstance().getTijoloPlatf();
+        for (PlatTilojosModel tijolos:tijolosPlatf)
+            new PlatTijolosBody(world,tijolos);
 
-        new PlatfLentaBody(world, GameModel.getInstance().getPlatLenta1());
-        new PlatfLentaBody(world, GameModel.getInstance().getPlatLenta2());
-        new PlatfLentaBody(world, GameModel.getInstance().getPlatLenta3());
-        new PlatfLentaBody(world, GameModel.getInstance().getPlatLenta4());
-        new PlatfLentaBody(world, GameModel.getInstance().getPlatLenta5());
-        new PlatfLentaBody(world, GameModel.getInstance().getPlatLenta6());
-
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo1());
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo2());
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo3());
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo4());
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo5());
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo6());
-        new PlatTijolosBody(world, GameModel.getInstance().getPlatTijolo7());
 
         List<AlienModel> aliens = GameModel.getInstance().getAliens();
         for (AlienModel alien : aliens)
             new AlienBody(world, alien);
-        List<ComsumableModel> waters = GameModel.getInstance().getWaters();
-        for (ComsumableModel water : waters)
-            new ComsumableBody(world, water);
-      /* List<PlatformsModel> plats= GameModel.getInstance().getPlatNivel1();
-        for(PlatformsModel plat: plats)
-            new PlatformsBody(world,plat);*/
+
+        List<ConsumableModel> waters = GameModel.getInstance().getWaters();
+        for (ConsumableModel water : waters)
+            new ConsumableBody(world, water);
+
         world.setContactListener(this);
     }
 

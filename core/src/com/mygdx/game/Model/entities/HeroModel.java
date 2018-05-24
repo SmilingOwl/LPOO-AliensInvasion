@@ -1,8 +1,10 @@
 package com.mygdx.game.Model.Entities;
 
-import java.util.List;
-
+/**
+ * A model representing a hero
+ */
 public class HeroModel extends EntityModel{
+
     private int Life;
     private float Speed;
     private boolean back;
@@ -10,6 +12,7 @@ public class HeroModel extends EntityModel{
     private boolean isArmed;
     //private List<HeroWeaponsModel> Backpack;
     private int Vulnerability;
+
     public enum HeroState{
         running, falling , jumping, stop
     }
@@ -36,6 +39,7 @@ public class HeroModel extends EntityModel{
     public boolean getBack(){ return back;}
 
     public boolean getJumping(){ return jumping;}
+
     @Override
     public ModelType getType() {
         return ModelType.Hero;

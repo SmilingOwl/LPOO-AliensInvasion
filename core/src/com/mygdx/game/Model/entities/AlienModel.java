@@ -1,9 +1,20 @@
 package com.mygdx.game.Model.Entities;
 
+/**
+ * A model representing an alien
+ */
 public class AlienModel extends EntityModel {
 
     private int Life;
     private float Speed;
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param life
+     * @param Speed
+     */
     private boolean inPlataform;
     private  float xPlatform;
     public AlienModel( float x, float y, int life, float Speed){

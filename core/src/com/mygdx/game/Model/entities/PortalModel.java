@@ -1,9 +1,8 @@
 package com.mygdx.game.Model.Entities;
 
 /**
- * Created by catam on 22/05/2018.
+ * A model representing a victory portal
  */
-
 public class PortalModel extends EntityModel{
 
     private int Type;
@@ -11,6 +10,7 @@ public class PortalModel extends EntityModel{
         super(x,y);
         this.Type=0;
     }
+
     @Override
     public ModelType getType() {
         return ModelType.Portal;

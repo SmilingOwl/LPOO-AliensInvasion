@@ -14,12 +14,11 @@ import com.mygdx.game.Model.Entities.EntityModel;
  */
 
 public class RareItemView extends EntityView {
+
     private static final float FRAME_TIME = 0.05f;
     private com.badlogic.gdx.graphics.g2d.Animation<TextureRegion> Animation;
     private TextureRegion stoopingAnimation;
-    private Animation<TextureRegion> jumpingAnimation;
     private float stateTime = 0;
-    private boolean running;
 
     public RareItemView(AliensGame game) {
         super(game);
@@ -27,8 +26,6 @@ public class RareItemView extends EntityView {
 
     @Override
     public Sprite createSprite(AliensGame game) {
-        //runningAnimation= createRunningAnimation(game);
-        //jumpingAnimation=createJumpingAnimation(game);
         Animation= createAnimation(game);
         stoopingAnimation = createStoopingAnimation(game);
         return new Sprite(stoopingAnimation);

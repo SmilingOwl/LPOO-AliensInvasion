@@ -1,9 +1,8 @@
 package com.mygdx.game.Model.Entities;
 
 /**
- * Created by catam on 22/05/2018.
+ * A model representing a rare item
  */
-
 public class RareItemModel extends EntityModel {
 
     private int Type;
