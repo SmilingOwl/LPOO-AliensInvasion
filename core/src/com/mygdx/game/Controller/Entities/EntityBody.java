@@ -26,8 +26,6 @@ public class EntityBody {
     final static short TIJOLO_PLATFORMS = 0x0011;
     final static short PICOS_PLATFORMS = 0x00012;
 
-
-
     /**
      * the BOX2D body that supports this body
      */
