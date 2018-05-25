@@ -49,7 +49,7 @@ public class GameController implements ContactListener {
     private final HeroBody herobody;
     private boolean onTheGround = false;
     private boolean back = false;
-    private boolean direction=false;
+    private boolean direction = false;
     private float accumulator = 0;
     private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
@@ -68,25 +68,25 @@ public class GameController implements ContactListener {
             new RareItemBody(world, rare);
 
 
-        List<PlatformsModel> normalPlatf=GameModel.getInstance().getNormalPlatf();
-        for (PlatformsModel normal:normalPlatf)
-            new PlatformsBody(world,normal);
+        List<PlatformsModel> normalPlatf = GameModel.getInstance().getNormalPlatf();
+        for (PlatformsModel normal : normalPlatf)
+            new PlatformsBody(world, normal);
 
-        List<PlatfFastModel> fastPlatf =GameModel.getInstance().getFastPlatf();
-        for (PlatfFastModel fast:fastPlatf)
-            new PlatfFastBody(world,fast);
+        List<PlatfFastModel> fastPlatf = GameModel.getInstance().getFastPlatf();
+        for (PlatfFastModel fast : fastPlatf)
+            new PlatfFastBody(world, fast);
 
-        List<PlatfLentaModel> lentaPlatf=GameModel.getInstance().getLentaPlatf();
-        for (PlatfLentaModel lenta:lentaPlatf)
-            new PlatfLentaBody(world,lenta);
+        List<PlatfLentaModel> lentaPlatf = GameModel.getInstance().getLentaPlatf();
+        for (PlatfLentaModel lenta : lentaPlatf)
+            new PlatfLentaBody(world, lenta);
 
-        List<PlatfPicosModel> picosPlatf=GameModel.getInstance().getPicosPlatf();
-        for (PlatfPicosModel picos:picosPlatf)
-            new PlatfPicosBody(world,picos);
+        List<PlatfPicosModel> picosPlatf = GameModel.getInstance().getPicosPlatf();
+        for (PlatfPicosModel picos : picosPlatf)
+            new PlatfPicosBody(world, picos);
 
-        List<PlatTilojosModel> tijolosPlatf =GameModel.getInstance().getTijoloPlatf();
-        for (PlatTilojosModel tijolos:tijolosPlatf)
-            new PlatTijolosBody(world,tijolos);
+        List<PlatTilojosModel> tijolosPlatf = GameModel.getInstance().getTijoloPlatf();
+        for (PlatTilojosModel tijolos : tijolosPlatf)
+            new PlatTijolosBody(world, tijolos);
 
 
         List<AlienModel> aliens = GameModel.getInstance().getAliens();
@@ -237,15 +237,15 @@ public class GameController implements ContactListener {
         for (Body body : bodies) {
             if (body.getUserData() instanceof AlienModel) {
                 if (((AlienModel) body.getUserData()).getInPlatform()) {
-                    if ((((AlienModel) body.getUserData()).getX()  < (((AlienModel) body.getUserData()).getxPlatform()) + 6 )) {
-                        if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getxPlatform())-6)
+                    if ((((AlienModel) body.getUserData()).getX() < (((AlienModel) body.getUserData()).getxPlatform()) + 6)) {
+                        if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getxPlatform()) - 6)
                             direction = false;
-                        if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getxPlatform()+6))
+                        if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getxPlatform() + 6))
                             direction = true;
 
                         if (direction)
                             body.setTransform(((AlienModel) body.getUserData()).getX() - 0.1f, ((AlienModel) body.getUserData()).getY(), 0);
-                       else
+                        else
                             body.setTransform(((AlienModel) body.getUserData()).getX() + 0.1f, ((AlienModel) body.getUserData()).getY(), 0);
                     }
                 }

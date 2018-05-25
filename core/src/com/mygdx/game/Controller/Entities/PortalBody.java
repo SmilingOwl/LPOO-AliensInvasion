@@ -24,6 +24,6 @@ public class PortalBody extends EntityBody {
         //portal fixture
         createFixture(body, new float[]{50, 50, 50, 300, 300, 300, 300, 0},
                 width, height, density, friction, restitution,
-                PORTAL_BODY, (short) (PLATAFORMS_BODY | HERO_BODY));
+                PORTAL_BODY, (short) (PLATFORMS_BODY | HERO_BODY));
     }
 }

@@ -16,15 +16,15 @@ public class EntityBody {
 
     final static short HERO_BODY = 0x0001;
     final static short ALIEN_BODY = 0x0002;
-    final static short ALIENATTACK_BODY = 0x0004;
+    final static short ALIEN_ATTACK_BODY = 0x0004;
     final static short CONSUMABLE_BODY = 0x0005;
     final static short PORTAL_BODY = 0x0006;
-    final static short PLATAFORMS_BODY = 0x0007;
-    final static short RAREITEM_BODY = 0x0008;
+    final static short PLATFORMS_BODY = 0x0007;
+    final static short RARE_ITEM_BODY = 0x0008;
     final static short FAST_PLATFORMS = 0x0009;
-    final static short LENTA_PLATFORMS = 0x00010;
-    final static short TIJOLO_PLATFORMS = 0x0011;
-    final static short PICOS_PLATFORMS = 0x00012;
+    final static short SLOW_PLATFORMS = 0x00010;
+    final static short BLOCKS_PLATFORMS = 0x0011;
+    final static short SPIKES_PLATFORMS = 0x00012;
 
     /**
      * the BOX2D body that supports this body
@@ -51,12 +51,13 @@ public class EntityBody {
 
     /**
      * Method to create a polygon fixture represented by a set of vertexes.
-     * @param body The body the fixture is to be attached to.
-     * @param vertexes The vertexes defining the fixture in pixels
-     * @param width The width of the bitmap the vertexes where extracted from.
-     * @param height The height of the bitmap the vertexes where extracted from.
-     * @param density The density of the fixture. How heavy it is in relation to its area.
-     * @param friction The friction of the fixture. How slippery it is.
+     *
+     * @param body        The body the fixture is to be attached to.
+     * @param vertexes    The vertexes defining the fixture in pixels
+     * @param width       The width of the bitmap the vertexes where extracted from.
+     * @param height      The height of the bitmap the vertexes where extracted from.
+     * @param density     The density of the fixture. How heavy it is in relation to its area.
+     * @param friction    The friction of the fixture. How slippery it is.
      * @param restitution The restitution of the fixture. How much it bounces.
      * @param category
      * @param mask
@@ -84,7 +85,8 @@ public class EntityBody {
     }
 
     /**
-     *getX method from the Box2D body class
+     * getX method from the Box2D body class
+     *
      * @return the x-coordinate of this body
      */
     public float getX() {
@@ -93,6 +95,7 @@ public class EntityBody {
 
     /**
      * getY method from the Box2D body class
+     *
      * @return the y-coordinate of this body
      */
     public float getY() {
@@ -126,6 +129,7 @@ public class EntityBody {
 
     /**
      * the getUserData method from the Box2D body class.
+     *
      * @return the user data
      */
     public Object getUserDate() {

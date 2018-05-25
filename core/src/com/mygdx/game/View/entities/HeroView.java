@@ -13,6 +13,7 @@ import com.mygdx.game.Model.GameModel;
 import java.util.Vector;
 
 public class HeroView extends EntityView {
+
     private static final float FRAME_TIME =0.05f;
     private Animation<TextureRegion> runningAnimation;
     private Animation<TextureRegion> runningBackAnimation;
