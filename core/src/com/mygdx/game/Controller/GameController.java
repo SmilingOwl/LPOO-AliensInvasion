@@ -29,8 +29,11 @@ import com.mygdx.game.Model.Entities.PlatfFastModel;
 import com.mygdx.game.Model.Entities.PlatfLentaModel;
 import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
+import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
+import com.mygdx.game.View.Screens.GameView;
+import com.mygdx.game.View.Screens.VictoryMenu;
 
 
 import java.util.ArrayList;
@@ -87,7 +90,6 @@ public class GameController implements ContactListener {
         List<PlatTilojosModel> tijolosPlatf = GameModel.getInstance().getTijoloPlatf();
         for (PlatTilojosModel tijolos : tijolosPlatf)
             new PlatTijolosBody(world, tijolos);
-
 
         List<AlienModel> aliens = GameModel.getInstance().getAliens();
         for (AlienModel alien : aliens)
@@ -159,6 +161,7 @@ public class GameController implements ContactListener {
         if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof AlienModel) {
             ((AlienModel) bodyA.getUserData()).setInPlataform(false);
         }
+
     }
 
     @Override
@@ -176,6 +179,8 @@ public class GameController implements ContactListener {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
         //onTheGround=false;
+
+        //collision between platforms and hero
         if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel) {
             onTheGround = true;
         }
@@ -183,38 +188,51 @@ public class GameController implements ContactListener {
             onTheGround = true;
         }
 
+        //collision between hero and water
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ConsumableModel) {
-            //System.out.println("entrou!d1");
             ((ConsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof ConsumableModel) {
-            //System.out.println("entrou!d2");
             ((ConsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
 
         }
 
+        //collision between hero and rare item
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof RareItemModel) {
-            //System.out.println("entrou!d1");
             ((RareItemModel) bodyB.getUserData()).setFlaggedForRemoval(true);
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof RareItemModel) {
-            //System.out.println("entrou!d2");
             ((RareItemModel) bodyA.getUserData()).setFlaggedForRemoval(true);
 
         }
+
+        //collision between alien and platforms
         if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof AlienModel) {
-            System.out.println("entrou!d1");
             ((AlienModel) bodyB.getUserData()).setInPlataform(true);
             ((AlienModel) bodyB.getUserData()).setxPlatform(((EntityModel) bodyA.getUserData()).getX());
         }
         if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof AlienModel) {
-            System.out.println("entrou!d1");
             ((AlienModel) bodyA.getUserData()).setInPlataform(true);
             ((AlienModel) bodyA.getUserData()).setxPlatform(((EntityModel) bodyB.getUserData()).getX());
         }
 
+        // collision between hero and portal
+        if (bodyA.getUserData() instanceof PortalModel && bodyB.getUserData() instanceof HeroModel){
+          //  getGame().setScreen(new VictoryMenu(game));
+        }
+        if (bodyB.getUserData() instanceof PortalModel && bodyA.getUserData() instanceof HeroModel){
+            //game.setScreen(new VictoryMenu(game));
+        }
+
+        //collision between hero and alien
+        if (bodyA.getUserData() instanceof AlienModel && bodyB.getUserData() instanceof HeroModel){
+            ((AlienModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+        }
+        if (bodyB.getUserData() instanceof AlienModel && bodyA.getUserData() instanceof HeroModel){
+            ((AlienModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+        }
 
     }
 

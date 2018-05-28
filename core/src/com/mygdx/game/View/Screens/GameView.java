@@ -53,6 +53,7 @@ public class GameView extends ScreenAdapter {
      */
     private static final float VIEWPORT_WIDTH = 50;
 
+
     /**
      * The game this screen belongs to.
      */
@@ -89,6 +90,7 @@ public class GameView extends ScreenAdapter {
 
     boolean gyroscopeAvail = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
 
+
     /**
      * Creates the camera used to show the viewport.
      *
@@ -116,6 +118,7 @@ public class GameView extends ScreenAdapter {
     private void loadAssets() {
 
         this.game.getAssetManager().load("aliens.png", Texture.class);
+        this.game.getAssetManager().load("alien2.png",Texture.class);
         this.game.getAssetManager().load("apple.png", Texture.class);
         this.game.getAssetManager().load("arrow.png", Texture.class);
         this.game.getAssetManager().load("gun.png", Texture.class);
