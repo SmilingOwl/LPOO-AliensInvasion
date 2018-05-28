@@ -174,9 +174,11 @@ public class GameView extends ScreenAdapter {
         GameController.getInstance().removeFlagged();
         //GameController.getInstance().createNewAsteroids();
         GameController.getInstance().AlienMovement();
+        if(!GameModel.getInstance().getHero().getIsArmed()){
         if(GameController.getInstance().getTimeToShoot() <= 0) {
             GameController.getInstance().shoot();
             GameController.getInstance().setTime();
+        }
         }
 
         handleInputs(delta);
@@ -212,10 +214,10 @@ public class GameView extends ScreenAdapter {
         drawBackground();
         drawEntities();
         drawLife();
-        drawShield();
-        /*if(GameModel.getInstance().getHero().getIsArmed()){
+
+        if(GameModel.getInstance().getHero().getIsArmed()){
             drawShield();
-        }*/
+        }
 
 
         game.getBatch().end();

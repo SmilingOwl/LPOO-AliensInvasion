@@ -50,6 +50,7 @@ public class GameController implements ContactListener {
     private static final float ALIENATTACK_SPEED = 30f;
     private static final float HEROATTACK_SPEED = 30f;
     private static final float TIME_BETWEEN_SHOTS = .8f;
+    private static final float PROTECTION_TIME = 5f;
     private final World world;
     private final HeroBody herobody;
     private boolean onTheGround = false;
@@ -59,9 +60,12 @@ public class GameController implements ContactListener {
     private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
     private float timeToNextShoot;
+    private float protectionTime;
+
 
     private GameController() {
         timeToNextShoot = -1;
+        protectionTime=PROTECTION_TIME;
         world = new World(new Vector2(0, -9.8f), true);
 
         herobody = new HeroBody(world, GameModel.getInstance().getHero());
@@ -113,7 +117,14 @@ public class GameController implements ContactListener {
     public void update(float delta) {
         GameModel.getInstance().update(delta);
         timeToNextShoot -= delta;
+if(GameModel.getInstance().getHero().getIsArmed()){
+    protectionTime -=delta;
 
+}
+if(protectionTime <=0){
+    GameModel.getInstance().getHero().setIsArmed(false);
+    protectionTime=PROTECTION_TIME;
+}
         float frameTime = Math.min(delta, 0.25f);
         accumulator += frameTime;
         while (accumulator >= 1 / 60f) {
@@ -189,6 +200,14 @@ public class GameController implements ContactListener {
         }
         if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel) {
             onTheGround = true;
+        }
+        if ( bodyA.getUserData() instanceof PlatfPicosModel && bodyB.getUserData() instanceof HeroModel) {
+            if (((HeroModel) bodyB.getUserData()).getLife() > 0)
+                ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
+        }
+        if (bodyB.getUserData() instanceof PlatfPicosModel && bodyA.getUserData() instanceof HeroModel) {
+            if (((HeroModel) bodyA.getUserData()).getLife() > 0)
+                ((HeroModel) bodyA.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
         }
 
         //collision between hero and water
