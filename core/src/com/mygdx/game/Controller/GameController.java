@@ -49,7 +49,7 @@ public class GameController implements ContactListener {
     private static final float ACCELERATION_FORCE = 1000f;
     private static final float ALIENATTACK_SPEED = 30f;
     private static final float HEROATTACK_SPEED = 30f;
-    private static final float TIME_BETWEEN_SHOTS = .1f;
+    private static final float TIME_BETWEEN_SHOTS = .8f;
     private final World world;
     private final HeroBody herobody;
     private boolean onTheGround = false;
@@ -194,20 +194,27 @@ public class GameController implements ContactListener {
         //collision between hero and water
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+            if (((HeroModel) bodyA.getUserData()).getLife() < 5)
+                ((HeroModel) bodyA.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() + 1);
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+            if (((HeroModel) bodyB.getUserData()).getLife() < 5)
+                ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() + 1);
 
         }
 
         //collision between hero and rare item
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof RareItemModel) {
             ((RareItemModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+            ((HeroModel) bodyA.getUserData()).setIsArmed(true);
+
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof RareItemModel) {
             ((RareItemModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+            ((HeroModel) bodyB.getUserData()).setIsArmed(true);
 
         }
 
@@ -222,29 +229,34 @@ public class GameController implements ContactListener {
         }
 
         // collision between hero and portal
-        if (bodyA.getUserData() instanceof PortalModel && bodyB.getUserData() instanceof HeroModel){
+        if (bodyA.getUserData() instanceof PortalModel && bodyB.getUserData() instanceof HeroModel) {
             ((HeroModel) bodyB.getUserData()).setWin(true);
 
         }
-        if (bodyB.getUserData() instanceof PortalModel && bodyA.getUserData() instanceof HeroModel){
+        if (bodyB.getUserData() instanceof PortalModel && bodyA.getUserData() instanceof HeroModel) {
             ((HeroModel) bodyA.getUserData()).setWin(true);
 
         }
 
         //collision between hero and alien
-        if (bodyA.getUserData() instanceof AlienModel && bodyB.getUserData() instanceof HeroModel){
+        if (bodyA.getUserData() instanceof AlienModel && bodyB.getUserData() instanceof HeroModel) {
             ((AlienModel) bodyA.getUserData()).setFlaggedForRemoval(true);
         }
-        if (bodyB.getUserData() instanceof AlienModel && bodyA.getUserData() instanceof HeroModel){
+        if (bodyB.getUserData() instanceof AlienModel && bodyA.getUserData() instanceof HeroModel) {
             ((AlienModel) bodyB.getUserData()).setFlaggedForRemoval(true);
         }
 
         //collision between hero and aliens attack
-        if (bodyA.getUserData() instanceof AlienAttackModel && bodyB.getUserData() instanceof HeroModel){
-            //((AlienAttackModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+        if (bodyA.getUserData() instanceof AlienAttackModel && bodyB.getUserData() instanceof HeroModel) {
+            if (((HeroModel) bodyB.getUserData()).getLife() > 0)
+                ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
+            ((AlienAttackModel) bodyA.getUserData()).setFlaggedForRemoval(true);
         }
-        if (bodyB.getUserData() instanceof AlienAttackModel && bodyA.getUserData() instanceof HeroModel){
-           // ((AlienAttackModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+        if (bodyB.getUserData() instanceof AlienAttackModel && bodyA.getUserData() instanceof HeroModel) {
+            if (((HeroModel) bodyA.getUserData()).getLife() > 0)
+                ((HeroModel) bodyA.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
+
+            ((AlienAttackModel) bodyB.getUserData()).setFlaggedForRemoval(true);
         }
 
 
@@ -269,13 +281,13 @@ public class GameController implements ContactListener {
         for (Body body : bodies) {
             if (body.getUserData() instanceof AlienModel) {
                 if (((AlienModel) body.getUserData()).getInPlatform()) {
-                    if ((((AlienModel) body.getUserData()).getX()  < (((AlienModel) body.getUserData()).getxPlatform()) + 6 )) {
-                        if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getxPlatform())-6)
+                    if ((((AlienModel) body.getUserData()).getX() < (((AlienModel) body.getUserData()).getxPlatform()) + 6)) {
+                        if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getxPlatform()) - 6)
                             ((AlienModel) body.getUserData()).setDirection(false);
-                        if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getxPlatform()+6))
+                        if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getxPlatform() + 6))
                             ((AlienModel) body.getUserData()).setDirection(true);
 
-                        if (((AlienModel) body.getUserData()).getDirection()== true)
+                        if (((AlienModel) body.getUserData()).getDirection() == true)
                             body.setTransform(((AlienModel) body.getUserData()).getX() - 0.1f, ((AlienModel) body.getUserData()).getY(), 0);
                         else
                             body.setTransform(((AlienModel) body.getUserData()).getX() + 0.1f, ((AlienModel) body.getUserData()).getY(), 0);
@@ -287,12 +299,24 @@ public class GameController implements ContactListener {
     }
 
     public void shoot() {
-        if (timeToNextShoot < 0) {
-            AlienAttackModel bullet = GameModel.getInstance().createAlienAttack(GameModel.getInstance().getAliens().get(0));
+        for (int i = 0; i < GameModel.getInstance().getAliens().size(); i++) {
+
+            AlienAttackModel bullet = GameModel.getInstance().createAlienAttack(GameModel.getInstance().getAliens().get(i));
             AlienAttackBody body = new AlienAttackBody(world, bullet);
-            body.setLinearVelocity(4);
-            timeToNextShoot = TIME_BETWEEN_SHOTS;
+            if (GameModel.getInstance().getAliens().get(i).getDirection())
+                body.setLinearVelocity(-15, 10);
+            else
+                body.setLinearVelocity(15, 10);
+
         }
+    }
+
+    public void setTime() {
+        timeToNextShoot = TIME_BETWEEN_SHOTS;
+    }
+
+    public float getTimeToShoot() {
+        return timeToNextShoot;
     }
 
     public HeroBody getHerobody() {

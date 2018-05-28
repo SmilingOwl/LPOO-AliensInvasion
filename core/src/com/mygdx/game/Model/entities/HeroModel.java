@@ -16,6 +16,10 @@ public class HeroModel extends EntityModel{
 
     private int Vulnerability;
 
+    public void setLife(int life) {
+        this.Life = life;
+    }
+
     public enum HeroState{
         running, falling , jumping, stop
     }
@@ -44,7 +48,8 @@ public class HeroModel extends EntityModel{
     public boolean getWin(){return win;}
     public boolean getLose(){ return lose;}
     public boolean getPaused(){return paused;}
-
+public boolean getIsArmed(){ return  isArmed;}
+public void setIsArmed( boolean is){ this.isArmed=is; }
     public void setWin(boolean b){
         this.win=b;
 }

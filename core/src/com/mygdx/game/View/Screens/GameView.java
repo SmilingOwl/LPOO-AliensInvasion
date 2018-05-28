@@ -1,5 +1,6 @@
 package com.mygdx.game.View.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -150,6 +151,7 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("RareItem.png", Texture.class);
         this.game.getAssetManager().load("life.png", Texture.class);
         this.game.getAssetManager().load("alien2.png", Texture.class);
+        this.game.getAssetManager().load("shield.png", Texture.class);
         this.game.getAssetManager().finishLoading();
     }
     public void updateGameScreens()
@@ -172,6 +174,11 @@ public class GameView extends ScreenAdapter {
         GameController.getInstance().removeFlagged();
         //GameController.getInstance().createNewAsteroids();
         GameController.getInstance().AlienMovement();
+        if(GameController.getInstance().getTimeToShoot() <= 0) {
+            GameController.getInstance().shoot();
+            GameController.getInstance().setTime();
+        }
+
         handleInputs(delta);
 
         updateGameScreens();
@@ -205,6 +212,10 @@ public class GameView extends ScreenAdapter {
         drawBackground();
         drawEntities();
         drawLife();
+        drawShield();
+        /*if(GameModel.getInstance().getHero().getIsArmed()){
+            drawShield();
+        }*/
 
 
         game.getBatch().end();
@@ -214,6 +225,20 @@ public class GameView extends ScreenAdapter {
             debugCamera.scl(1 / PIXEL_TO_METER);
             debugRenderer.render(GameController.getInstance().getWorld(), debugCamera);
         }
+    }
+
+    private void drawShield() {
+        Texture Shield= game.getAssetManager().get("shield.png", Texture.class);
+        float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
+        float yStartPos = ((camera.position.y * PIXEL_TO_METER + (VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2 - 4) / PIXEL_TO_METER);
+        Sprite s;
+
+        TextureRegion t = new TextureRegion(Shield, Shield.getWidth(), Shield.getHeight());
+        s = new Sprite(t);
+        s.setScale(0.1f, 0.1f);
+        s.setCenter(xStartPos -180, yStartPos);
+        s.draw(game.getBatch());
+
     }
 
     /* /**
