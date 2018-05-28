@@ -234,6 +234,15 @@ public class GameController implements ContactListener {
             ((AlienModel) bodyB.getUserData()).setFlaggedForRemoval(true);
         }
 
+        //collision between hero and aliens attack
+        if (bodyA.getUserData() instanceof AlienAttackModel && bodyB.getUserData() instanceof HeroModel){
+            //((AlienAttackModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+        }
+        if (bodyB.getUserData() instanceof AlienAttackModel && bodyA.getUserData() instanceof HeroModel){
+           // ((AlienAttackModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+        }
+
+
     }
 
     public void removeFlagged() {
