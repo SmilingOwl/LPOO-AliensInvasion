@@ -20,7 +20,7 @@ public class HeroModel extends EntityModel{
     public HeroState heroState;
     public HeroModel( float x, float y){
         super(x,y);
-        this.Life=1;
+        this.Life=5;
         this.Speed=0;
         this.back=false;
         this.isArmed= false;
@@ -39,7 +39,7 @@ public class HeroModel extends EntityModel{
     public boolean getBack(){ return back;}
 
     public boolean getJumping(){ return jumping;}
-
+public int getLife(){return Life;}
     @Override
     public ModelType getType() {
         return ModelType.Hero;

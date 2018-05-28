@@ -6,6 +6,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
@@ -25,8 +27,11 @@ import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
+import com.mygdx.game.View.Entities.AlienView;
 import com.mygdx.game.View.Entities.EntityView;
 import com.mygdx.game.View.Entities.ViewFactory;
+
+import javax.xml.soap.Text;
 
 
 /**
@@ -98,7 +103,7 @@ public class GameView extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
 
         camera.position.set(camera.viewportWidth + 10000, camera.viewportHeight, 0);
-        camera.zoom = camera.zoom + 5f;
+        //camera.zoom = camera.zoom + 5f;
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -140,7 +145,8 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("platTerra-1.png", Texture.class);
         this.game.getAssetManager().load("Portal.png", Texture.class);
         this.game.getAssetManager().load("RareItem.png", Texture.class);
-
+        this.game.getAssetManager().load("life.png", Texture.class);
+        this.game.getAssetManager().load("alien2.png", Texture.class);
         this.game.getAssetManager().finishLoading();
     }
 
@@ -162,9 +168,17 @@ public class GameView extends ScreenAdapter {
         //camera.position.set(GameModel.getInstance().getRare1().getX()/ PIXEL_TO_METER, GameModel.getInstance().getRare1().getY()/ PIXEL_TO_METER, 0);
        //camera.position.set(GameModel.getInstance().getAliens().get(0).getX()/ PIXEL_TO_METER, GameModel.getInstance().getAliens().get(0).getY()/ PIXEL_TO_METER, 0);
 
-        /*if (y < (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2)
+        if (y < (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2)
             y = (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2;
-        camera.position.set(x, y, 0);*/
+        if( x < 500)
+            x =500;
+        if (y< 500)
+
+            y=500;
+        else if(y> 1000)
+                y=1000;
+
+        camera.position.set(x, y, 0);
 
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
@@ -175,6 +189,7 @@ public class GameView extends ScreenAdapter {
         game.getBatch().begin();
         drawBackground();
         drawEntities();
+        drawLife();
 
 
         game.getBatch().end();
@@ -257,6 +272,7 @@ public class GameView extends ScreenAdapter {
         for (AlienModel alien : aliens) {
             EntityView view = ViewFactory.makeView(game, alien);
             view.update(alien);
+            view.setDirection(alien.getDirection());
             view.draw(game.getBatch());
         }
 
@@ -332,11 +348,29 @@ public class GameView extends ScreenAdapter {
         viewPortal1.draw(game.getBatch());
 
     }
+private void drawLife(){
+        Texture life= game.getAssetManager().get("life.png", Texture.class);
+    float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
+    float yStartPos = ((camera.position.y * PIXEL_TO_METER + (VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2 - 4) / PIXEL_TO_METER);
+    Sprite s;
 
+    TextureRegion t = new TextureRegion(life, life.getWidth(), life.getHeight());
+    s = new Sprite(t);
+    s.setScale(0.2f, 0.2f);
+    for (int i = 0; i < GameModel.getInstance().getHero().getLife(); i++)
+    { s.setCenter(xStartPos - (i * life.getWidth() * 0.2f), yStartPos);
+    s.draw(game.getBatch()); }
+
+    //game.getBatch().draw(life,(camera.position.x*PIXEL_TO_METER+(VIEWPORT_WIDTH/2)-4)/PIXEL_TO_METER,(camera.position.y*PIXEL_TO_METER*(VIEWPORT_WIDTH*((float)Gdx.graphics.getWidth()))/2-4)/PIXEL_TO_METER,0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
+   // game.getBatch().draw(life,camera.position.x/2,camera.position.y/2,0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
+    }
     /**
      * Draws the background
      */
     private void drawBackground() {
+
+
+
         Texture background = game.getAssetManager().get("background.png", Texture.class);
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.MirroredRepeat);
         game.getBatch().draw(background, 0 - camera.viewportWidth / 2 + 500, 100, 0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
@@ -345,5 +379,5 @@ public class GameView extends ScreenAdapter {
         // background1.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.MirroredRepeat);
         game.getBatch().draw(background, 0 - camera.viewportWidth / 2 + 1500, 100, 0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
 
-    }
+       }
 }

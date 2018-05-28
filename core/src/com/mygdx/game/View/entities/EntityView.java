@@ -9,6 +9,11 @@ import static com.mygdx.game.View.Screens.GameView.PIXEL_TO_METER;
 
 public abstract class EntityView {
     Sprite sprite;
+    protected boolean direction;
+    public boolean getDirection(){ return direction;}
+    public void setDirection(boolean di){
+        this.direction=di;
+    }
     EntityView(AliensGame game){
         sprite= createSprite(game);
     }
@@ -21,4 +26,6 @@ public abstract class EntityView {
         sprite.setCenter(model.getX()/PIXEL_TO_METER,model.getY()/PIXEL_TO_METER);
 
     }
+
+
 }

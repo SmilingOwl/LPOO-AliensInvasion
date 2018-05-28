@@ -31,6 +31,7 @@ import com.mygdx.game.Model.Entities.PlatfPicosModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
+import com.mygdx.game.View.Screens.GameView;
 
 
 import java.util.ArrayList;
@@ -158,6 +159,7 @@ public class GameController implements ContactListener {
         }
         if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof AlienModel) {
             ((AlienModel) bodyA.getUserData()).setInPlataform(false);
+
         }
     }
 
