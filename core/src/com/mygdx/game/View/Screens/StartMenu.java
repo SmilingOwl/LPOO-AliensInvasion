@@ -32,6 +32,7 @@ public class StartMenu extends Screens {
 
    }
    //buttons
+
     TextButton exitButton=createTextButton("Exit");
     TextButton playButton=createTextButton("Play");
     TextButton scoreButton=createTextButton("Score");
@@ -47,6 +48,7 @@ public class StartMenu extends Screens {
         });
         table.add(optionButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
+
     protected void addScoreButton(Table table) {
 
         scoreButton.addListener(new ClickListener() {

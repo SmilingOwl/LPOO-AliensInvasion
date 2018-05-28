@@ -6,23 +6,10 @@ import com.mygdx.game.AliensGame;
 /**
  * Class used to represent the GameOver pop up Menu
  */
-public class GameOverMenu extends OptionsMenu {
+public class GameOverMenu extends Screens{
 
 
-    GameOverMenu(Viewport viewport, AliensGame game, HudMenu hud) {
-        super(viewport, game, hud,"GameOverTitle.png");
-    }
-
-
-    @Override
-    protected void confStage() {
-        initStage();
-        addRestartBtn();
-        finishStage();
-    }
-
-    @Override
-    protected void setMessage() {
-        message.setText("GAME OVER");
+    GameOverMenu(AliensGame game) {
+        super(game,"GameOver.png");
     }
 }

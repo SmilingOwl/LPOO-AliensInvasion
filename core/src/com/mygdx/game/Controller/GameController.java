@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.AliensGame;
 import com.mygdx.game.Controller.Entities.AlienAttackBody;
 import com.mygdx.game.Controller.Entities.AlienBody;
 import com.mygdx.game.Controller.Entities.ConsumableBody;
@@ -42,6 +43,7 @@ import java.util.List;
 public class GameController implements ContactListener {
 
     private static GameController instance;
+    protected AliensGame game;
     public static final int PANEL_WIDTH = 440;
     public static final int PANEL_HEIGHT = 70;
     private static final float ACCELERATION_FORCE = 1000f;
@@ -220,10 +222,12 @@ public class GameController implements ContactListener {
 
         // collision between hero and portal
         if (bodyA.getUserData() instanceof PortalModel && bodyB.getUserData() instanceof HeroModel){
-          //  getGame().setScreen(new VictoryMenu(game));
+            ((HeroModel) bodyB.getUserData()).setWin(true);
+
         }
         if (bodyB.getUserData() instanceof PortalModel && bodyA.getUserData() instanceof HeroModel){
-            //game.setScreen(new VictoryMenu(game));
+            ((HeroModel) bodyA.getUserData()).setWin(true);
+
         }
 
         //collision between hero and alien

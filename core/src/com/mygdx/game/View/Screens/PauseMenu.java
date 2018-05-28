@@ -6,22 +6,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 /**
  * Class used to represent the pop up Paused Menu
  */
-public class PauseMenu extends OptionsMenu {
+public class PauseMenu extends Screens {
 
-    PauseMenu(Viewport viewport, AliensGame game, HudMenu hud) {
-        super(viewport, game, hud,"PausedTitle.png");
+    PauseMenu(AliensGame game) {
+        super(game,"Paused.png");
     }
 
-    @Override
-    protected void confStage() {
-        initStage();
-        addResumeBtn();
-        addRestartBtn();
-        finishStage();
-    }
 
-    @Override
-    protected void setMessage() {
-        message.setText("GAME PAUSED");
-    }
+
 }

@@ -146,7 +146,16 @@ public class GameView extends ScreenAdapter {
 
         this.game.getAssetManager().finishLoading();
     }
+    public void updateGameScreens()
+    {
+        if(GameModel.getInstance().getHero().getWin())
+            game.setScreen(new VictoryMenu(game));
+        else if(GameModel.getInstance().getHero().getLose())
+            game.setScreen(new GameOverMenu(game));
+        else if (GameModel.getInstance().getHero().getPaused())
+            game.setScreen(new PauseMenu(game));
 
+    }
     /**
      * Renders this screen.
      *
@@ -158,6 +167,9 @@ public class GameView extends ScreenAdapter {
         //GameController.getInstance().createNewAsteroids();
         GameController.getInstance().AlienMovement();
         handleInputs(delta);
+
+        updateGameScreens();
+
 
         GameController.getInstance().update(delta);
         float x = GameModel.getInstance().getHero().getX() / PIXEL_TO_METER;
