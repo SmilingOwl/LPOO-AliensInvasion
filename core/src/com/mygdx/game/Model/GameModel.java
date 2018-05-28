@@ -81,7 +81,7 @@ public class GameModel implements Disposable {
     private PlatTilojosModel platTijolo5;
     private PlatTilojosModel platTijolo6;
     private PlatTilojosModel platTijolo7;
-    //  private List<PlatformsModel> platNivel1;
+
 
 
     private RareItemModel rare1;

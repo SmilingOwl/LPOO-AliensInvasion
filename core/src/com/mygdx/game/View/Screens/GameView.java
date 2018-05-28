@@ -58,6 +58,7 @@ public class GameView extends ScreenAdapter {
      */
     private static final float VIEWPORT_WIDTH = 50;
 
+
     /**
      * The game this screen belongs to.
      */
@@ -94,6 +95,7 @@ public class GameView extends ScreenAdapter {
 
     boolean gyroscopeAvail = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
 
+
     /**
      * Creates the camera used to show the viewport.
      *
@@ -121,6 +123,7 @@ public class GameView extends ScreenAdapter {
     private void loadAssets() {
 
         this.game.getAssetManager().load("aliens.png", Texture.class);
+        this.game.getAssetManager().load("alien2.png",Texture.class);
         this.game.getAssetManager().load("apple.png", Texture.class);
         this.game.getAssetManager().load("arrow.png", Texture.class);
         this.game.getAssetManager().load("gun.png", Texture.class);
@@ -149,7 +152,16 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("alien2.png", Texture.class);
         this.game.getAssetManager().finishLoading();
     }
+    public void updateGameScreens()
+    {
+        if(GameModel.getInstance().getHero().getWin())
+            game.setScreen(new VictoryMenu(game));
+        else if(GameModel.getInstance().getHero().getLose())
+            game.setScreen(new GameOverMenu(game));
+        else if (GameModel.getInstance().getHero().getPaused())
+            game.setScreen(new PauseMenu(game));
 
+    }
     /**
      * Renders this screen.
      *
@@ -161,6 +173,9 @@ public class GameView extends ScreenAdapter {
         //GameController.getInstance().createNewAsteroids();
         GameController.getInstance().AlienMovement();
         handleInputs(delta);
+
+        updateGameScreens();
+
 
         GameController.getInstance().update(delta);
         float x = GameModel.getInstance().getHero().getX() / PIXEL_TO_METER;

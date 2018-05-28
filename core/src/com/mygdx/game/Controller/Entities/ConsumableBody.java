@@ -11,17 +11,18 @@ public class ConsumableBody extends EntityBody {
 
     /**
      * Constructs a consumable  body according to consumable model
+     *
      * @param world the physical world this consumable  belongs to
      * @param model the model representing the consumable
      */
-    public ConsumableBody(World world, ConsumableModel model){
+    public ConsumableBody(World world, ConsumableModel model) {
         super(world, model);
-        float density=1f, friction= 0.4f, restitution= 0;
-        int width=40, height=40;
+        float density = 1f, friction = 0.4f, restitution = 0;
+        int width = 40, height = 40;
 
         // consumable body fixture
-        createFixture(body, new float[]{ 10,10,40,10,40,40,10,40,},
-                width, height,density, friction,restitution,
-                CONSUMABLE_BODY,(short)( PLATAFORMS_BODY|ALIEN_BODY|HERO_BODY));
+        createFixture(body, new float[]{10, 10, 40, 10, 40, 40, 10, 40,},
+                width, height, density, friction, restitution,
+                CONSUMABLE_BODY, (short) (PLATFORMS_BODY | ALIEN_BODY | HERO_BODY));
     }
 }
