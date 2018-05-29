@@ -244,7 +244,7 @@ public class GameModel implements Disposable {
         platTijolo4 = new PlatTilojosModel(280, 25);
         platTijolo5 = new PlatTilojosModel(410, 18);
         platTijolo6 = new PlatTilojosModel(568, 18);
-        platTijolo7 = new PlatTilojosModel(550, 34);
+        platTijolo7 = new PlatTilojosModel(545, 34);
 
         tijoloPlatf = new ArrayList<PlatTilojosModel>();
         tijoloPlatf.add(platTijolo1);

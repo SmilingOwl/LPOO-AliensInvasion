@@ -33,6 +33,7 @@ import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
+import com.mygdx.game.View.Screens.GameOverMenu;
 import com.mygdx.game.View.Screens.GameView;
 import com.mygdx.game.View.Screens.VictoryMenu;
 
@@ -177,7 +178,16 @@ if(protectionTime <=0){
         }
 
     }
-
+public void decreaseLife(Body bodyB){
+    if(((HeroModel) bodyB.getUserData()).getLife() ==0) {
+        GameModel.getInstance().getHero().setLose(true);
+    }else if (((HeroModel) bodyB.getUserData()).getLife() > 0)
+        ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() - 1);
+}
+    public void addLife(Body bodyB){
+        if (((HeroModel) bodyB.getUserData()).getLife() < 5)
+            ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() + 1);
+    }
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
 
@@ -196,31 +206,47 @@ if(protectionTime <=0){
 
         //collision between platforms and hero
         if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel) {
+            if(bodyA.getUserData() instanceof PlatformsModel )
+                ((HeroModel) bodyB.getUserData()).setDeltaX(0.1f);
+            if(bodyA.getUserData() instanceof PlatfFastModel )
+                ((HeroModel) bodyB.getUserData()).setDeltaX(0.3f);
+            if(bodyA.getUserData() instanceof PlatTilojosModel )
+                ((HeroModel) bodyB.getUserData()).setDeltaX(0.2f);
+            if(bodyA.getUserData() instanceof PlatfLentaModel )
+                ((HeroModel) bodyB.getUserData()).setDeltaX(0.08f);
+            if(bodyA.getUserData() instanceof PlatfPicosModel )
+                ((HeroModel) bodyB.getUserData()).setDeltaX(0.1f);
             onTheGround = true;
         }
         if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel) {
+            if(bodyB.getUserData() instanceof PlatformsModel )
+                ((HeroModel) bodyA.getUserData()).setDeltaX(0.1f);
+            if(bodyB.getUserData() instanceof PlatfFastModel )
+                ((HeroModel) bodyA.getUserData()).setDeltaX(0.3f);
+            if(bodyB.getUserData() instanceof PlatTilojosModel )
+                ((HeroModel) bodyA.getUserData()).setDeltaX(0.2f);
+            if(bodyB.getUserData() instanceof PlatfLentaModel )
+                ((HeroModel) bodyA.getUserData()).setDeltaX(0.08f);
+            if(bodyB.getUserData() instanceof PlatfPicosModel )
+                ((HeroModel) bodyA.getUserData()).setDeltaX(0.1f);
             onTheGround = true;
         }
         if ( bodyA.getUserData() instanceof PlatfPicosModel && bodyB.getUserData() instanceof HeroModel) {
-            if (((HeroModel) bodyB.getUserData()).getLife() > 0)
-                ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
+            decreaseLife(bodyB);
         }
         if (bodyB.getUserData() instanceof PlatfPicosModel && bodyA.getUserData() instanceof HeroModel) {
-            if (((HeroModel) bodyA.getUserData()).getLife() > 0)
-                ((HeroModel) bodyA.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
+            decreaseLife(bodyA);
         }
 
         //collision between hero and water
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
-            if (((HeroModel) bodyA.getUserData()).getLife() < 5)
-                ((HeroModel) bodyA.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() + 1);
+            addLife(bodyA);
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
-            if (((HeroModel) bodyB.getUserData()).getLife() < 5)
-                ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() + 1);
+            addLife(bodyB);
 
         }
 
@@ -267,14 +293,11 @@ if(protectionTime <=0){
 
         //collision between hero and aliens attack
         if (bodyA.getUserData() instanceof AlienAttackModel && bodyB.getUserData() instanceof HeroModel) {
-            if (((HeroModel) bodyB.getUserData()).getLife() > 0)
-                ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
+           decreaseLife(bodyB);
             ((AlienAttackModel) bodyA.getUserData()).setFlaggedForRemoval(true);
         }
         if (bodyB.getUserData() instanceof AlienAttackModel && bodyA.getUserData() instanceof HeroModel) {
-            if (((HeroModel) bodyA.getUserData()).getLife() > 0)
-                ((HeroModel) bodyA.getUserData()).setLife(((HeroModel) bodyA.getUserData()).getLife() - 1);
-
+           decreaseLife(bodyA);
             ((AlienAttackModel) bodyB.getUserData()).setFlaggedForRemoval(true);
         }
 

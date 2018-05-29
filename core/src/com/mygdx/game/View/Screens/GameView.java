@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import java.util.List;
 
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
@@ -274,7 +275,10 @@ public class GameView extends ScreenAdapter {
                 GameController.getInstance().shoot();
         }*/
         if (Gdx.input.getAccelerometerY() > 0) {
-            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() + 0.1f, GameModel.getInstance().getHero().getY());
+            //GameController.getInstance().getHerobody().setLinearVelocity(1,0);
+           // GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() + 0.1f, GameModel.getInstance().getHero().getY());
+            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() + GameModel.getInstance().getHero().getDeltaX(), GameModel.getInstance().getHero().getY());
+           //GameController.getInstance().getHerobody().applyForceToCenter(-35, 0, true);
             GameController.getInstance().setCommingBack(false);
             GameModel.getInstance().setCommingBack(false);
             GameModel.getInstance().getHero().setCommingBack(false);
@@ -283,7 +287,9 @@ public class GameView extends ScreenAdapter {
             //  GameController.getInstance().shoot();
             //  GameModel.getInstance().getHero().setPosition(3,3);
         } else if (Gdx.input.getAccelerometerY() < 0) {
-            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() - 0.1f, GameModel.getInstance().getHero().getY());
+
+            //GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() - 0.1f, GameModel.getInstance().getHero().getY());
+            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() - GameModel.getInstance().getHero().getDeltaX(), GameModel.getInstance().getHero().getY());
             GameController.getInstance().setCommingBack(true);
             GameModel.getInstance().setCommingBack(true);
             GameModel.getInstance().getHero().setCommingBack(true);

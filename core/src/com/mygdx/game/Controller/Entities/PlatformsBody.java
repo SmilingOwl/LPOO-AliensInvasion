@@ -18,7 +18,7 @@ public class PlatformsBody extends EntityBody {
     public PlatformsBody(World world, PlatformsModel model) {
         super(world, model);
         setTypeToStatic();
-        float density = 1f, friction = 0.4f, restitution = 0f;
+        float density = 1f, friction = 40f, restitution = 0f;
         int width = 410, height = 80;
 
         // basic platform fixture

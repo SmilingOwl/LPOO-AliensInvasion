@@ -13,6 +13,7 @@ public class HeroModel extends EntityModel{
     private boolean win;
     private boolean lose;
     private boolean paused;
+    private float deltaX;
 
     private int Vulnerability;
 
@@ -28,6 +29,7 @@ public class HeroModel extends EntityModel{
     public HeroModel( float x, float y){
         super(x,y);
         this.win=false;
+        this.deltaX=0;
         this.lose=false;
         this.paused=false;
         this.Life=5;
@@ -38,12 +40,15 @@ public class HeroModel extends EntityModel{
         this.Vulnerability=0;
         this.heroState= HeroState.stop;
     }
+    public float getDeltaX(){ return deltaX;}
+    public void setDeltaX(float delta){ this.deltaX=delta;}
     public void setCommingBack( boolean b){
         back=b;
     }
     public void setJumping( boolean b){
         jumping=b;
     }
+    public void setLose( boolean b){ this.lose=b;}
     public boolean getBack(){ return back;}
     public boolean getWin(){return win;}
     public boolean getLose(){ return lose;}
