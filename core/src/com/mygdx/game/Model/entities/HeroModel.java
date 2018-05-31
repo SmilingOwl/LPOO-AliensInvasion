@@ -21,6 +21,10 @@ public class HeroModel extends EntityModel{
         this.Life = life;
     }
 
+    public void setPaused(boolean p) {
+        this.paused=p;
+    }
+
     public enum HeroState{
         running, falling , jumping, stop
     }

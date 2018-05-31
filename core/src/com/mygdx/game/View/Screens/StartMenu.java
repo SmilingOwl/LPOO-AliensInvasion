@@ -36,18 +36,9 @@ public class StartMenu extends Screens {
     TextButton exitButton=createTextButton("Exit");
     TextButton playButton=createTextButton("Play");
     TextButton scoreButton=createTextButton("Score");
-    TextButton optionButton=createTextButton("Settings");
 
-    protected void addOptionsButton(Table table) {
 
-        optionButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SettingsMenu(game));
-            }
-        });
-        table.add(optionButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
-    }
+
 
     protected void addScoreButton(Table table) {
 
@@ -85,7 +76,7 @@ public class StartMenu extends Screens {
         table.bottom();
 
         addPlayButton(table);
-        addOptionsButton(table);
+
         addScoreButton(table);
         addExitButton(table);
 

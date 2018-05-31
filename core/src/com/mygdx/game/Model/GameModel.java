@@ -360,6 +360,9 @@ public class GameModel implements Disposable {
             rareItems.remove(model);
         }
     }
+    public void resetInstance(){
+        instance=new GameModel();
+    }
 
     public void addAlien(AlienModel alienModel) {
         aliens.add(alienModel);

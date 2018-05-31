@@ -1,5 +1,7 @@
 package com.mygdx.game.Controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -50,6 +52,7 @@ public class GameController implements ContactListener {
     private static final float ACCELERATION_FORCE = 1000f;
     private static final float ALIENATTACK_SPEED = 30f;
     private static final float HEROATTACK_SPEED = 30f;
+    private Preferences prefs;
     private static final float TIME_BETWEEN_SHOTS = .8f;
     private static final float PROTECTION_TIME = 5f;
     private final World world;
@@ -58,6 +61,7 @@ public class GameController implements ContactListener {
     private boolean back = false;
     //private boolean direction=false;
     private float accumulator = 0;
+    private int Score = 0;
     private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
     private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
     private float timeToNextShoot;
@@ -66,9 +70,9 @@ public class GameController implements ContactListener {
 
     private GameController() {
         timeToNextShoot = -1;
-        protectionTime=PROTECTION_TIME;
+        protectionTime = PROTECTION_TIME;
         world = new World(new Vector2(0, -9.8f), true);
-
+        prefs = Gdx.app.getPreferences("My Preferences");
         herobody = new HeroBody(world, GameModel.getInstance().getHero());
 
         new PortalBody(world, GameModel.getInstance().getPortal1());
@@ -109,25 +113,80 @@ public class GameController implements ContactListener {
         world.setContactListener(this);
     }
 
+    public Preferences getPrefs() {
+        return prefs;
+    }
+
+    public void saveScore() {
+        if (!prefs.contains("score")) {
+            prefs.putInteger("score", Score);
+            prefs.flush();
+        } else if (prefs.getInteger("score") < Score) {
+           // prefs.clear();
+            prefs.putInteger("score", Score);
+            prefs.flush();
+        }
+       /* if(prefs.contains("score") && !prefs.contains("score2")){
+            prefs.putInteger("score2",Score);
+            prefs.flush();
+        }
+        if(prefs.contains("score")&& prefs.contains("score2") && !prefs.contains("score3")){
+            prefs.putInteger("score3",Score);
+            prefs.flush();
+        }
+
+        if(prefs.getInteger("score") < prefs.getInteger("score2")){
+            int x=prefs.getInteger("score");
+            int y=prefs.getInteger("score2");
+            prefs.putInteger("score",y);
+            prefs.putInteger("score2",x);
+        }
+        if(prefs.getInteger("score") < prefs.getInteger("score3")){
+            int x=prefs.getInteger("score");
+            int y=prefs.getInteger("score3");
+            prefs.putInteger("score",y);
+            prefs.putInteger("score3",x);
+        }
+        if(prefs.getInteger("score2") < prefs.getInteger("score3")){
+            int x=prefs.getInteger("score2");
+            int y=prefs.getInteger("score3");
+            prefs.putInteger("score2",y);
+            prefs.putInteger("score3",x);
+        }*/
+
+
+
+
+
+    }
+
+    public int getScore() {
+        return Score;
+    }
+
     public static GameController getInstance() {
         if (instance == null)
             instance = new GameController();
         return instance;
     }
+    public void resetInstance(){
+        instance=new GameController();
+    }
 
     public void update(float delta) {
         GameModel.getInstance().update(delta);
         timeToNextShoot -= delta;
-if(GameModel.getInstance().getHero().getIsArmed()){
-    protectionTime -=delta;
+        if (GameModel.getInstance().getHero().getIsArmed()) {
+            protectionTime -= delta;
 
-}
-if(protectionTime <=0){
-    GameModel.getInstance().getHero().setIsArmed(false);
-    protectionTime=PROTECTION_TIME;
-}
+        }
+        if (protectionTime <= 0) {
+            GameModel.getInstance().getHero().setIsArmed(false);
+            protectionTime = PROTECTION_TIME;
+        }
         float frameTime = Math.min(delta, 0.25f);
         accumulator += frameTime;
+        Score += 1;
         while (accumulator >= 1 / 60f) {
             world.step(1 / 60f, 6, 2);
             accumulator -= 1 / 60f;
@@ -178,16 +237,19 @@ if(protectionTime <=0){
         }
 
     }
-public void decreaseLife(Body bodyB){
-    if(((HeroModel) bodyB.getUserData()).getLife() ==0) {
-        GameModel.getInstance().getHero().setLose(true);
-    }else if (((HeroModel) bodyB.getUserData()).getLife() > 0)
-        ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() - 1);
-}
-    public void addLife(Body bodyB){
+
+    public void decreaseLife(Body bodyB) {
+        if (((HeroModel) bodyB.getUserData()).getLife() == 0) {
+            GameModel.getInstance().getHero().setLose(true);
+        } else if (((HeroModel) bodyB.getUserData()).getLife() > 0)
+            ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() - 1);
+    }
+
+    public void addLife(Body bodyB) {
         if (((HeroModel) bodyB.getUserData()).getLife() < 5)
             ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() + 1);
     }
+
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
 
@@ -206,32 +268,32 @@ public void decreaseLife(Body bodyB){
 
         //collision between platforms and hero
         if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel) {
-            if(bodyA.getUserData() instanceof PlatformsModel )
+            if (bodyA.getUserData() instanceof PlatformsModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.1f);
-            if(bodyA.getUserData() instanceof PlatfFastModel )
+            if (bodyA.getUserData() instanceof PlatfFastModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.3f);
-            if(bodyA.getUserData() instanceof PlatTilojosModel )
+            if (bodyA.getUserData() instanceof PlatTilojosModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.2f);
-            if(bodyA.getUserData() instanceof PlatfLentaModel )
+            if (bodyA.getUserData() instanceof PlatfLentaModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.08f);
-            if(bodyA.getUserData() instanceof PlatfPicosModel )
+            if (bodyA.getUserData() instanceof PlatfPicosModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.1f);
             onTheGround = true;
         }
         if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel) {
-            if(bodyB.getUserData() instanceof PlatformsModel )
+            if (bodyB.getUserData() instanceof PlatformsModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.1f);
-            if(bodyB.getUserData() instanceof PlatfFastModel )
+            if (bodyB.getUserData() instanceof PlatfFastModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.3f);
-            if(bodyB.getUserData() instanceof PlatTilojosModel )
+            if (bodyB.getUserData() instanceof PlatTilojosModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.2f);
-            if(bodyB.getUserData() instanceof PlatfLentaModel )
+            if (bodyB.getUserData() instanceof PlatfLentaModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.08f);
-            if(bodyB.getUserData() instanceof PlatfPicosModel )
+            if (bodyB.getUserData() instanceof PlatfPicosModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.1f);
             onTheGround = true;
         }
-        if ( bodyA.getUserData() instanceof PlatfPicosModel && bodyB.getUserData() instanceof HeroModel) {
+        if (bodyA.getUserData() instanceof PlatfPicosModel && bodyB.getUserData() instanceof HeroModel) {
             decreaseLife(bodyB);
         }
         if (bodyB.getUserData() instanceof PlatfPicosModel && bodyA.getUserData() instanceof HeroModel) {
@@ -241,11 +303,13 @@ public void decreaseLife(Body bodyB){
         //collision between hero and water
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+            Score += 30;
             addLife(bodyA);
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+            Score += 30;
             addLife(bodyB);
 
         }
@@ -253,12 +317,14 @@ public void decreaseLife(Body bodyB){
         //collision between hero and rare item
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof RareItemModel) {
             ((RareItemModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+            Score += 40;
             ((HeroModel) bodyA.getUserData()).setIsArmed(true);
 
 
         }
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof RareItemModel) {
             ((RareItemModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+            Score += 40;
             ((HeroModel) bodyB.getUserData()).setIsArmed(true);
 
         }
@@ -275,30 +341,41 @@ public void decreaseLife(Body bodyB){
 
         // collision between hero and portal
         if (bodyA.getUserData() instanceof PortalModel && bodyB.getUserData() instanceof HeroModel) {
+            Score += 50;
             ((HeroModel) bodyB.getUserData()).setWin(true);
+
 
         }
         if (bodyB.getUserData() instanceof PortalModel && bodyA.getUserData() instanceof HeroModel) {
+            Score += 50;
             ((HeroModel) bodyA.getUserData()).setWin(true);
 
         }
 
         //collision between hero and alien
         if (bodyA.getUserData() instanceof AlienModel && bodyB.getUserData() instanceof HeroModel) {
+            Score += 30;
             ((AlienModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+
         }
         if (bodyB.getUserData() instanceof AlienModel && bodyA.getUserData() instanceof HeroModel) {
+            Score += 30;
             ((AlienModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+
         }
 
         //collision between hero and aliens attack
         if (bodyA.getUserData() instanceof AlienAttackModel && bodyB.getUserData() instanceof HeroModel) {
-           decreaseLife(bodyB);
+            decreaseLife(bodyB);
+            Score -= 300;
             ((AlienAttackModel) bodyA.getUserData()).setFlaggedForRemoval(true);
+
         }
         if (bodyB.getUserData() instanceof AlienAttackModel && bodyA.getUserData() instanceof HeroModel) {
-           decreaseLife(bodyA);
+            decreaseLife(bodyA);
+            Score -= 300;
             ((AlienAttackModel) bodyB.getUserData()).setFlaggedForRemoval(true);
+
         }
 
 
