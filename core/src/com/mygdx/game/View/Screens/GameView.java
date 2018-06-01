@@ -170,6 +170,8 @@ public class GameView extends ScreenAdapter {
             game.setScreen(new PauseMenu(game));
         else if (GameModel.getInstance().getHero().getY() < 0)
             GameModel.getInstance().getHero().setLose(true);
+        else if (GameModel.getInstance().getHero().getLife()==0)
+            game.setScreen(new GameOverMenu(game));
 
 
     }
@@ -331,7 +333,7 @@ public class GameView extends ScreenAdapter {
         }
         if (Gdx.input.isTouched()) {
 
-            if (Gdx.input.getX() < 110 && Gdx.input.getY() > 80 && Gdx.input.getY() <= 190) {
+            if (Gdx.input.getX() < 110 && Gdx.input.getY() > 80 && Gdx.input.getY() <= 180) {
                 GameModel.getInstance().getHero().setPaused(true);
             }
             if (GameController.getInstance().isPlayerOnTheGournd() && Gdx.input.getX() >= 115 && Gdx.input.getY() >= 190) {

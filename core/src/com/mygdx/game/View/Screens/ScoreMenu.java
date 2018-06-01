@@ -73,6 +73,7 @@ public class ScoreMenu extends Screens {
         Table table = new Table();
         table.setFillParent(true);
 
+        table.center();
         addMainScoreButton(table);
         addMainScore2Button(table);
         addMainScore3Button(table);

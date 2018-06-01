@@ -73,13 +73,11 @@ public class StartMenu extends Screens {
     }
 
     protected void createMenuButtons(Table table) {
-        table.bottom();
+        table.center();
 
         addPlayButton(table);
-
         addScoreButton(table);
         addExitButton(table);
-
         table.padBottom(BOTTOM_EDGE);
     }
 

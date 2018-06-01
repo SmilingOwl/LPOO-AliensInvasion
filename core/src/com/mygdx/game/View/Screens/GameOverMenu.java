@@ -15,15 +15,15 @@ import com.mygdx.game.Model.GameModel;
  */
 public class GameOverMenu extends Screens{
 
-    TextButton ScoreButton = createTextButton(Integer.toString(GameController.getInstance().getPrefs().getInteger("score",30)));
+    TextButton ScoreButton = createTextButton("Highscore: "+Integer.toString(GameController.getInstance().getPrefs().getInteger("score",30)));
     TextButton AtualScore= createTextButton("Score: " + Integer.toString(GameController.getInstance().getScore()));
     TextButton HighScore= createTextButton("Highscore");
     TextButton YourScore= createTextButton("Your Score");
     TextButton exitButton=createTextButton("Exit");
     TextButton PlayAgain = createTextButton("Play Again ");
-    protected static final float BUTTON_EDGE = VIEWPORT_WIDTH / 165;
+    protected static final float BUTTON_EDGE = VIEWPORT_WIDTH / 155;
 
-    protected static final float BUTTON_WIDTH = VIEWPORT_WIDTH / 3;
+    protected static final float BUTTON_WIDTH = VIEWPORT_WIDTH / 2;
     GameOverMenu(AliensGame game) {
         super(game,"GameOver.png");
     }
@@ -85,7 +85,8 @@ public class GameOverMenu extends Screens{
         super.show();
         Table table = new Table();
         table.setFillParent(true);
-        addHightScoreButton(table);
+        table.center();
+        //addHightScoreButton(table);
         addMainScoreButton(table);
         addAtualScoreButton(table);
         addPlayAgainButton(table);

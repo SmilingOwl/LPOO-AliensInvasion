@@ -16,15 +16,15 @@ import com.mygdx.game.Model.GameModel;
 public class VictoryMenu extends Screens {
 
     TextButton menuButton = createTextButton("Main Menu");
-    TextButton ScoreButton = createTextButton(Integer.toString(GameController.getInstance().getPrefs().getInteger("score",30)));
+    TextButton ScoreButton = createTextButton("Hightscore: " + Integer.toString(GameController.getInstance().getPrefs().getInteger("score",30)));
     TextButton AtualScore= createTextButton("Score: " + Integer.toString(GameController.getInstance().getScore()));
-    TextButton HighScore= createTextButton("Highscore");
-    TextButton YourScore= createTextButton("Your Score");
+   // TextButton HighScore= createTextButton("Highscore");
+    //TextButton YourScore= createTextButton("Your Score");
     TextButton exitButton=createTextButton("Exit");
     TextButton PlayAgain = createTextButton("Play Again ");
     protected static final float BUTTON_EDGE = VIEWPORT_WIDTH / 165;
 
-    protected static final float BUTTON_WIDTH = VIEWPORT_WIDTH / 3;
+    protected static final float BUTTON_WIDTH = VIEWPORT_WIDTH / 2;
     VictoryMenu(AliensGame game) {
         super(game, "Victory.png");
     }
@@ -82,35 +82,16 @@ public class VictoryMenu extends Screens {
         });
         table.add(exitButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
-    protected void addHightScoreButton(Table table) {
 
-        HighScore.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new StartMenu(game));
-            }
-        });
-        table.add(HighScore).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
-    }
-    protected void addYourScoreButton(Table table) {
 
-        YourScore.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new StartMenu(game));
-            }
-        });
-        table.add(YourScore).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
-    }
 
     @Override
     public void show() {
         super.show();
         Table table = new Table();
+        table.center();
         table.setFillParent(true);
-        addHightScoreButton(table);
         addMainScoreButton(table);
-        addYourScoreButton(table);
         addAtualScoreButton(table);
         addPlayAgainButton(table);
         addExitButton(table);

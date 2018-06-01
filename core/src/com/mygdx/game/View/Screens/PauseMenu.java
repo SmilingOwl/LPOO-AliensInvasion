@@ -51,7 +51,7 @@ public class PauseMenu extends Screens {
     }
 
     protected void createMenuButtons(Table table) {
-        table.bottom();
+
 
         addPlayButton(table);
 
@@ -67,7 +67,7 @@ public class PauseMenu extends Screens {
 
         Table table = new Table();
         table.setFillParent(true);
-
+        table.center();
         createMenuButtons(table);
 
         stage.addActor(table);
