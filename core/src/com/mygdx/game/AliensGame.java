@@ -7,14 +7,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.View.Screens.StartMenu;
 
 /**
- * Main class
+ * The game´s main class
  */
 public class AliensGame extends Game{
 
+	/**
+	 * The Game's Sprite Batch.
+	 */
 	private SpriteBatch batch;
+
+	/**
+	 * The Game's Asset Manager.
+	 */
 	private AssetManager manager;
 
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -23,6 +33,9 @@ public class AliensGame extends Game{
 		startGame();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -30,20 +43,36 @@ public class AliensGame extends Game{
 		super.dispose();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width,height);
 
 	}
+
+	/**
+	 * Start game function
+	 */
 	private void startGame(){
 
 		setScreen(new StartMenu(this));
 
 	}
+
+	/**
+	 * Get asset manager
+	 * @return the asset manager
+	 */
 	public AssetManager getAssetManager() {
 		return manager;
 	}
 
+	/**
+	 * Get the sprite batch
+	 * @return the sprite batch
+	 */
 	public SpriteBatch getBatch() {
 		return batch;
 	}
@@ -59,7 +88,6 @@ public class AliensGame extends Game{
 		manager.load("Game_Background.wav",Music.class);
 		manager.load("Level1.png", Texture.class);
 		manager.load("sound.png",Texture.class);
-
 		manager.load("Victory.png",Texture.class);
 		manager.load("Paused.png",Texture.class);
 		manager.load("GameOver.png",Texture.class);

@@ -7,6 +7,7 @@ import com.mygdx.game.Model.Entities.AlienAttackModel;
  * A concrete representation of alien attack (special bullet)
  */
 public class AlienAttackBody extends EntityBody {
+
     /**
      * Constructs an alien attack body according to alien attack model
      *
@@ -18,7 +19,6 @@ public class AlienAttackBody extends EntityBody {
         float density = 1f, friction = 0.4f, restitution = 0.5f;
         int width = 12, height = 12;
 
-        // alien attack fixture
         createFixture(body, new float[]{
                 5, 5, 5, 10, 10, 10, 10, 5,
         }, width, height, density, friction, restitution,

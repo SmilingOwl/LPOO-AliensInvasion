@@ -1,38 +1,75 @@
 package com.mygdx.game.Model;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Pool;
-import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
 import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ConsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
-import com.mygdx.game.Model.Entities.PlatTilojosModel;
+import com.mygdx.game.Model.Entities.PlatfBlocksModel;
 import com.mygdx.game.Model.Entities.PlatfFastModel;
-import com.mygdx.game.Model.Entities.PlatfLentaModel;
-import com.mygdx.game.Model.Entities.PlatfPicosModel;
+import com.mygdx.game.Model.Entities.PlatfSlowModel;
+import com.mygdx.game.Model.Entities.PlatfSpikesModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
- * main class for logic
+ * main class for game´s logic
  */
 public class GameModel implements Disposable {
 
+    /**
+     * games´s instance
+     */
     private static GameModel instance;
-    protected ModelState currentState;
+
+    /**
+     * The world´s hero
+     */
     private HeroModel hero;
+
+    /**
+     * the world is backwards
+     */
     private boolean back;
 
+    /**
+     * The world´s basic platforms
+     */
+    private List<PlatformsModel> normalPlatf;
+
+    /**
+     * The world´s fast platforms
+     */
+    private List<PlatfFastModel> fastPlatf;
+
+    /**
+     * The world´s slow platforms
+     */
+    private List<PlatfSlowModel> lentaPlatf;
+
+    /**
+     * The world´s spikes platforms
+     */
+    private List<PlatfSpikesModel> picosPlatf;
+
+    /**
+     * The world´s blocks platforms
+     */
+    private List<PlatfBlocksModel> tijoloPlatf;
+
+
+    /**
+     * All basic platforms
+     */
+    private PlatformsModel plat1;
+    private PlatformsModel plat2;
     private PlatformsModel plat3;
     private PlatformsModel plat4;
     private PlatformsModel plat5;
@@ -43,8 +80,6 @@ public class GameModel implements Disposable {
     private PlatformsModel plat10;
     private PlatformsModel plat11;
     private PlatformsModel plat12;
-    private PlatformsModel plat1;
-    private PlatformsModel plat2;
     private PlatformsModel plat13;
     private PlatformsModel plat14;
     private PlatformsModel plat15;
@@ -52,73 +87,93 @@ public class GameModel implements Disposable {
     private PlatformsModel plat17;
 
 
+    /**
+     * All fast platforms
+     */
     private PlatfFastModel platFast1;
     private PlatfFastModel platFast2;
     private PlatfFastModel platFast3;
     private PlatfFastModel platFast4;
 
+    /**
+     * All spikes platforms
+     */
+    private PlatfSpikesModel platPicos1;
+    private PlatfSpikesModel platPicos2;
+    private PlatfSpikesModel platPicos3;
 
-    private PlatfPicosModel platPicos1;
-    private PlatfPicosModel platPicos2;
-    private PlatfPicosModel platPicos3;
-    private PlatfPicosModel platPicos4;
-    private PlatfPicosModel platPicos5;
-    private PlatfPicosModel platPicos6;
-    private PlatfPicosModel platPicos7;
+    /**
+     * All slow platforms
+     */
+    private PlatfSlowModel platLenta1;
+    private PlatfSlowModel platLenta2;
+    private PlatfSlowModel platLenta3;
+    private PlatfSlowModel platLenta4;
+    private PlatfSlowModel platLenta5;
+    private PlatfSlowModel platLenta6;
 
+    /**
+     * All blocks platforms
+     */
+    private PlatfBlocksModel platTijolo1;
+    private PlatfBlocksModel platTijolo2;
+    private PlatfBlocksModel platTijolo3;
+    private PlatfBlocksModel platTijolo4;
+    private PlatfBlocksModel platTijolo5;
+    private PlatfBlocksModel platTijolo6;
+    private PlatfBlocksModel platTijolo7;
 
-    private PlatfLentaModel platLenta1;
-    private PlatfLentaModel platLenta2;
-    private PlatfLentaModel platLenta3;
-    private PlatfLentaModel platLenta4;
-    private PlatfLentaModel platLenta5;
-    private PlatfLentaModel platLenta6;
-
-    private PlatTilojosModel platTijolo1;
-    private PlatTilojosModel platTijolo2;
-    private PlatTilojosModel platTijolo3;
-    private PlatTilojosModel platTijolo4;
-    private PlatTilojosModel platTijolo5;
-    private PlatTilojosModel platTijolo6;
-    private PlatTilojosModel platTijolo7;
-
-
-
+    /**
+     * All rare items
+     */
     private RareItemModel rare1;
     private RareItemModel rare2;
     private RareItemModel rare3;
 
-
+    /**
+     * The victory portal
+     */
     private PortalModel portal1;
+
+    /**
+     * aliens
+     */
     private List<AlienModel> aliens;
+
+    /**
+     * basic platforms
+     */
+    private List<PlatformsModel> platforms;
+
+    /**
+     * aliens attack
+     */
     private List<AlienAttackModel> AlienAttack;
+
+    /**
+     * bottles of water
+     */
     private List<ConsumableModel> waters;
+
+    /**
+     * rare items
+     */
     private List<RareItemModel> rareItems;
 
-    //list of platforms
-    private List<PlatformsModel> normalPlatf;
-    private List<PlatfFastModel> fastPlatf;
-    private List<PlatfLentaModel> lentaPlatf;
-    private List<PlatfPicosModel> picosPlatf;
-    private List<PlatTilojosModel> tijoloPlatf;
-
-    private static final int RAREITEMS_COUNT = 3;
+    /**
+     * aliens counter
+     */
     private static final int ALIEN_COUNT = 6;
+
+    /**
+     * water counter
+     */
     private static final int WATERS_COUNT = 7;
-    private static final int picosPlatf_COUNT = 7;
-    private static final int tijoloPlatf_COUNT = 7;
-    private static final int lentaPlatf_COUNT = 6;
-    private static final int normalPlatf_COUNT = 17;
-    private static final int fastPlatf_COUNT = 4;
-
-    //private GameState State;
-    private Vector2 gravity = new Vector2(0f, -9.8f);
 
 
-    public enum ModelState {
-        PAUSED, LIVE, WON, LOST
-    }
-
+    /**
+     * A pool of alien bullets
+     */
     Pool<AlienAttackModel> alienAttackPool = new Pool<AlienAttackModel>() {
         @Override
         protected AlienAttackModel newObject() {
@@ -126,21 +181,29 @@ public class GameModel implements Disposable {
         }
     };
 
+    /**
+     * Gets the instance
+     * @return instance
+     */
     public static GameModel getInstance() {
         if (instance == null)
             instance = new GameModel();
         return instance;
     }
 
-    public boolean isCommingBack() {
-        return back;
-    }
 
+    /**
+     * Sets back attribute
+     * @param t value to update
+     */
     public void setCommingBack(boolean t) {
         back = t;
-        hero.setCommingBack(t);
+        hero.setBack(t);
     }
 
+    /**
+     * GameModel constructor
+     */
     private GameModel() {
 
         aliens = new ArrayList<AlienModel>();
@@ -150,7 +213,7 @@ public class GameModel implements Disposable {
         hero = new HeroModel(4, 12);
         portal1 = new PortalModel(585, 28);
 
-        //rare items
+
         rare1 = new RareItemModel(485, 50);
         rare2 = new RareItemModel(95, 50);
         rare3 = new RareItemModel(240, 50);
@@ -161,7 +224,6 @@ public class GameModel implements Disposable {
         rareItems.add(rare3);
 
 
-        //Normal platforms
         plat1 = new PlatformsModel(3, 10);
         plat2 = new PlatformsModel(17, 14);
         plat3 = new PlatformsModel(56, 25);
@@ -199,7 +261,6 @@ public class GameModel implements Disposable {
         normalPlatf.add(plat16);
         normalPlatf.add(plat17);
 
-        //fast platforms
         platFast1 = new PlatfFastModel(80, 30);
         platFast2 = new PlatfFastModel(220, 35);
         platFast3 = new PlatfFastModel(260, 20);
@@ -211,25 +272,23 @@ public class GameModel implements Disposable {
         fastPlatf.add(platFast3);
         fastPlatf.add(platFast4);
 
-        //Spikes platforms
-        platPicos1 = new PlatfPicosModel(43, 21);
-        platPicos2 = new PlatfPicosModel(315, 25);
-        platPicos3 = new PlatfPicosModel(540, 20);
+        platPicos1 = new PlatfSpikesModel(43, 21);
+        platPicos2 = new PlatfSpikesModel(315, 25);
+        platPicos3 = new PlatfSpikesModel(540, 20);
 
-        picosPlatf = new ArrayList<PlatfPicosModel>();
+        picosPlatf = new ArrayList<PlatfSpikesModel>();
         picosPlatf.add(platPicos1);
         picosPlatf.add(platPicos2);
         picosPlatf.add(platPicos3);
 
-        //Slow platforms
-        platLenta1 = new PlatfLentaModel(140, 26);
-        platLenta2 = new PlatfLentaModel(175, 28);
-        platLenta3 = new PlatfLentaModel(324, 35);
-        platLenta4 = new PlatfLentaModel(370, 26);
-        platLenta5 = new PlatfLentaModel(390, 30);
-        platLenta6 = new PlatfLentaModel(525, 28);
+        platLenta1 = new PlatfSlowModel(140, 26);
+        platLenta2 = new PlatfSlowModel(175, 28);
+        platLenta3 = new PlatfSlowModel(324, 35);
+        platLenta4 = new PlatfSlowModel(370, 26);
+        platLenta5 = new PlatfSlowModel(390, 30);
+        platLenta6 = new PlatfSlowModel(525, 28);
 
-        lentaPlatf = new ArrayList<PlatfLentaModel>();
+        lentaPlatf = new ArrayList<PlatfSlowModel>();
         lentaPlatf.add(platLenta1);
         lentaPlatf.add(platLenta2);
         lentaPlatf.add(platLenta3);
@@ -237,16 +296,15 @@ public class GameModel implements Disposable {
         lentaPlatf.add(platLenta5);
         lentaPlatf.add(platLenta6);
 
-        // Blocks platforms
-        platTijolo1 = new PlatTilojosModel(28, 18);
-        platTijolo2 = new PlatTilojosModel(69, 18);
-        platTijolo3 = new PlatTilojosModel(125, 30);
-        platTijolo4 = new PlatTilojosModel(280, 25);
-        platTijolo5 = new PlatTilojosModel(410, 18);
-        platTijolo6 = new PlatTilojosModel(568, 18);
-        platTijolo7 = new PlatTilojosModel(545, 34);
+        platTijolo1 = new PlatfBlocksModel(28, 18);
+        platTijolo2 = new PlatfBlocksModel(69, 18);
+        platTijolo3 = new PlatfBlocksModel(125, 30);
+        platTijolo4 = new PlatfBlocksModel(280, 25);
+        platTijolo5 = new PlatfBlocksModel(410, 18);
+        platTijolo6 = new PlatfBlocksModel(568, 18);
+        platTijolo7 = new PlatfBlocksModel(545, 34);
 
-        tijoloPlatf = new ArrayList<PlatTilojosModel>();
+        tijoloPlatf = new ArrayList<PlatfBlocksModel>();
         tijoloPlatf.add(platTijolo1);
         tijoloPlatf.add(platTijolo2);
         tijoloPlatf.add(platTijolo3);
@@ -255,23 +313,22 @@ public class GameModel implements Disposable {
         tijoloPlatf.add(platTijolo6);
         tijoloPlatf.add(platTijolo7);
 
-
         for (int i = 0; i <= ALIEN_COUNT; i++) {
-            // aliens.add(new AlienModel(random.nextFloat()* GameController.PANEL_WIDTH,random.nextFloat()* GameController.PANEL_HEIGHT,1,1));
+
             if (i == 0)
-                aliens.add(new AlienModel(65, 50, 1, 0));
+                aliens.add(new AlienModel(65, 50));
             if (i == 1)
-                aliens.add(new AlienModel(105, 50, 1, 0));
+                aliens.add(new AlienModel(105, 50));
             if (i == 2)
-                aliens.add(new AlienModel(205, 50, 1, 0));
+                aliens.add(new AlienModel(205, 50));
             if (i == 3)
-                aliens.add(new AlienModel(345, 50, 1, 0));
+                aliens.add(new AlienModel(345, 50));
             if (i == 4)
-                aliens.add(new AlienModel(435, 50, 1, 0));
+                aliens.add(new AlienModel(435, 50));
             if (i == 5)
-                aliens.add(new AlienModel(525, 50, 1, 0));
+                aliens.add(new AlienModel(525, 50));
             if (i == 6)
-                aliens.add(new AlienModel(570, 50, 1, 0));
+                aliens.add(new AlienModel(570, 50));
 
 
         }
@@ -291,51 +348,99 @@ public class GameModel implements Disposable {
     }
 
 
+    /**
+     * Gets the hero model
+     * @return hero
+     */
     public HeroModel getHero() {
         return hero;
     }
 
+    /**
+     * gets the portal model
+     * @return portal
+     */
     public PortalModel getPortal1() {
         return portal1;
     }
 
+    /**
+     * Gets the aliens model
+     * @return aliens
+     */
     public List<AlienModel> getAliens() {
         return aliens;
     }
 
+    /**
+     * Gets the ConsumableModel model
+     * @return waters
+     */
     public List<ConsumableModel> getWaters() {
         return waters;
     }
 
+    /**
+     * Gets the rare item model
+     * @return rareItems
+     */
     public List<RareItemModel> getRareItems() {
         return rareItems;
     }
 
+    /**
+     * Gets the aliens attack model
+     * @return aliens attack
+     */
     public List<AlienAttackModel> getAlienAttack() {
         return AlienAttack;
     }
 
+    /**
+     * Gets the basic platforms model
+     * @return normalPlatf
+     */
     public List<PlatformsModel> getNormalPlatf() {
         return normalPlatf;
     }
 
+    /**
+     * Gets the fast platforms model
+     * @return fastPlatf
+     */
     public List<PlatfFastModel> getFastPlatf() {
         return fastPlatf;
     }
 
-    public List<PlatfLentaModel> getLentaPlatf() {
+    /**
+     * Gets the slow platforms model
+     * @return lentaPlatf
+     */
+    public List<PlatfSlowModel> getLentaPlatf() {
         return lentaPlatf;
     }
 
-    public List<PlatfPicosModel> getPicosPlatf() {
+    /**
+     * Gets the platfSpikes model
+     * @return picosPlatf
+     */
+    public List<PlatfSpikesModel> getPicosPlatf() {
         return picosPlatf;
     }
 
-    public List<PlatTilojosModel> getTijoloPlatf() {
+    /**
+     * Gets the PlatfBlocks model
+     * @return tijoloPlatf
+     */
+    public List<PlatfBlocksModel> getTijoloPlatf() {
         return tijoloPlatf;
     }
 
-
+    /**
+     * This function creates the aliens attacks
+     * @param alien alien model
+     * @return the aliens attacks
+     */
     public AlienAttackModel createAlienAttack(AlienModel alien) {
         AlienAttackModel attack = alienAttackPool.obtain();
 
@@ -345,6 +450,10 @@ public class GameModel implements Disposable {
         return attack;
     }
 
+    /**
+     * Removes the entity model
+     * @param model entity model
+     */
     public void remove(EntityModel model) {
         if (model instanceof AlienAttackModel) {
             AlienAttack.remove(model);
@@ -360,41 +469,29 @@ public class GameModel implements Disposable {
             rareItems.remove(model);
         }
     }
-    public void resetInstance(){
-        instance=new GameModel();
+
+    /**
+     * resets the gameModel instance
+     */
+    public void resetInstance() {
+        instance = new GameModel();
     }
 
-    public void addAlien(AlienModel alienModel) {
-        aliens.add(alienModel);
-    }
-
-    public void addWater(ConsumableModel consumableModel) {
-        waters.add(consumableModel);
-
-    }
-
+    /**
+     * Updates the game Model
+     * @param delta
+     */
     public void update(float delta) {
 
         for (AlienAttackModel attack : AlienAttack)
-            if (attack.decreaseTimeTolive(delta))
+            if (attack.decreaseTimeToLive(delta))
                 attack.setFlaggedForRemoval(true);
-
-        //for(ComsumableModel water:waters)
-        //  water.setFlaggedForRemoval(true);
-
 
     }
 
     @Override
     public void dispose() {
 
-    }
-
-    public void PauseController() {
-        if (currentState == ModelState.PAUSED)
-            currentState = ModelState.LIVE;
-        else
-            currentState = ModelState.PAUSED;
     }
 
 }

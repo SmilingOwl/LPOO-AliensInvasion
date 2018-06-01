@@ -7,28 +7,41 @@ import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
 /**
- * Created by catam on 20/05/2018.
+ * A class used to represent the slow platform entity view.
  */
+public class PlatfSlowView extends EntityView {
 
-public class PlatTijolosView extends EntityView {
-    public PlatTijolosView( AliensGame game){
-
+    /**
+     * Constructs an alien attack view.
+     *
+     * @param game the game this view belongs to
+     */
+    public PlatfSlowView(AliensGame game) {
         super(game);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(EntityModel model) {
         super.update(model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sprite createSprite(AliensGame game) {
-        Texture t = game.getAssetManager().get("platfmuro1.png");
-        return new Sprite(t,t.getWidth(),t.getHeight());
+        Texture t = game.getAssetManager().get("platTerra-1.png");
+        return new Sprite(t, t.getWidth(), t.getHeight());
     }
 }

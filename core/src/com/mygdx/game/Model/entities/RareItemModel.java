@@ -5,13 +5,19 @@ package com.mygdx.game.Model.Entities;
  */
 public class RareItemModel extends EntityModel {
 
-    private int Type;
-
+    /**
+     * Constructs a rare item belonging to a game model.
+     *
+     * @param x the x-coordinate of this rare item
+     * @param y the y-coordinate of this rare item
+     */
     public RareItemModel(float x, float y) {
         super(x, y);
-        this.Type = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ModelType getType() {
         return ModelType.rareItem;

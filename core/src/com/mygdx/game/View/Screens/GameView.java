@@ -1,8 +1,6 @@
 package com.mygdx.game.View.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,31 +10,23 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-
 import java.util.List;
-
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.Model.Entities.AlienAttackModel;
 import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ConsumableModel;
 import com.mygdx.game.Model.Entities.HeroModel;
-import com.mygdx.game.Model.Entities.PlatTilojosModel;
+import com.mygdx.game.Model.Entities.PlatfBlocksModel;
 import com.mygdx.game.Model.Entities.PlatfFastModel;
-import com.mygdx.game.Model.Entities.PlatfLentaModel;
-import com.mygdx.game.Model.Entities.PlatfPicosModel;
+import com.mygdx.game.Model.Entities.PlatfSlowModel;
+import com.mygdx.game.Model.Entities.PlatfSpikesModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
-import com.mygdx.game.View.Entities.AlienView;
 import com.mygdx.game.View.Entities.EntityView;
 import com.mygdx.game.View.Entities.ViewFactory;
-
-import javax.xml.soap.Text;
-
 
 /**
  * A view representing the game screen. Draws all the other views and
@@ -44,8 +34,16 @@ import javax.xml.soap.Text;
  */
 public class GameView extends ScreenAdapter {
 
+    /**
+     * the panel width
+     */
     public static final int PANEL_WIDTH = 660;
+
+    /**
+     * the panel height
+     */
     public static final int PANEL_HEIGHT = 55;
+
     /**
      * Used to debug the position of the physics fixtures
      */
@@ -57,11 +55,9 @@ public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_METER = 0.04f;
 
     /**
-     * The width of the viewport in meters. The height is
-     * automatically calculated using the screen ratio.
+     * The width of the viewport in meters.
      */
     private static final float VIEWPORT_WIDTH = 50;
-    private ImageButton pause;
 
     /**
      * The game this screen belongs to.
@@ -79,10 +75,14 @@ public class GameView extends ScreenAdapter {
     private Box2DDebugRenderer debugRenderer;
 
     /**
+     * a font for drawing the score
+     */
+    private BitmapFont Font;
+
+    /**
      * The transformation matrix used to transform meters into
      * pixels in order to show fixtures in their correct places.
      */
-    private BitmapFont Font;
     private Matrix4 debugCamera;
 
     /**
@@ -97,9 +97,6 @@ public class GameView extends ScreenAdapter {
         camera = createCamera();
     }
 
-    boolean gyroscopeAvail = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
-
-
     /**
      * Creates the camera used to show the viewport.
      *
@@ -109,7 +106,6 @@ public class GameView extends ScreenAdapter {
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH / PIXEL_TO_METER, VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth()));
 
         camera.position.set(camera.viewportWidth + 10000, camera.viewportHeight, 0);
-        //camera.zoom = camera.zoom + 5f;
         camera.update();
 
         if (DEBUG_PHYSICS) {
@@ -159,6 +155,9 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().finishLoading();
     }
 
+    /**
+     * Updates the game screens
+     */
     public void updateGameScreens() {
         if (GameModel.getInstance().getHero().getWin()) {
             GameController.getInstance().saveScore();
@@ -170,10 +169,8 @@ public class GameView extends ScreenAdapter {
             game.setScreen(new PauseMenu(game));
         else if (GameModel.getInstance().getHero().getY() < 0)
             GameModel.getInstance().getHero().setLose(true);
-        else if (GameModel.getInstance().getHero().getLife()==0)
+        else if (GameModel.getInstance().getHero().getLife() == 0)
             game.setScreen(new GameOverMenu(game));
-
-
     }
 
     /**
@@ -185,23 +182,20 @@ public class GameView extends ScreenAdapter {
     public void render(float delta) {
         GameController.getInstance().removeFlagged();
         GameController.getInstance().AlienMovement();
+
         if (!GameModel.getInstance().getHero().getIsArmed()) {
             if (GameController.getInstance().getTimeToShoot() <= 0) {
                 GameController.getInstance().shoot();
                 GameController.getInstance().setTime();
             }
         }
-
-        handleInputs(delta);
-
+        handleInputs();
         updateGameScreens();
-
 
         GameController.getInstance().update(delta);
         float x = GameModel.getInstance().getHero().getX() / PIXEL_TO_METER;
         float y = GameModel.getInstance().getHero().getY() / PIXEL_TO_METER;
         camera.position.set(10, 1000, 0);
-        //camera.position.set(GameModel.getInstance().getAliens().get(0).getX()/ PIXEL_TO_METER, GameModel.getInstance().getAliens().get(0).getY()/ PIXEL_TO_METER, 0);
 
         if (y < (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2)
             y = (VIEWPORT_WIDTH / PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2;
@@ -213,7 +207,6 @@ public class GameView extends ScreenAdapter {
             y = 1000;
 
         camera.position.set(x, y, 0);
-
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
@@ -228,11 +221,9 @@ public class GameView extends ScreenAdapter {
         drawScore();
         drawPause();
 
-
         if (GameModel.getInstance().getHero().getIsArmed()) {
             drawShield();
         }
-
 
         game.getBatch().end();
 
@@ -243,6 +234,9 @@ public class GameView extends ScreenAdapter {
         }
     }
 
+    /**
+     * Draw pause icon
+     */
     private void drawPause() {
         Texture Pause = game.getAssetManager().get("pause.png", Texture.class);
         float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
@@ -252,20 +246,27 @@ public class GameView extends ScreenAdapter {
         TextureRegion t = new TextureRegion(Pause, Pause.getWidth(), Pause.getHeight());
         s = new Sprite(t);
         s.setScale(0.1f, 0.1f);
-        s.setCenter(xStartPos - 1080, yStartPos+40);
+        s.setCenter(xStartPos - 1080, yStartPos + 40);
         s.draw(game.getBatch());
     }
 
+    /**
+     * Draw the score
+     */
     private void drawScore() {
+
         String titulo = "Score: ";
         String score = Integer.toString(GameController.getInstance().getScore());
         Font.getData().setScale(3, 3);
         float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
         float yStartPos = ((camera.position.y * PIXEL_TO_METER + (VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2 - 4) / PIXEL_TO_METER);
-        Font.draw(game.getBatch(), titulo, xStartPos - 750, yStartPos+40);
-        Font.draw(game.getBatch(), score, xStartPos - 600, yStartPos+40);
+        Font.draw(game.getBatch(), titulo, xStartPos - 750, yStartPos + 40);
+        Font.draw(game.getBatch(), score, xStartPos - 600, yStartPos + 40);
     }
 
+    /**
+     * Draw shield
+     */
     private void drawShield() {
         Texture Shield = game.getAssetManager().get("shield.png", Texture.class);
         float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
@@ -275,61 +276,29 @@ public class GameView extends ScreenAdapter {
         TextureRegion t = new TextureRegion(Shield, Shield.getWidth(), Shield.getHeight());
         s = new Sprite(t);
         s.setScale(0.1f, 0.1f);
-        s.setCenter(xStartPos - 180, yStartPos+40);
+        s.setCenter(xStartPos - 180, yStartPos + 40);
         s.draw(game.getBatch());
 
     }
 
-    /* /**
+    /**
      * Handles any inputs and passes them to the controller.
-     *
-     * @param delta time since last time inputs where handled in seconds
      */
-    private void handleInputs(float delta) {
-        /*if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            GameController.getInstance().rotateLeft(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            GameController.getInstance().rotateRight(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            GameController.getInstance().accelerate(delta);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            GameController.getInstance().shoot();
-        }
-        if (Gdx.input.getGyroscopeX() > 0) {
-            GameController.getInstance().rotateRight(delta * Gdx.input.getGyroscopeX());
-        }
-        if (Gdx.input.getGyroscopeX() < 0) {
-            GameController.getInstance().rotateLeft(delta * -Gdx.input.getGyroscopeX());
-        }
-        if (Gdx.input.isTouched()) {
-            if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2)
-                GameController.getInstance().accelerate(delta);
-            else
-                GameController.getInstance().shoot();
-        }*/
+    private void handleInputs() {
+
         if (Gdx.input.getAccelerometerY() > 0) {
-            //GameController.getInstance().getHerobody().setLinearVelocity(1,0);
-            // GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() + 0.1f, GameModel.getInstance().getHero().getY());
-            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() + GameModel.getInstance().getHero().getDeltaX(), GameModel.getInstance().getHero().getY());
-            //GameController.getInstance().getHerobody().applyForceToCenter(-35, 0, true);
+
+            GameController.getInstance().getHeroBody().setTransform(GameModel.getInstance().getHero().getX() + GameModel.getInstance().getHero().getDeltaX(), GameModel.getInstance().getHero().getY());
             GameController.getInstance().setCommingBack(false);
             GameModel.getInstance().setCommingBack(false);
-            GameModel.getInstance().getHero().setCommingBack(false);
+            GameModel.getInstance().getHero().setBack(false);
 
-
-            //  GameController.getInstance().shoot();
-            //  GameModel.getInstance().getHero().setPosition(3,3);
         } else if (Gdx.input.getAccelerometerY() < 0) {
 
-            //GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() - 0.1f, GameModel.getInstance().getHero().getY());
-            GameController.getInstance().getHerobody().setTransform(GameModel.getInstance().getHero().getX() - GameModel.getInstance().getHero().getDeltaX(), GameModel.getInstance().getHero().getY());
+            GameController.getInstance().getHeroBody().setTransform(GameModel.getInstance().getHero().getX() - GameModel.getInstance().getHero().getDeltaX(), GameModel.getInstance().getHero().getY());
             GameController.getInstance().setCommingBack(true);
             GameModel.getInstance().setCommingBack(true);
-            GameModel.getInstance().getHero().setCommingBack(true);
-            //GameModel.getInstance().getHero().setPosition(0, GameModel.getInstance().getHero().getY()-1);
+            GameModel.getInstance().getHero().setBack(true);
         }
         if (Gdx.input.isTouched()) {
 
@@ -337,7 +306,7 @@ public class GameView extends ScreenAdapter {
                 GameModel.getInstance().getHero().setPaused(true);
             }
             if (GameController.getInstance().isPlayerOnTheGournd() && Gdx.input.getX() >= 115 && Gdx.input.getY() >= 190) {
-                GameController.getInstance().getHerobody().applyForceToCenter(0, 1500, true);
+                GameController.getInstance().getHeroBody().applyForceToCenter(0, 1500, true);
             }
 
         }
@@ -348,7 +317,6 @@ public class GameView extends ScreenAdapter {
             GameModel.getInstance().getHero().setJumping(true);
 
     }
-
 
     /**
      * Draws the entities to the screen.
@@ -398,22 +366,22 @@ public class GameView extends ScreenAdapter {
             view.draw(game.getBatch());
         }
 
-        List<PlatfLentaModel> lentaPlatf = GameModel.getInstance().getLentaPlatf();
-        for (PlatfLentaModel lenta : lentaPlatf) {
+        List<PlatfSlowModel> lentaPlatf = GameModel.getInstance().getLentaPlatf();
+        for (PlatfSlowModel lenta : lentaPlatf) {
             EntityView view = ViewFactory.makeView(game, lenta);
             view.update(lenta);
             view.draw(game.getBatch());
         }
 
-        List<PlatfPicosModel> picosPlatf = GameModel.getInstance().getPicosPlatf();
-        for (PlatfPicosModel picos : picosPlatf) {
+        List<PlatfSpikesModel> picosPlatf = GameModel.getInstance().getPicosPlatf();
+        for (PlatfSpikesModel picos : picosPlatf) {
             EntityView view = ViewFactory.makeView(game, picos);
             view.update(picos);
             view.draw(game.getBatch());
         }
 
-        List<PlatTilojosModel> tijolosPlatf = GameModel.getInstance().getTijoloPlatf();
-        for (PlatTilojosModel tijolos : tijolosPlatf) {
+        List<PlatfBlocksModel> tijolosPlatf = GameModel.getInstance().getTijoloPlatf();
+        for (PlatfBlocksModel tijolos : tijolosPlatf) {
             EntityView view = ViewFactory.makeView(game, tijolos);
             view.update(tijolos);
             view.draw(game.getBatch());
@@ -431,6 +399,9 @@ public class GameView extends ScreenAdapter {
 
     }
 
+    /**
+     * draws life
+     */
     private void drawLife() {
         Texture life = game.getAssetManager().get("life.png", Texture.class);
         float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
@@ -441,7 +412,7 @@ public class GameView extends ScreenAdapter {
         s = new Sprite(t);
         s.setScale(0.2f, 0.2f);
         for (int i = 0; i < GameModel.getInstance().getHero().getLife(); i++) {
-            s.setCenter(xStartPos - (i * life.getWidth() * 0.2f), yStartPos+40);
+            s.setCenter(xStartPos - (i * life.getWidth() * 0.2f), yStartPos + 40);
             s.draw(game.getBatch());
         }
 
@@ -452,13 +423,9 @@ public class GameView extends ScreenAdapter {
      */
     private void drawBackground() {
 
-
         Texture background = game.getAssetManager().get("background.png", Texture.class);
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.MirroredRepeat);
         game.getBatch().draw(background, 0 - camera.viewportWidth / 2 + 500, 100, 0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
-
-        //Texture background1 = game.getAssetManager().get("background.png", Texture.class);
-        // background1.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.MirroredRepeat);
         game.getBatch().draw(background, 0 - camera.viewportWidth / 2 + 1500, 100, 0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
 
     }

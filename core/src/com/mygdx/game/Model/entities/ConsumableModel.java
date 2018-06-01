@@ -3,18 +3,21 @@ package com.mygdx.game.Model.Entities;
 /**
  * A model representing a consumable item
  */
-public class ConsumableModel extends EntityModel{
+public class ConsumableModel extends EntityModel {
 
-    private int LifeQuantity;
-    private int Type;
-    private boolean WasCatched;
-
-    public ConsumableModel( float x, float y){
-        super(x,y);
-        this.Type=1;
-        this.WasCatched=false;
-        this.LifeQuantity=1;
+    /**
+     * Constructs a consumable model belonging to a game model.
+     *
+     * @param x the x-coordinate of this consumable
+     * @param y the y-coordinate of this consumable
+     */
+    public ConsumableModel(float x, float y) {
+        super(x, y);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ModelType getType() {
         return ModelType.Consumable;

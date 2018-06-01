@@ -7,28 +7,42 @@ import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
 /**
- * Created by catam on 20/05/2018.
+ * A class used to represent the blocks platform entity view.
  */
+public class PlatfBlocksView extends EntityView {
 
-public class PlatfPicosView extends EntityView {
-    public PlatfPicosView ( AliensGame game){
+    /**
+     * Constructs an blocks platform view.
+     *
+     * @param game the game this view belongs to
+     */
+    public PlatfBlocksView(AliensGame game) {
+
         super(game);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(EntityModel model) {
         super.update(model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void draw(SpriteBatch batch) {
-        //sprite.setScale(0.25f,0.25f);
         super.draw(batch);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sprite createSprite(AliensGame game) {
-        Texture t = game.getAssetManager().get("platfpicos.png");
-        return new Sprite(t,t.getWidth(),t.getHeight());
+        Texture t = game.getAssetManager().get("platfmuro1.png");
+        return new Sprite(t, t.getWidth(), t.getHeight());
     }
 }

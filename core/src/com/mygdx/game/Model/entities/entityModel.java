@@ -2,27 +2,92 @@ package com.mygdx.game.Model.Entities;
 
 public abstract class EntityModel {
 
-    public enum ModelType {Alien,AlienAttack, Hero, Consumable, HeroWeapon,plataform, platFast, platPicos, platTijolos,platLenta, Portal, rareItem};
+    /**
+     * Possible model types
+     */
+    public enum ModelType {
+        Alien, AlienAttack, Hero, Consumable, platform, platFast, platSpikes,
+        platBlocks, platSlow, Portal, rareItem
+    }
+
+    /**
+     * x-coordinate
+     */
     private float x;
+
+    /**
+     * y-coordinate
+     */
     private float y;
-    private boolean flaggedForRemoval =false;
-    //private float rotation;
-    EntityModel(float x, float y){
-        this.x=x;
-        this.y=y;
+
+    /**
+     * flag for removing model types
+     */
+    private boolean flaggedForRemoval = false;
+
+    /**
+     * Constructs a entity model belonging to a game model.
+     *
+     * @param x the x-coordinate of this entity
+     * @param y the y-coordinate of this entity
+     */
+    EntityModel(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
-    public float getX(){ return x;}
-    public float getY(){ return y;}
-    public void setPosition( float x, float y){
-        this.x=x;
-        this.y=y;
+
+    /**
+     * Gets the x-coordinate
+     *
+     * @return x-coordinate
+     */
+    public float getX() {
+        return x;
     }
-    public boolean isFlaggedForRemoval(){
+
+    /**
+     * Gets the y-coordinate
+     *
+     * @return y-coordinate
+     */
+    public float getY() {
+        return y;
+    }
+
+    /**
+     * Sets the entity position
+     *
+     * @param x x-coordinate to update
+     * @param y y-coordinate to update
+     */
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Gets the flaggedForRemoval
+     *
+     * @return flaggedForRemoval
+     */
+    public boolean isFlaggedForRemoval() {
         return flaggedForRemoval;
     }
-    public void setFlaggedForRemoval(boolean flaggedForRemoval){
-        this.flaggedForRemoval=flaggedForRemoval;
+
+    /**
+     * Sets the flaggedForRemoval
+     *
+     * @param flaggedForRemoval
+     */
+    public void setFlaggedForRemoval(boolean flaggedForRemoval) {
+        this.flaggedForRemoval = flaggedForRemoval;
     }
+
+    /**
+     * Abstract method, gets the entity type
+     *
+     * @return entity type
+     */
     public abstract ModelType getType();
 }
 

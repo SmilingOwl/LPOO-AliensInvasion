@@ -5,12 +5,19 @@ package com.mygdx.game.Model.Entities;
  */
 public class PortalModel extends EntityModel{
 
-    private int Type;
+    /**
+     * Constructs a portal belonging to a game model.
+     *
+     * @param x the x-coordinate of this portal
+     * @param y the y-coordinate of this portal
+     */
     public PortalModel( float x, float y){
         super(x,y);
-        this.Type=0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ModelType getType() {
         return ModelType.Portal;

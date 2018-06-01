@@ -19,7 +19,6 @@ public class RareItemBody extends EntityBody {
         float density = 0.5f, friction = 0.4f, restitution = 0;
         int width = 164, height = 170;
 
-        //rare item fixture
         createFixture(body, new float[]{74 * 0.5f + 35, 10 * 0.5f + 40, 24 * 0.5f + 35, 74 * 0.5f + 40, 7 * 0.5f + 35, 139 * 0.5f + 40, 34 * 0.5f + 35, 161 * 0.5f + 40, 164 * 0.5f + 35, 159 * 0.5f + 40, 167 * 0.5f + 35, 9 * 0.5f + 40},
                 width, height, density, friction, restitution,
                 RARE_ITEM_BODY, (short) (PLATFORMS_BODY | HERO_BODY | FAST_PLATFORMS | SLOW_PLATFORMS | BLOCKS_PLATFORMS | SPIKES_PLATFORMS));

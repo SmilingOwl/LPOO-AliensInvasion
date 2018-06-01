@@ -21,7 +21,6 @@ public class PortalBody extends EntityBody {
         float density = 0.5f, friction = 0.4f, restitution = 0;
         int width = 300, height = 300;
 
-        //portal fixture
         createFixture(body, new float[]{50, 50, 50, 300, 300, 300, 300, 0},
                 width, height, density, friction, restitution,
                 PORTAL_BODY, (short) (PLATFORMS_BODY | HERO_BODY));

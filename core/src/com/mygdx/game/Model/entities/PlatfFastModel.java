@@ -1,20 +1,27 @@
 package com.mygdx.game.Model.Entities;
 
 /**
- * Created by catam on 20/05/2018.
+ * A model representing a fast platform
  */
-
 public class PlatfFastModel extends EntityModel{
 
-        private int Type;
+
+    /**
+     * Constructs a fast platform belonging to a game model.
+     *
+     * @param x the x-coordinate of this fast platform
+     * @param y the y-coordinate of this fast platform
+     */
         public PlatfFastModel( float x, float y){
             super(x,y);
-            this.Type=0;
         }
+
+    /**
+     * {@inheritDoc}
+     */
         @Override
         public ModelType getType() {
             return ModelType.platFast;
         }
-
 
 }

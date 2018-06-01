@@ -7,28 +7,41 @@ import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
 /**
- * Created by catam on 20/05/2018.
+ * A class used to represent the spikes platform entity view.
  */
+public class PlatfSpikesView extends EntityView {
 
-public class PlatfLentaView extends EntityView {
-    public PlatfLentaView( AliensGame game){
+    /**
+     * Constructs an spikes platform view.
+     *
+     * @param game the game this view belongs to
+     */
+    public PlatfSpikesView(AliensGame game) {
         super(game);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(EntityModel model) {
         super.update(model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void draw(SpriteBatch batch) {
-        // sprite.setScale(0.25f,0.25f);
         super.draw(batch);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sprite createSprite(AliensGame game) {
-        Texture t = game.getAssetManager().get("platTerra-1.png");
-        return new Sprite(t,t.getWidth(),t.getHeight());
+        Texture t = game.getAssetManager().get("platfpicos.png");
+        return new Sprite(t, t.getWidth(), t.getHeight());
     }
 }

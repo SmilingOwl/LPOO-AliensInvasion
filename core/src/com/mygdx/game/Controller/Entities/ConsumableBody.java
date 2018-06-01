@@ -20,7 +20,6 @@ public class ConsumableBody extends EntityBody {
         float density = 1f, friction = 0.4f, restitution = 0;
         int width = 40, height = 40;
 
-        // consumable body fixture
         createFixture(body, new float[]{10, 10, 40, 10, 40, 40, 10, 40,},
                 width, height, density, friction, restitution,
                 CONSUMABLE_BODY, (short) (PLATFORMS_BODY | ALIEN_BODY | HERO_BODY));

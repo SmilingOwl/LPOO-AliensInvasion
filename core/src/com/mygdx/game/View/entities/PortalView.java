@@ -10,33 +10,58 @@ import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
 /**
- * Created by catam on 22/05/2018.
+ * A class used to represent the victory portal entity view.
  */
-
 public class PortalView extends EntityView {
-    private static final float FRAME_TIME = 0.05f;
-    private Animation<TextureRegion> Animation;
-    private TextureRegion stoopingAnimation;
-    private Animation<TextureRegion> jumpingAnimation;
-    private float stateTime = 0;
-    private boolean running;
 
+    /**
+     * Time between frames
+     */
+    private static final float FRAME_TIME = 0.05f;
+
+    /**
+     * represents the portal animation
+     */
+    private Animation<TextureRegion> Animation;
+
+    /**
+     * represents the texture region to create the animation
+     */
+    private TextureRegion spriteToAnimation;
+
+    /**
+     * for actualizing the state time
+     */
+    private float stateTime = 0;
+
+
+    /**
+     * Constructs an victory portal view.
+     *
+     * @param game the game this view belongs to
+     */
     public PortalView(AliensGame game) {
         super(game);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sprite createSprite(AliensGame game) {
-        //runningAnimation= createRunningAnimation(game);
-        //jumpingAnimation=createJumpingAnimation(game);
-        Animation= createAnimation(game);
-        stoopingAnimation = createStoopingAnimation(game);
-        return new Sprite(stoopingAnimation);
+        Animation = createAnimation(game);
+        spriteToAnimation= createTextureRegion(game);
+        return new Sprite(spriteToAnimation);
     }
 
+    /**
+     * Creates the portal animation
+     * @param game the game this view belongs to
+     * @return animation
+     */
     private Animation<TextureRegion> createAnimation(AliensGame game) {
         Texture thrustTexture = game.getAssetManager().get("Portal.png");
-        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / 5, thrustTexture.getHeight()/2);
+        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / 5, thrustTexture.getHeight() / 2);
 
         TextureRegion[] frames = new TextureRegion[9];
 
@@ -45,23 +70,35 @@ public class PortalView extends EntityView {
         return new Animation<TextureRegion>(FRAME_TIME, frames);
     }
 
-
-    private TextureRegion createStoopingAnimation(AliensGame game) {
+    /**
+     * Create the texture region
+     * @param game the game this view belongs to
+     * @return texture
+     */
+    private TextureRegion createTextureRegion(AliensGame game) {
 
         Texture d = game.getAssetManager().get("output7.png");
         return new TextureRegion(d, d.getWidth(), d.getHeight());
     }
 
-    @Override// nÃ£o estÃ¡ completo
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
         sprite.setScale(3, 3);
 
-       sprite.setRegion(Animation.getKeyFrame(stateTime, true));
+        sprite.setRegion(Animation.getKeyFrame(stateTime, true));
         sprite.draw(batch);
     }
 
-    @Override// nÃ£o estÃ¡ completo
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void update(EntityModel model) {
         super.update(model);
     }

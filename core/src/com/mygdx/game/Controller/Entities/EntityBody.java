@@ -1,5 +1,4 @@
 package com.mygdx.game.Controller.Entities;
-
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -14,16 +13,59 @@ import static com.mygdx.game.View.Screens.GameView.PIXEL_TO_METER;
  */
 public class EntityBody {
 
+    /**
+     * Constant for collision mask, for hero.
+     */
     final static short HERO_BODY = 0x0001;
+
+    /**
+     * Constant for collision mask, for alien.
+     */
     final static short ALIEN_BODY = 0x0002;
+
+    /**
+     * Constant for collision mask, for alien attack.
+     */
     final static short ALIEN_ATTACK_BODY = 0x0004;
+
+    /**
+     * Constant for collision mask, for consumable.
+     */
     final static short CONSUMABLE_BODY = 0x0005;
+
+    /**
+     * Constant for collision mask, for portal.
+     */
     final static short PORTAL_BODY = 0x0006;
+
+    /**
+     * Constant for collision mask, for basic platform.
+     */
     final static short PLATFORMS_BODY = 0x0007;
+
+    /**
+     * Constant for collision mask, for rare item.
+     */
     final static short RARE_ITEM_BODY = 0x0008;
+
+    /**
+     * Constant for collision mask, for fast platform.
+     */
     final static short FAST_PLATFORMS = 0x0009;
+
+    /**
+     * Constant for collision mask, for slow platform.
+     */
     final static short SLOW_PLATFORMS = 0x00010;
+
+    /**
+     * Constant for collision mask, for blocks platform.
+     */
     final static short BLOCKS_PLATFORMS = 0x0011;
+
+    /**
+     * Constant for collision mask, for spikes platform.
+     */
     final static short SPIKES_PLATFORMS = 0x00012;
 
     /**
@@ -46,7 +88,6 @@ public class EntityBody {
 
         body = world.createBody(bodyDef);
         body.setUserData(model);
-
     }
 
     /**
@@ -102,38 +143,39 @@ public class EntityBody {
         return body.getPosition().y;
     }
 
+    /**
+     * Moves the body to another position
+     * @param x x-coordintae
+     * @param y y-coordinate
+     */
     public void setTransform(float x, float y) {
         body.setTransform(x, y, 0);
     }
 
-
-    public void setLinearVelocity(float velocity) {
-        body.setLinearVelocity((float) (velocity * -Math.sin(0)), (float) (velocity * Math.cos(0)));
-    }
-
+    /**
+     * Sets linear velocity
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
     public void setLinearVelocity(float x, float y) {
         body.setLinearVelocity(x, y);
     }
 
+    /**
+     * Sets the body to a static body
+     */
     public void setTypeToStatic() {
         body.setType(BodyDef.BodyType.StaticBody);
     }
 
-    public void setAngularVelocity(float omega) {
-        body.setAngularVelocity(omega);
-    }
-
+    /**
+     * apply a force to body center
+     * @param forceX the x-component of the force to be applied
+     * @param forceY the y-component of the force to be applied
+     * @param awake should the body be awaken
+     */
     public void applyForceToCenter(float forceX, float forceY, boolean awake) {
         body.applyForceToCenter(forceX, forceY, awake);
-    }
-
-    /**
-     * the getUserData method from the Box2D body class.
-     *
-     * @return the user data
-     */
-    public Object getUserDate() {
-        return body.getUserData();
     }
 
 }

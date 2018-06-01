@@ -21,7 +21,6 @@ public class PlatformsBody extends EntityBody {
         float density = 1f, friction = 40f, restitution = 0f;
         int width = 410, height = 80;
 
-        // basic platform fixture
         createFixture(body, new float[]{
                         120 * 0.25f, 160 * 0.25f, 120 * 0.25f, 270 * 0.25f, 1480 * 0.25f, 160 * 0.25f, 1480 * 0.25f, 270 * 0.25f,},
                 width, height, density, friction, restitution,

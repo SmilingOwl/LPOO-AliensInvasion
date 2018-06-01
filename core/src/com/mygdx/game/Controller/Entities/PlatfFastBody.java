@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entities.PlatfFastModel;
 
 /**
- * A concrete representation of hero body
+ * A concrete representation of fast platform body
  */
 public class PlatfFastBody extends EntityBody {
 
@@ -21,7 +21,6 @@ public class PlatfFastBody extends EntityBody {
         float density = 1f, friction = 0.4f, restitution = 0f;
         int width = 426, height = 65;
 
-        //fast platform fixture
         createFixture(body, new float[]{
                         8, 11, 9, 39, 23, 45, 416, 44, 416, 11,},
                 width, height, density, friction, restitution,

@@ -13,30 +13,48 @@ import com.mygdx.game.Model.GameModel;
  * Class used to represent the pop up Paused Menu
  */
 public class PauseMenu extends Screens {
-    protected static final float BUTTON_EDGE = VIEWPORT_WIDTH / 75;
-    protected static final float BUTTON_WIDTH = VIEWPORT_WIDTH / 2;
-    protected static final float BOTTOM_EDGE = VIEWPORT_WIDTH / 75;
+
+    /**
+     * PauseMenu constructor
+     *
+     * @param game the current Game session
+     */
     PauseMenu(AliensGame game) {
         super(game,"Paused.png");
     }
-    TextButton exitButton=createTextButton("Exit");
+
+    /**
+     * main menu text button
+     */
+    TextButton menuButton=createTextButton("Main Menu");
+
+    /**
+     * play menu text button
+     */
     TextButton playButton=createTextButton("Resume");
 
 
+    /**
+     * Add main menu button
+     * @param table  where the buttons will be organized
+     */
+    protected void addMainMenuButton(Table table) {
 
-
-
-
-    protected void addExitButton(Table table) {
-        exitButton.addListener(new ClickListener() {
+        menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                game.setScreen(new StartMenu(game));
             }
         });
-        table.add(exitButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
+        table.add(menuButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
 
+
+    /**
+     * Add the play button
+     *
+     * @param table where the buttons will be organized
+     */
     protected void addPlayButton(Table table) {
 
         playButton.addListener(new ClickListener() {
@@ -50,17 +68,20 @@ public class PauseMenu extends Screens {
         table.add(playButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
 
+    /**
+     * Create this menu buttons
+     * @param table where the buttons will be organized
+     */
     protected void createMenuButtons(Table table) {
 
-
         addPlayButton(table);
-
-        addExitButton(table);
-
-        table.padBottom(BOTTOM_EDGE);
+        addMainMenuButton(table);
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         super.show();

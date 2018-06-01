@@ -14,32 +14,53 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.View.Screens.GameView;
 
-
+/**
+ * Class used to represent the pop up Start Menu
+ */
 public class StartMenu extends Screens {
 
+    /**
+     *  represents the button edge
+     */
     protected static final float BUTTON_EDGE = VIEWPORT_WIDTH / 75;
-    protected static final float BUTTON_WIDTH = VIEWPORT_WIDTH / 2;
-    protected static final float BOTTOM_EDGE = VIEWPORT_WIDTH / 75;
+
+    /**
+     * game´s music
+     */
     private Music music;
 
-
+    /**
+     * start menu constructor
+     *
+     * @param game the current Game session
+     */
     public StartMenu (final AliensGame game) {
         super(game,"Aliens_title.png");
         soundOn=true;
         music = game.getAssetManager().get("Game_Background.wav", Music.class);
         music.setLooping(true);
         music.play();
-
    }
-   //buttons
 
+    /**
+     * exit text button
+     */
     TextButton exitButton=createTextButton("Exit");
+
+    /**
+     * play text button
+     */
     TextButton playButton=createTextButton("Play");
+
+    /**
+     * score text button
+     */
     TextButton scoreButton=createTextButton("Score");
 
-
-
-
+    /**
+     * Add a score button
+     * @param table where the buttons will be organized
+     */
     protected void addScoreButton(Table table) {
 
         scoreButton.addListener(new ClickListener() {
@@ -51,6 +72,10 @@ public class StartMenu extends Screens {
         table.add(scoreButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
 
+    /**
+     * Add a exit button
+     * @param table where the buttons will be organized
+     */
     protected void addExitButton(Table table) {
         exitButton.addListener(new ClickListener() {
             @Override
@@ -61,6 +86,10 @@ public class StartMenu extends Screens {
         table.add(exitButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
 
+    /**
+     * Add a play button
+     * @param table where the buttons will be organized
+     */
     protected void addPlayButton(Table table) {
 
         playButton.addListener(new ClickListener() {
@@ -72,16 +101,22 @@ public class StartMenu extends Screens {
         table.add(playButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
 
+    /**
+     * Create this menu buttons
+     * @param table where the buttons will be organized
+     */
     protected void createMenuButtons(Table table) {
-        table.center();
 
+        table.center();
         addPlayButton(table);
         addScoreButton(table);
         addExitButton(table);
-        table.padBottom(BOTTOM_EDGE);
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         super.show();
@@ -93,6 +128,5 @@ public class StartMenu extends Screens {
 
         stage.addActor(table);
     }
-
 
 }

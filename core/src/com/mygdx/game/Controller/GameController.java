@@ -15,10 +15,10 @@ import com.mygdx.game.Controller.Entities.AlienAttackBody;
 import com.mygdx.game.Controller.Entities.AlienBody;
 import com.mygdx.game.Controller.Entities.ConsumableBody;
 import com.mygdx.game.Controller.Entities.HeroBody;
-import com.mygdx.game.Controller.Entities.PlatTijolosBody;
+import com.mygdx.game.Controller.Entities.PlatfBlocksBody;
 import com.mygdx.game.Controller.Entities.PlatfFastBody;
-import com.mygdx.game.Controller.Entities.PlatfLentaBody;
-import com.mygdx.game.Controller.Entities.PlatfPicosBody;
+import com.mygdx.game.Controller.Entities.PlatfSlowBody;
+import com.mygdx.game.Controller.Entities.PlatfSpikesBody;
 import com.mygdx.game.Controller.Entities.PlatformsBody;
 import com.mygdx.game.Controller.Entities.PortalBody;
 import com.mygdx.game.Controller.Entities.RareItemBody;
@@ -27,47 +27,87 @@ import com.mygdx.game.Model.Entities.AlienModel;
 import com.mygdx.game.Model.Entities.ConsumableModel;
 import com.mygdx.game.Model.Entities.EntityModel;
 import com.mygdx.game.Model.Entities.HeroModel;
-import com.mygdx.game.Model.Entities.PlatTilojosModel;
+import com.mygdx.game.Model.Entities.PlatfBlocksModel;
 import com.mygdx.game.Model.Entities.PlatfFastModel;
-import com.mygdx.game.Model.Entities.PlatfLentaModel;
-import com.mygdx.game.Model.Entities.PlatfPicosModel;
+import com.mygdx.game.Model.Entities.PlatfSlowModel;
+import com.mygdx.game.Model.Entities.PlatfSpikesModel;
 import com.mygdx.game.Model.Entities.PlatformsModel;
 import com.mygdx.game.Model.Entities.PortalModel;
 import com.mygdx.game.Model.Entities.RareItemModel;
 import com.mygdx.game.Model.GameModel;
-import com.mygdx.game.View.Screens.GameOverMenu;
-import com.mygdx.game.View.Screens.GameView;
-import com.mygdx.game.View.Screens.VictoryMenu;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameController implements ContactListener {
 
+    /**
+     * The singleton instance of this controller
+     */
     private static GameController instance;
+
+    /**
+     * the current game
+     */
     protected AliensGame game;
-    public static final int PANEL_WIDTH = 440;
-    public static final int PANEL_HEIGHT = 70;
-    private static final float ACCELERATION_FORCE = 1000f;
-    private static final float ALIENATTACK_SPEED = 30f;
-    private static final float HEROATTACK_SPEED = 30f;
+
+    /**
+     * file to save the scores
+     */
     private Preferences prefs;
+
+    /**
+     * The time between aliens shots
+     */
     private static final float TIME_BETWEEN_SHOTS = .8f;
+
+    /**
+     *the time the hero is protected
+     */
     private static final float PROTECTION_TIME = 5f;
+
+    /**
+     * The physics world controlled by this controller.
+     */
     private final World world;
+
+    /**
+     * the hero body
+     */
     private final HeroBody herobody;
+
+    /**
+     * variable that determines if a by is on the platform
+     */
     private boolean onTheGround = false;
+
+    /**
+     * variable thar determines if the body is going backwards
+     */
     private boolean back = false;
-    //private boolean direction=false;
+
+    /**
+     * accumulator used to calculate the simulation step.
+     */
     private float accumulator = 0;
+
+    /**
+     * score counter
+     */
     private int Score = 0;
-    private List<ConsumableModel> watersToadd = new ArrayList<ConsumableModel>();
-    private List<AlienModel> aliensToadd = new ArrayList<AlienModel>();// acho que tenho que mudar
+
+    /**
+     * time to the next shot
+     */
     private float timeToNextShoot;
+
+    /**
+     *time hero is protected
+     */
     private float protectionTime;
 
-
+    /**
+     * Game Controller constructor
+     */
     private GameController() {
         timeToNextShoot = -1;
         protectionTime = PROTECTION_TIME;
@@ -90,17 +130,17 @@ public class GameController implements ContactListener {
         for (PlatfFastModel fast : fastPlatf)
             new PlatfFastBody(world, fast);
 
-        List<PlatfLentaModel> lentaPlatf = GameModel.getInstance().getLentaPlatf();
-        for (PlatfLentaModel lenta : lentaPlatf)
-            new PlatfLentaBody(world, lenta);
+        List<PlatfSlowModel> lentaPlatf = GameModel.getInstance().getLentaPlatf();
+        for (PlatfSlowModel lenta : lentaPlatf)
+            new PlatfSlowBody(world, lenta);
 
-        List<PlatfPicosModel> picosPlatf = GameModel.getInstance().getPicosPlatf();
-        for (PlatfPicosModel picos : picosPlatf)
-            new PlatfPicosBody(world, picos);
+        List<PlatfSpikesModel> picosPlatf = GameModel.getInstance().getPicosPlatf();
+        for (PlatfSpikesModel picos : picosPlatf)
+            new PlatfSpikesBody(world, picos);
 
-        List<PlatTilojosModel> tijolosPlatf = GameModel.getInstance().getTijoloPlatf();
-        for (PlatTilojosModel tijolos : tijolosPlatf)
-            new PlatTijolosBody(world, tijolos);
+        List<PlatfBlocksModel> tijolosPlatf = GameModel.getInstance().getTijoloPlatf();
+        for (PlatfBlocksModel tijolos : tijolosPlatf)
+            new PlatfBlocksBody(world, tijolos);
 
         List<AlienModel> aliens = GameModel.getInstance().getAliens();
         for (AlienModel alien : aliens)
@@ -113,10 +153,17 @@ public class GameController implements ContactListener {
         world.setContactListener(this);
     }
 
+    /**
+     * Gets the prefs
+     * @return prefs
+     */
     public Preferences getPrefs() {
         return prefs;
     }
 
+    /**
+     * This function saves the score
+     */
     public void saveScore() {
         int x1= prefs.getInteger("score");
         int x2= prefs.getInteger("score2");
@@ -143,27 +190,39 @@ public class GameController implements ContactListener {
             prefs.flush();
         }
 
-
-
-
-
-
     }
 
+    /**
+     * gets the score
+     * @return score
+     */
     public int getScore() {
         return Score;
     }
 
+    /**
+     * gets the game instance
+     * @return the game instance
+     */
     public static GameController getInstance() {
         if (instance == null)
             instance = new GameController();
         return instance;
     }
+
+    /**
+     * reset the game instance
+     */
     public void resetInstance(){
         if(instance!=null)
           instance=new GameController();
     }
 
+    /**
+     * Calculates the next physics step of duration delta (in seconds).
+     *
+     * @param delta The size of this physics step in seconds.
+     */
     public void update(float delta) {
         GameModel.getInstance().update(delta);
         timeToNextShoot -= delta;
@@ -185,50 +244,47 @@ public class GameController implements ContactListener {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
         for (Body body : bodies) {
-            verifyBounds(body);
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
         }
     }
 
-    private void verifyBounds(Body body) {
-        /*if (body.getPosition().x < 0)
-            body.setTransform(PANEL_WIDTH, body.getPosition().y, body.getAngle());
-
-        if (body.getPosition().y < 0)
-            body.setTransform(body.getPosition().x, PANEL_HEIGHT, body.getAngle());
-
-        if (body.getPosition().x > PANEL_WIDTH)
-            body.setTransform(0, body.getPosition().y, body.getAngle());
-
-        if (body.getPosition().y > PANEL_HEIGHT)
-            body.setTransform(body.getPosition().x, 0, body.getAngle());*/
-    }
-
+    /**
+     * Gets the world
+     * @return world
+     */
     public World getWorld() {
         return world;
     }
 
+    /**
+     * deals with the contact between hero and platforms
+     * @param contact
+     */
     @Override
     public void endContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
-        //  onTheGround=false;
-        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel) {
+
+        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatfBlocksModel || bodyA.getUserData() instanceof PlatfSlowModel || bodyA.getUserData() instanceof PlatfSpikesModel) && bodyB.getUserData() instanceof HeroModel) {
             onTheGround = false;
         }
-        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel) {
+        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatfBlocksModel || bodyB.getUserData() instanceof PlatfSlowModel || bodyB.getUserData() instanceof PlatfSpikesModel) && bodyA.getUserData() instanceof HeroModel) {
             onTheGround = false;
         }
-        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof AlienModel) {
-            ((AlienModel) bodyB.getUserData()).setInPlataform(false);
+        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatfBlocksModel || bodyA.getUserData() instanceof PlatfSlowModel || bodyA.getUserData() instanceof PlatfSpikesModel) && bodyB.getUserData() instanceof AlienModel) {
+            ((AlienModel) bodyB.getUserData()).setInPlatform(false);
         }
-        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof AlienModel) {
-            ((AlienModel) bodyA.getUserData()).setInPlataform(false);
+        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatfBlocksModel || bodyB.getUserData() instanceof PlatfSlowModel || bodyB.getUserData() instanceof PlatfSpikesModel) && bodyA.getUserData() instanceof AlienModel) {
+            ((AlienModel) bodyA.getUserData()).setInPlatform(false);
 
         }
 
     }
 
+    /**
+     * Decrease hero´s life when hero collides with spikes or alien´s bullets
+     * @param bodyB
+     */
     public void decreaseLife(Body bodyB) {
         if (((HeroModel) bodyB.getUserData()).getLife() == 0) {
             GameModel.getInstance().getHero().setLose(true);
@@ -236,6 +292,10 @@ public class GameController implements ContactListener {
             ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() - 1);
     }
 
+    /***
+     * Increase hero´s life when hero collides with water bottle
+     * @param bodyB
+     */
     public void addLife(Body bodyB) {
         if (((HeroModel) bodyB.getUserData()).getLife() < 5)
             ((HeroModel) bodyB.getUserData()).setLife(((HeroModel) bodyB.getUserData()).getLife() + 1);
@@ -255,43 +315,40 @@ public class GameController implements ContactListener {
     public void beginContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
-        //onTheGround=false;
 
-        //collision between platforms and hero
-        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof HeroModel) {
+        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatfBlocksModel || bodyA.getUserData() instanceof PlatfSlowModel || bodyA.getUserData() instanceof PlatfSpikesModel) && bodyB.getUserData() instanceof HeroModel) {
             if (bodyA.getUserData() instanceof PlatformsModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.1f);
             if (bodyA.getUserData() instanceof PlatfFastModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.3f);
-            if (bodyA.getUserData() instanceof PlatTilojosModel)
+            if (bodyA.getUserData() instanceof PlatfBlocksModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.2f);
-            if (bodyA.getUserData() instanceof PlatfLentaModel)
+            if (bodyA.getUserData() instanceof PlatfSlowModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.08f);
-            if (bodyA.getUserData() instanceof PlatfPicosModel)
+            if (bodyA.getUserData() instanceof PlatfSpikesModel)
                 ((HeroModel) bodyB.getUserData()).setDeltaX(0.1f);
             onTheGround = true;
         }
-        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof HeroModel) {
+        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatfBlocksModel || bodyB.getUserData() instanceof PlatfSlowModel || bodyB.getUserData() instanceof PlatfSpikesModel) && bodyA.getUserData() instanceof HeroModel) {
             if (bodyB.getUserData() instanceof PlatformsModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.1f);
             if (bodyB.getUserData() instanceof PlatfFastModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.3f);
-            if (bodyB.getUserData() instanceof PlatTilojosModel)
+            if (bodyB.getUserData() instanceof PlatfBlocksModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.2f);
-            if (bodyB.getUserData() instanceof PlatfLentaModel)
+            if (bodyB.getUserData() instanceof PlatfSlowModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.08f);
-            if (bodyB.getUserData() instanceof PlatfPicosModel)
+            if (bodyB.getUserData() instanceof PlatfSpikesModel)
                 ((HeroModel) bodyA.getUserData()).setDeltaX(0.1f);
             onTheGround = true;
         }
-        if (bodyA.getUserData() instanceof PlatfPicosModel && bodyB.getUserData() instanceof HeroModel) {
+        if (bodyA.getUserData() instanceof PlatfSpikesModel && bodyB.getUserData() instanceof HeroModel) {
             decreaseLife(bodyB);
         }
-        if (bodyB.getUserData() instanceof PlatfPicosModel && bodyA.getUserData() instanceof HeroModel) {
+        if (bodyB.getUserData() instanceof PlatfSpikesModel && bodyA.getUserData() instanceof HeroModel) {
             decreaseLife(bodyA);
         }
 
-        //collision between hero and water
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof ConsumableModel) {
             ((ConsumableModel) bodyB.getUserData()).setFlaggedForRemoval(true);
             Score += 30;
@@ -305,14 +362,12 @@ public class GameController implements ContactListener {
 
         }
 
-        //collision between hero and rare item
         if (bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof RareItemModel) {
             ((RareItemModel) bodyB.getUserData()).setFlaggedForRemoval(true);
             Score += 40;
             ((HeroModel) bodyA.getUserData()).setIsArmed(true);
-
-
         }
+
         if (bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof RareItemModel) {
             ((RareItemModel) bodyA.getUserData()).setFlaggedForRemoval(true);
             Score += 40;
@@ -320,30 +375,26 @@ public class GameController implements ContactListener {
 
         }
 
-        //collision between alien and platforms
-        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatTilojosModel || bodyA.getUserData() instanceof PlatfLentaModel || bodyA.getUserData() instanceof PlatfPicosModel) && bodyB.getUserData() instanceof AlienModel) {
-            ((AlienModel) bodyB.getUserData()).setInPlataform(true);
-            ((AlienModel) bodyB.getUserData()).setxPlatform(((EntityModel) bodyA.getUserData()).getX());
+        if ((bodyA.getUserData() instanceof PlatformsModel || bodyA.getUserData() instanceof PlatfFastModel || bodyA.getUserData() instanceof PlatfBlocksModel || bodyA.getUserData() instanceof PlatfSlowModel || bodyA.getUserData() instanceof PlatfSpikesModel) && bodyB.getUserData() instanceof AlienModel) {
+            ((AlienModel) bodyB.getUserData()).setInPlatform(true);
+            ((AlienModel) bodyB.getUserData()).setXPlatform(((EntityModel) bodyA.getUserData()).getX());
         }
-        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatTilojosModel || bodyB.getUserData() instanceof PlatfLentaModel || bodyB.getUserData() instanceof PlatfPicosModel) && bodyA.getUserData() instanceof AlienModel) {
-            ((AlienModel) bodyA.getUserData()).setInPlataform(true);
-            ((AlienModel) bodyA.getUserData()).setxPlatform(((EntityModel) bodyB.getUserData()).getX());
+        if ((bodyB.getUserData() instanceof PlatformsModel || bodyB.getUserData() instanceof PlatfFastModel || bodyB.getUserData() instanceof PlatfBlocksModel || bodyB.getUserData() instanceof PlatfSlowModel || bodyB.getUserData() instanceof PlatfSpikesModel) && bodyA.getUserData() instanceof AlienModel) {
+            ((AlienModel) bodyA.getUserData()).setInPlatform(true);
+            ((AlienModel) bodyA.getUserData()).setXPlatform(((EntityModel) bodyB.getUserData()).getX());
         }
 
-        // collision between hero and portal
         if (bodyA.getUserData() instanceof PortalModel && bodyB.getUserData() instanceof HeroModel) {
             Score += 50;
             ((HeroModel) bodyB.getUserData()).setWin(true);
-
-
         }
+
         if (bodyB.getUserData() instanceof PortalModel && bodyA.getUserData() instanceof HeroModel) {
             Score += 50;
             ((HeroModel) bodyA.getUserData()).setWin(true);
 
         }
 
-        //collision between hero and alien
         if (bodyA.getUserData() instanceof AlienModel && bodyB.getUserData() instanceof HeroModel) {
             Score += 30;
             ((AlienModel) bodyA.getUserData()).setFlaggedForRemoval(true);
@@ -355,7 +406,6 @@ public class GameController implements ContactListener {
 
         }
 
-        //collision between hero and aliens attack
         if (bodyA.getUserData() instanceof AlienAttackModel && bodyB.getUserData() instanceof HeroModel) {
             decreaseLife(bodyB);
             Score -= 300;
@@ -366,12 +416,13 @@ public class GameController implements ContactListener {
             decreaseLife(bodyA);
             Score -= 300;
             ((AlienAttackModel) bodyB.getUserData()).setFlaggedForRemoval(true);
-
         }
-
 
     }
 
+    /**
+     * Deletes the bodies
+     */
     public void removeFlagged() {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
@@ -384,6 +435,9 @@ public class GameController implements ContactListener {
         }
     }
 
+    /**
+     * This function deals with aliens movement
+     */
     public void AlienMovement() {
 
         Array<Body> bodies = new Array<Body>();
@@ -391,10 +445,10 @@ public class GameController implements ContactListener {
         for (Body body : bodies) {
             if (body.getUserData() instanceof AlienModel) {
                 if (((AlienModel) body.getUserData()).getInPlatform()) {
-                    if ((((AlienModel) body.getUserData()).getX() < (((AlienModel) body.getUserData()).getxPlatform()) + 6)) {
-                        if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getxPlatform()) - 6)
+                    if ((((AlienModel) body.getUserData()).getX() < (((AlienModel) body.getUserData()).getXPlatform()) + 6)) {
+                        if (((AlienModel) body.getUserData()).getX() - 0.1f <= (((AlienModel) body.getUserData()).getXPlatform()) - 6)
                             ((AlienModel) body.getUserData()).setDirection(false);
-                        if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getxPlatform() + 6))
+                        if (((AlienModel) body.getUserData()).getX() + 0.1f >= (((AlienModel) body.getUserData()).getXPlatform() + 6))
                             ((AlienModel) body.getUserData()).setDirection(true);
 
                         if (((AlienModel) body.getUserData()).getDirection() == true)
@@ -408,6 +462,9 @@ public class GameController implements ContactListener {
 
     }
 
+    /**
+     * This function deals with aliens attack
+     */
     public void shoot() {
         for (int i = 0; i < GameModel.getInstance().getAliens().size(); i++) {
 
@@ -417,31 +474,44 @@ public class GameController implements ContactListener {
                 body.setLinearVelocity(-15, 10);
             else
                 body.setLinearVelocity(15, 10);
-
         }
     }
 
+    /**
+     * Sets the timeToNextShoot
+     */
     public void setTime() {
         timeToNextShoot = TIME_BETWEEN_SHOTS;
     }
 
+    /**
+     * Gets the timeToNextShoot
+     * @return timeToNextShoot
+     */
     public float getTimeToShoot() {
         return timeToNextShoot;
     }
 
-    public HeroBody getHerobody() {
+    /**
+     * Gets hero body
+     * @return hero body
+     */
+    public HeroBody getHeroBody() {
         return herobody;
     }
 
-
+    /**
+     * Gets onTheGround attribute
+     * @return onTheGround
+     */
     public boolean isPlayerOnTheGournd() {
         return onTheGround;
     }
 
-    public boolean isCommingBack() {
-        return back;
-    }
-
+    /**
+     * Sets back
+     * @param t value to update
+     */
     public void setCommingBack(boolean t) {
         back = t;
     }

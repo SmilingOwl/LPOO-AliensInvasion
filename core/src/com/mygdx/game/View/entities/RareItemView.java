@@ -10,30 +10,58 @@ import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
 
 /**
- * Created by catam on 22/05/2018.
+ * A class used to represent the rare item entity view.
  */
-
 public class RareItemView extends EntityView {
 
+    /**
+     * Time between frames
+     */
     private static final float FRAME_TIME = 0.05f;
-    private com.badlogic.gdx.graphics.g2d.Animation<TextureRegion> Animation;
-    private TextureRegion stoopingAnimation;
+
+    /**
+     * represents the portal animation
+     */
+    private Animation<TextureRegion> Animation;
+
+    /**
+     * represents the texture region to create the animation
+     */
+    private TextureRegion spriteToanimation;
+
+    /**
+     * for actualizing the state time
+     */
     private float stateTime = 0;
 
+
+    /**
+     * Constructs a rare item view.
+     *
+     * @param game the game this view belongs to
+     */
     public RareItemView(AliensGame game) {
         super(game);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sprite createSprite(AliensGame game) {
-        Animation= createAnimation(game);
-        stoopingAnimation = createStoopingAnimation(game);
-        return new Sprite(stoopingAnimation);
+        Animation = createAnimation(game);
+        spriteToanimation = createTextureAnimation(game);
+        return new Sprite(spriteToanimation);
     }
 
+    /**
+     * Creates the rare itm animation
+     * @param game this view belongs to
+     * @return animation
+     */
     private Animation<TextureRegion> createAnimation(AliensGame game) {
         Texture thrustTexture = game.getAssetManager().get("RareItem.png");
-        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / 5, thrustTexture.getHeight()/12);
+        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / 5, thrustTexture.getHeight() / 12);
 
         TextureRegion[] frames = new TextureRegion[60];
 
@@ -52,24 +80,33 @@ public class RareItemView extends EntityView {
         return new Animation<TextureRegion>(FRAME_TIME, frames);
     }
 
+    /**
+     * Create the texture region
+     * @param game the game this view belongs to
+     * @return texture
+     */
+    private TextureRegion createTextureAnimation(AliensGame game) {
 
-    private TextureRegion createStoopingAnimation(AliensGame game) {
-
-        Texture d = game.getAssetManager().get("output7.png");
+        Texture d = game.getAssetManager().get("output-0.png");
         return new TextureRegion(d, d.getWidth(), d.getHeight());
     }
 
-    @Override// nÃ£o estÃ¡ completo
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
-  //  System.out.println(stateTime);
-       sprite.setScale(0.4f, 0.4f);
+        sprite.setScale(0.4f, 0.4f);
 
         sprite.setRegion(Animation.getKeyFrame(stateTime, true));
         sprite.draw(batch);
     }
 
-    @Override// nÃ£o estÃ¡ completo
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void update(EntityModel model) {
         super.update(model);
     }

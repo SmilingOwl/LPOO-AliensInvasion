@@ -6,47 +6,82 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Model.Entities.EntityModel;
-import com.mygdx.game.Model.GameModel;
 
+/**
+ * A class used to represent the Alien's entity view.
+ */
 public class AlienView extends EntityView {
-    private TextureRegion Esquerda;
-    private TextureRegion Direita;
 
-    public AlienView( AliensGame game){
+    /**
+     * represents the left texture of alien
+     */
+    private TextureRegion left;
+
+    /**
+     * represents the right texture of alien
+     */
+    private TextureRegion right;
+
+    /**
+     * Constructs an alien view.
+     *
+     * @param game the game this view belongs to
+     */
+    public AlienView(AliensGame game) {
         super(game);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(EntityModel model) {
         super.update(model);
     }
 
-@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void draw(SpriteBatch batch) {
 
         if (direction) {
-            sprite.setRegion(Direita);
-            //return new Sprite(t1,t1.getWidth(),t1.getHeight());
+            sprite.setRegion(right);
         } else {
-            sprite.setRegion(Esquerda);
+            sprite.setRegion(left);
         }
-            super.draw(batch);
-
+        super.draw(batch);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sprite createSprite(AliensGame game) {
 
-        Esquerda = createEsquerda(game);
-        Direita= createDireita(game);
+        left = createLeft(game);
+        right = createRight(game);
 
-        return new Sprite(Esquerda);
+        return new Sprite(left);
     }
 
-    private TextureRegion createEsquerda(AliensGame game) {
+    /**
+     * Creates the left texture of the alien
+     * @param game this view belongs to
+     * @return the left aliens texture
+     */
+    private TextureRegion createLeft(AliensGame game) {
         Texture t = game.getAssetManager().get("aliens.png");
-        return new TextureRegion(t,t.getWidth(),t.getHeight());
+        return new TextureRegion(t, t.getWidth(), t.getHeight());
     }
-    private TextureRegion createDireita(AliensGame game) {
+
+    /**
+     * Creates the right texture of the alien
+     * @param game this view belongs to
+     * @return the right aliens texture
+     */
+    private TextureRegion createRight(AliensGame game) {
         Texture t1 = game.getAssetManager().get("alien2.png");
-        return new TextureRegion(t1,t1.getWidth(),t1.getHeight());
+        return new TextureRegion(t1, t1.getWidth(), t1.getHeight());
     }
 }
