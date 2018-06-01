@@ -182,7 +182,6 @@ public class GameView extends ScreenAdapter {
     @Override
     public void render(float delta) {
         GameController.getInstance().removeFlagged();
-        //GameController.getInstance().createNewAsteroids();
         GameController.getInstance().AlienMovement();
         if (!GameModel.getInstance().getHero().getIsArmed()) {
             if (GameController.getInstance().getTimeToShoot() <= 0) {
@@ -251,7 +250,7 @@ public class GameView extends ScreenAdapter {
         TextureRegion t = new TextureRegion(Pause, Pause.getWidth(), Pause.getHeight());
         s = new Sprite(t);
         s.setScale(0.1f, 0.1f);
-        s.setCenter(xStartPos - 1080, yStartPos);
+        s.setCenter(xStartPos - 1080, yStartPos+40);
         s.draw(game.getBatch());
     }
 
@@ -261,8 +260,8 @@ public class GameView extends ScreenAdapter {
         Font.getData().setScale(3, 3);
         float xStartPos = (camera.position.x * PIXEL_TO_METER + (VIEWPORT_WIDTH / 2) - 4) / PIXEL_TO_METER;
         float yStartPos = ((camera.position.y * PIXEL_TO_METER + (VIEWPORT_WIDTH * ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth())) / 2 - 4) / PIXEL_TO_METER);
-        Font.draw(game.getBatch(), titulo, xStartPos - 750, yStartPos);
-        Font.draw(game.getBatch(), score, xStartPos - 600, yStartPos);
+        Font.draw(game.getBatch(), titulo, xStartPos - 750, yStartPos+40);
+        Font.draw(game.getBatch(), score, xStartPos - 600, yStartPos+40);
     }
 
     private void drawShield() {
@@ -274,7 +273,7 @@ public class GameView extends ScreenAdapter {
         TextureRegion t = new TextureRegion(Shield, Shield.getWidth(), Shield.getHeight());
         s = new Sprite(t);
         s.setScale(0.1f, 0.1f);
-        s.setCenter(xStartPos - 180, yStartPos);
+        s.setCenter(xStartPos - 180, yStartPos+40);
         s.draw(game.getBatch());
 
     }
@@ -332,7 +331,7 @@ public class GameView extends ScreenAdapter {
         }
         if (Gdx.input.isTouched()) {
 
-            if (Gdx.input.getX() < 110 && Gdx.input.getY() > 102 && Gdx.input.getY() <= 190) {
+            if (Gdx.input.getX() < 110 && Gdx.input.getY() > 80 && Gdx.input.getY() <= 190) {
                 GameModel.getInstance().getHero().setPaused(true);
             }
             if (GameController.getInstance().isPlayerOnTheGournd() && Gdx.input.getX() >= 115 && Gdx.input.getY() >= 190) {
@@ -440,12 +439,10 @@ public class GameView extends ScreenAdapter {
         s = new Sprite(t);
         s.setScale(0.2f, 0.2f);
         for (int i = 0; i < GameModel.getInstance().getHero().getLife(); i++) {
-            s.setCenter(xStartPos - (i * life.getWidth() * 0.2f), yStartPos);
+            s.setCenter(xStartPos - (i * life.getWidth() * 0.2f), yStartPos+40);
             s.draw(game.getBatch());
         }
 
-        //game.getBatch().draw(life,(camera.position.x*PIXEL_TO_METER+(VIEWPORT_WIDTH/2)-4)/PIXEL_TO_METER,(camera.position.y*PIXEL_TO_METER*(VIEWPORT_WIDTH*((float)Gdx.graphics.getWidth()))/2-4)/PIXEL_TO_METER,0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
-        // game.getBatch().draw(life,camera.position.x/2,camera.position.y/2,0, 0, (int) (PANEL_WIDTH / PIXEL_TO_METER), (int) (PANEL_HEIGHT / PIXEL_TO_METER));
     }
 
     /**

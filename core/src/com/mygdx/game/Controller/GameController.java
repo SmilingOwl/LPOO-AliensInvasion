@@ -118,41 +118,31 @@ public class GameController implements ContactListener {
     }
 
     public void saveScore() {
-        if (!prefs.contains("score")) {
+        int x1= prefs.getInteger("score");
+        int x2= prefs.getInteger("score2");
+        if (!prefs.contains("score") ||!prefs.contains("score2") ||!prefs.contains("score3") ) {
             prefs.putInteger("score", Score);
+            prefs.putInteger("score2" ,Score);
+            prefs.putInteger("score3",Score);
             prefs.flush();
         } else if (prefs.getInteger("score") < Score) {
-           // prefs.clear();
             prefs.putInteger("score", Score);
-            prefs.flush();
-        }
-       /* if(prefs.contains("score") && !prefs.contains("score2")){
-            prefs.putInteger("score2",Score);
-            prefs.flush();
-        }
-        if(prefs.contains("score")&& prefs.contains("score2") && !prefs.contains("score3")){
-            prefs.putInteger("score3",Score);
+            prefs.putInteger("score2",x1);
+            prefs.putInteger("score3",x2);
             prefs.flush();
         }
 
-        if(prefs.getInteger("score") < prefs.getInteger("score2")){
-            int x=prefs.getInteger("score");
-            int y=prefs.getInteger("score2");
-            prefs.putInteger("score",y);
-            prefs.putInteger("score2",x);
+        if(Score < prefs.getInteger("score2") && Score > prefs.getInteger("score3")){
+            prefs.putInteger("score3",Score);
+           prefs.flush();
+
         }
-        if(prefs.getInteger("score") < prefs.getInteger("score3")){
-            int x=prefs.getInteger("score");
-            int y=prefs.getInteger("score3");
-            prefs.putInteger("score",y);
-            prefs.putInteger("score3",x);
+        if(Score > prefs.getInteger("score2") && Score < prefs.getInteger("score")){
+            prefs.putInteger("score2",Score);
+            prefs.putInteger("score3",x2);
+            prefs.flush();
         }
-        if(prefs.getInteger("score2") < prefs.getInteger("score3")){
-            int x=prefs.getInteger("score2");
-            int y=prefs.getInteger("score3");
-            prefs.putInteger("score2",y);
-            prefs.putInteger("score3",x);
-        }*/
+
 
 
 
@@ -170,7 +160,8 @@ public class GameController implements ContactListener {
         return instance;
     }
     public void resetInstance(){
-        instance=new GameController();
+        if(instance!=null)
+          instance=new GameController();
     }
 
     public void update(float delta) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.AliensGame;
 import com.mygdx.game.Controller.GameController;
+import com.mygdx.game.Model.GameModel;
 
 
 /**
@@ -16,7 +17,7 @@ public class VictoryMenu extends Screens {
 
     TextButton menuButton = createTextButton("Main Menu");
     TextButton ScoreButton = createTextButton(Integer.toString(GameController.getInstance().getPrefs().getInteger("score",30)));
-    TextButton AtualScore= createTextButton(Integer.toString(GameController.getInstance().getScore()));
+    TextButton AtualScore= createTextButton("Score: " + Integer.toString(GameController.getInstance().getScore()));
     TextButton HighScore= createTextButton("Highscore");
     TextButton YourScore= createTextButton("Your Score");
     TextButton exitButton=createTextButton("Exit");
@@ -44,7 +45,9 @@ public class VictoryMenu extends Screens {
         PlayAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameView(new AliensGame()));
+                GameModel.getInstance().resetInstance();
+                GameController.getInstance().resetInstance();
+                game.setScreen(new GameView(game));
             }
         });
         table.add(PlayAgain).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();

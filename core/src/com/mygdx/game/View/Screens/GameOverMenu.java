@@ -16,7 +16,7 @@ import com.mygdx.game.Model.GameModel;
 public class GameOverMenu extends Screens{
 
     TextButton ScoreButton = createTextButton(Integer.toString(GameController.getInstance().getPrefs().getInteger("score",30)));
-    TextButton AtualScore= createTextButton(Integer.toString(GameController.getInstance().getScore()));
+    TextButton AtualScore= createTextButton("Score: " + Integer.toString(GameController.getInstance().getScore()));
     TextButton HighScore= createTextButton("Highscore");
     TextButton YourScore= createTextButton("Your Score");
     TextButton exitButton=createTextButton("Exit");
@@ -66,16 +66,7 @@ public class GameOverMenu extends Screens{
         });
         table.add(HighScore).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
-    protected void addYourScoreButton(Table table) {
 
-        YourScore.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new StartMenu(game));
-            }
-        });
-        table.add(YourScore).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
-    }
     protected void addPlayAgainButton(Table table) {
 
         PlayAgain.addListener(new ClickListener() {
@@ -96,7 +87,6 @@ public class GameOverMenu extends Screens{
         table.setFillParent(true);
         addHightScoreButton(table);
         addMainScoreButton(table);
-        addYourScoreButton(table);
         addAtualScoreButton(table);
         addPlayAgainButton(table);
         addExitButton(table);
