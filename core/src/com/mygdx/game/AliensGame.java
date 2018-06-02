@@ -83,7 +83,7 @@ public class AliensGame extends Game{
 	private void loadAssets() {
 		manager.load("Aliens_title.png", Texture.class);
 		manager.load("ScoreTitle.png",Texture.class);
-		manager.load("SettingsTitle.png",Texture.class);
+
 		manager.load("button.png",Texture.class);
 		manager.load("Game_Background.wav",Music.class);
 		manager.load("Level1.png", Texture.class);
