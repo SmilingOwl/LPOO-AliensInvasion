@@ -53,6 +53,8 @@ public class VictoryMenu extends Screens {
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameModel.getInstance().resetInstance();
+                GameController.getInstance().resetInstance();
                 game.setScreen(new StartMenu(game));
             }
         });
