@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.AliensGame;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.Model.GameModel;
 
 /**
@@ -33,6 +34,11 @@ public class PauseMenu extends Screens {
      */
     TextButton playButton=createTextButton("Resume");
 
+    /**
+     * play exit text button
+     */
+    TextButton exitButton=createTextButton("Exit");
+
 
     /**
      * Add main menu button
@@ -43,12 +49,28 @@ public class PauseMenu extends Screens {
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameModel.getInstance().resetInstance();
+                GameController.getInstance().resetInstance();
                 game.setScreen(new StartMenu(game));
             }
         });
         table.add(menuButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
     }
 
+    /**
+     * Add exit button
+     * @param table  where the buttons will be organized
+     */
+    protected void addExitButton(Table table) {
+
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new StartMenu(game));
+            }
+        });
+        table.add(exitButton).size(BUTTON_WIDTH, DEFAULT_BUTTON_SIZE).pad(BUTTON_EDGE).row();
+    }
 
     /**
      * Add the play button
@@ -76,6 +98,7 @@ public class PauseMenu extends Screens {
 
         addPlayButton(table);
         addMainMenuButton(table);
+        addExitButton(table);
     }
 
 
