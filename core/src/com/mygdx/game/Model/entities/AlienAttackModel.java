@@ -32,7 +32,7 @@ public class AlienAttackModel extends EntityModel {
      * This function decreases timeToLive in delta
      *
      * @param delta time decrement
-     * @return true if TimeToLive<0 and false otherwise
+     * @return true if TimeToLive less than 0 and false otherwise
      */
     public boolean decreaseTimeToLive(float delta) {
         timeToLive -= delta;

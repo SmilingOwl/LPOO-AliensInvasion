@@ -1,0 +1,8 @@
+com.mygdx.game
+com.mygdx.game.Controller
+com.mygdx.game.Controller.Entities
+com.mygdx.game.Model
+com.mygdx.game.Model.Entities
+com.mygdx.game.View.Entities
+com.mygdx.game.View.Screens
+com.mygdx.game.tests
