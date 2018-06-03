@@ -2,7 +2,7 @@
 
 LPOO projects- Aliens Invasion
 
-[Documentação Javadoc](https://github.com/SmilingOwl/AliensInvasion/tree/master/docs/Index.html)
+[Documentação Javadoc](https://github.com/SmilingOwl/AliensInvasion/tree/master/docs/index.html)
 
 
 [UML Diagram](LpooUML.jpg)
