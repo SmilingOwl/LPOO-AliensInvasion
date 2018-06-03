@@ -5,7 +5,7 @@ LPOO projects- Aliens Invasion
 
 [Behavioural aspects, Design Patterns, GUI mock-ups and main funcionalities, and test cases](lpooDemo.pdf)
 
-[User Manual](User Manual.pdf)
+[User Manual](LpooUML.png)
 
 Catarina de Almeida Figueiredo  up201606334@fe.up.pt
 
