@@ -16,6 +16,7 @@ Design of behavioural aspects:
 Model-view-controller(MVC)
 
 O jogo apresenta 3 packages principais:
+
 •	Model: Expressa o comportamento da aplicação. Gerência diretamente os dados, a lógica e as regras Da aplicação.
 
 •	View: Interface do jogo e representação de toda a informação d Model como output.
