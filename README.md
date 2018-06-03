@@ -1,7 +1,7 @@
 # LPOO1718_T5G8
 LPOO projects- Aliens Invasion
 
-[UML Diagram](LpooUML.png)
+[UML Diagram](LpooUML.jpg)
 
 [Behavioural aspects, Design Patterns, GUI mock-ups and main funcionalities, and test cases](lpooDemo.pdf)
 
