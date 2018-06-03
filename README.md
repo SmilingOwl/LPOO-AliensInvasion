@@ -9,6 +9,7 @@ Setup/Installation Procedure
 Opções disponíveis 
 
 •	Download o ficheiro android-realease.apk no dispositivo móvel
+
 •	Clonar a repositório AliensInvasion e abrir no Android Studio, correr como Android no dispositivo móvel.
 
 Design of behavioural aspects:
